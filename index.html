@@ -1,7 +1,6 @@
-<!doctype html>
-<html><head>
+<!doctype html><html><head>
   <meta charset=utf8>
-  <title>remapp</title>
+  <title>REMApp</title>
 
   <!--
     VUE
@@ -26,7 +25,11 @@
     }
   </style>
 </head><body>
-<h1>REMApp</h1>
+
+<!--title-->
+<h1>
+  REMApp
+</h1>
 
 <div id=app>
   <!--survey 1-->
@@ -107,7 +110,7 @@
 
       //frontend
       get_membrane_reuse_color(){
-        let name = this.get_membrane_reuse();
+        let name  = this.get_membrane_reuse();
         let reuse = this.membrane_reuse_options.find(o=>o.name==name);
         if(reuse) return reuse.color;
         else return "";
