@@ -29,34 +29,39 @@
 <h1>REMApp</h1>
 
 <div id=app>
-  <b>Survey 1</b>
-  <table border=1>
-    <tr v-for="q in questions">
-      <td> {{q.code}}
-      <td> {{q.name}}
-      <td>
-        <select v-model="q.value">
-          <option :value="null">--select--</option>
-          <option v-for="ans in q.answers">
-            {{ans}}
-          </option>
-        </select>
-      </td>
-    </tr>
-  </table>
+  <!--survey 1-->
+  <div>
+    <!--survey 1 inputs-->
+    <div>
+      <b>Survey 1</b>
+      <table border=1>
+        <tr v-for="q in questions">
+          <td> {{q.code}}
+          <td> {{q.name}}
+          <td>
+            <select v-model="q.value">
+              <option :value="null">--select--</option>
+              <option v-for="ans in q.answers">
+                {{ans}}
+              </option>
+            </select>
+          </td>
+        </tr>
+      </table><br>
+    </div>
 
-  <p>
-    <b>Membrane reuse</b>
-    <div style="font-size:large">
-      <div class=membrane_reuse :style="`background:${get_membrane_reuse_color()}`">
-        {{get_membrane_reuse()}}
+    <!--survey 1 outputs-->
+    <div>
+      <b>Membrane reuse</b>
+        <div class=membrane_reuse :style="`background:${get_membrane_reuse_color()}`">
+          {{get_membrane_reuse()}}
+        </div>
       </div>
     </div>
-  </p>
+  </div>
 </div>
 
 <script>
-
   let app = new Vue({
     el:"#app",
     data:{
