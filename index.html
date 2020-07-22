@@ -42,7 +42,7 @@
           <td> {{q.code}}
           <td> {{q.name}}
           <td>
-            <select v-model="q.value">
+            <select id="survey_1" v-model="q.value">
               <option :value="null">--select--</option>
               <option v-for="ans in q.answers">
                 {{ans}}
@@ -83,8 +83,23 @@
       ],
 
       membrane_reuse_options:[
-        {name:"Landfill disposal or incineration", color:"red"},
-        {name:"Indirect recycling",                color:"purple"},
+        {name:"Landfill disposal or incineration",                                                                color:"#be514e"},
+        {name:"Indirect recycling",                                                                               color:"#604b79"},
+        {name:"Membranes are suitable for an alternative management to landfill disposal or incineration.",       color:"#9ab959"},
+        {name:"Membranes are suitable for an alternative management to landfill disposal or incineration. " +
+            "Membranes might be need to be rehydrated using 50% w/w ethanol during 15 min.",                      color:"#c2d59a"},
+        {name:"Membranes are suitable for an alternative management to landfill disposal or incineration. " +
+            "Please fill the following survey to estimate which alternative would suit better.",                      color:"#9ab959"},
+
+
+        {name:"Intensive cleaning before considering an alternative management to landfill disposal " +
+            "or incineration",                                                                                    color:"#0cae51"},
+        {name:"Not enough information. Potentially, membranes are suitable for alternative management.",          color:"#4dabc5"},
+        {name:"Not enough information. Potentially, apply intensive cleaning before alternative management.",     color:"#35849b"},
+        {name:"Not enough information. Potentially, indirect recycling.",                                         color:"#ffff00"},
+        {name:"Indirect recycling of those membranes placed in the second stage. Potentially, " +
+            "apply intensive cleaning before considering an alternative management for those membranes " +
+            "placed in the first stage.",                                                                         color:"#f79447"},
       ],
     },
     methods:{
@@ -94,16 +109,95 @@
 
       get_membrane_reuse(){
         let get_question = this.get_question_by_code;
-        if(get_question("T" ).value == "Other")                       return "Landfill disposal or incineration";
-        if(get_question("C" ).value == "Other")                       return "Landfill disposal or incineration";
-        if(get_question("S" ).value == "Other")                       return "Landfill disposal or incineration";
-        if(get_question("W" ).value == "Other")                       return "Landfill disposal or incineration";
-        if(get_question("ED").value == "Yes")                         return "Landfill disposal or incineration";
-        if(get_question("ST").value == "Dry")                         return "Indirect recycling";
-        if(get_question("D" ).value == ">1 month")                    return "Indirect recycling";
-        if(get_question("F" ).value == "Inorganic scaling")           return "Indirect recycling";
-        if(get_question("RP").value == "Lost of membrane integrity")  return "Indirect recycling";
-        if(get_question("P" ).value == "Double pass - double stage ") return "Indirect recycling";
+
+        //For "Don't Know" answer for "Fouling type"
+        if(get_question("WT").value == "Seawater" && !(get_question("P" ).value == "Double pass - double stage" || get_question("P" ).value == "Mix")){
+          this.questions[5].value = "Other";
+        }
+        else if(get_question("WT").value == "Seawater" && (get_question("P" ).value == "Double pass - double stage" || get_question("P" ).value == "Mix")){
+          this.questions[5].value = "Inorganic scaling";
+        }
+        else if(get_question("WT").value == "Brackish water" && !(get_question("P" ).value == "Double pass - double stage" || get_question("P" ).value == "Mix")){
+          this.questions[5].value = "Other";
+        }
+        else if(get_question("WT").value == "Brackish water" && (get_question("P" ).value == "Double pass - double stage" || get_question("P" ).value == "Mix")){
+          this.questions[5].value = "Inorganic scaling";
+        }
+        else if(get_question("WT").value == "Wastewater" || get_question("WT").value == "Food industry" ){
+          this.questions[5].value = "Other";
+        }
+        else if(get_question("WT").value == "Chemical industry"){
+          this.questions[5].value = "Inorganic scaling";
+        }
+
+        //Type of membrane
+        if(get_question("T").value == "Other")                       return "Landfill disposal or incineration";
+        if(get_question("T").value == "Ultrafiltration")             return "Landfill disposal or incineration";
+        if(get_question("T").value == "Microfiltration")             return "Landfill disposal or incineration";
+
+        //Membrane configuration
+        if(get_question("C").value == "Other")                       return "Landfill disposal or incineration";
+
+        //Membrane size
+        if(get_question("S").value == "Other")                       return "Landfill disposal or incineration";
+
+        //Membrane weight
+        if(get_question("W").value == ">25kg")                       return "Landfill disposal or incineration";
+
+        if((get_question("T").value == "Reverse osmosis" || get_question("T").value == "Nanofiltration") && get_question("C").value == "Spiral-wound" && get_question("S").value == "Length: 1m. Diameter: 0.2m" && (get_question("W").value == "<17kg" || get_question("W").value == "17-25 kg")){
+          //External damage
+          if(get_question("ED").value == "Yes"){
+            return "Indirect recycling";
+          }else if (get_question("ED").value == "No") {
+
+            //Fouling
+            if (get_question("F").value == "Inorganic scaling") {
+
+              //Membrane storage
+              if (get_question("ST").value == "Immersed in a water solution" || get_question("ST").value == "Wet") {
+
+                //Weight
+                if (get_question("W").value == "17-25 kg") return "Indirect recycling";
+                else if (get_question("W").value == "<17kg") return "Intensive cleaning before considering an alternative management to landfill disposal or incineration";
+              } else if (get_question("ST").value == "Dry") return "Indirect recycling";
+            } else if (get_question("F").value == "Other") {
+
+              //Membrane storage
+              if (get_question("ST").value == "Immersed in a water solution" || get_question("ST").value == "Wet") {
+                //Weight
+                if (get_question("W").value == "17-25 kg") return "Intensive cleaning before considering an alternative management to landfill disposal or incineration";
+                else if (get_question("W").value == "<17kg") return "Membranes are suitable for an alternative management to landfill disposal or incineration. Please fill the following survey to estimate which alternative would suit better.";
+
+              } else if (get_question("ST").value == "Dry") {
+
+                //Duration of storage after the replacement
+                if (get_question("D").value == ">1 month") {
+
+                  //Weight
+                  if (get_question("W").value == "17-25 kg") {
+                    if (get_question("P").value == "Mix" && (get_question("RP").value == "Operating more than the expected lifespan" || get_question("RP").value == "Lost of membrane integrity" || get_question("RP").value == "Don't know")) {
+                      //2*
+                      return "Indirect recycling of those membranes placed in the second stage. Potentially, apply intensive cleaning before considering an alternative management for those membranes placed in the first stage.";
+                    } else if (get_question("P").value == "Single pass" || get_question("P").value == "Double pass - single stage" || get_question("P").value == "Mix") {
+                      //1*
+                      return "Intensive cleaning before considering an alternative management to landfill disposal or incineration";
+                    } else if (get_question("P").value == "Double pass - double stage") {
+                      //3*
+                      return "Indirect recycling";
+                    }
+                  } else if (get_question("W").value == "<17kg") return "Membranes are suitable for an alternative management to landfill disposal or incineration. Membranes might be need to be rehydrated using 50% w/w ethanol during 15 min.";
+                } else if (get_question("D").value == "<1 month") {
+
+                  //Weight
+                  if (get_question("W").value == "17-25 kg") return "Intensive cleaning before considering an alternative management to landfill disposal or incineration";
+                  else if (get_question("W").value == "<17kg") return "Membranes are suitable for an alternative management to landfill disposal or incineration. Please fill the following survey to estimate which alternative would suit better.";
+                }
+              }
+            }
+          }
+
+
+        }
 
         return "answer survey 1 to get a membrane reuse";
       },
