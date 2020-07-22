@@ -53,37 +53,14 @@ let app = new Vue({
     },
     is_rendered(question){
       let code = question.code;
-
-      if(code=="WT"){
+      if(code == "WT"){
         if(this.get_question_by_code('F').value=="Don't know") return true;
         return false;
       }
-
       return true;
     },
-
     get_membrane_reuse(){
       let get_question = this.get_question_by_code;
-
-      //For "Don't Know" answer for "Fouling type"
-      if(get_question("WT").value == "Seawater" && !(get_question("P" ).value == "Double pass - double stage" || get_question("P" ).value == "Mix")){
-        this.questions[5].value = "Other";
-      }
-      else if(get_question("WT").value == "Seawater" && (get_question("P" ).value == "Double pass - double stage" || get_question("P" ).value == "Mix")){
-        this.questions[5].value = "Inorganic scaling";
-      }
-      else if(get_question("WT").value == "Brackish water" && !(get_question("P" ).value == "Double pass - double stage" || get_question("P" ).value == "Mix")){
-        this.questions[5].value = "Other";
-      }
-      else if(get_question("WT").value == "Brackish water" && (get_question("P" ).value == "Double pass - double stage" || get_question("P" ).value == "Mix")){
-        this.questions[5].value = "Inorganic scaling";
-      }
-      else if(get_question("WT").value == "Wastewater" || get_question("WT").value == "Food industry" ){
-        this.questions[5].value = "Other";
-      }
-      else if(get_question("WT").value == "Chemical industry"){
-        this.questions[5].value = "Inorganic scaling";
-      }
 
       //Type of membrane
       if(get_question("T").value == "Other")                       return "LI";
@@ -189,5 +166,29 @@ let app = new Vue({
       if(reuse) return reuse.color;
       else return "";
     },
-  },
+  }, computed: {
+    get_fouling_type(){
+      let get_question = this.get_question_by_code;
+      let fouling_value = get_question("F").value;
+      let water_type = get_question("WT").value;
+      let membrane_position = get_question("P").value;
+
+      if(fouling_value == "Don't know") {
+        if (water_type == "Seawater" && !(membrane_position == "Double pass - double stage" || membrane_position == "Mix")) {
+          return "Other";
+        } else if (water_type == "Seawater" && (membrane_position == "Double pass - double stage" || membrane_position == "Mix")) {
+          return "Inorganic scaling";
+        } else if (water_type == "Brackish water" && !(membrane_position == "Double pass - double stage" || membrane_position == "Mix")) {
+          return "Other";
+        } else if (water_type == "Brackish water" && (membrane_position == "Double pass - double stage" || membrane_position == "Mix")) {
+          return "Inorganic scaling";
+        } else if (water_type == "Wastewater" || water_type == "Food industry") {
+          return "Other";
+        } else if (water_type == "Chemical industry") {
+          return "Inorganic scaling";
+        }
+      } else
+        return fouling_value;
+    },
+  }
 });
