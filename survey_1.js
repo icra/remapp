@@ -2,37 +2,49 @@ let app = new Vue({
   el:"#app",
   data:{
     questions:[
-      {code:"T",  name:"Type of membrane",       value:null, answers:["Reverse osmosis","Nanofiltration","Ultrafiltration","Microfiltration","Other"]},
-      {code:"C",  name:"Membrane configuration", value:null, answers:["Spiral-wound","Other"]},
-      {code:"S",  name:"Membrane size",          value:null, answers:["Length: 1m. Diameter: 0.2m", "Other"]},
-      {code:"W",  name:"Membrane weight",        value:null, answers:["<17kg","17-25 kg", ">25kg","Don't know"] },
-      {code:"ED", name:"External damage",        value:null, answers:["No","Yes","Don't know"] },
-      {code:"F",  name:"Fouling type",           value:null, answers:["Inorganic scaling","Other","Don't know"] },
-      {code:"ST", name:"Membrane storage",       value:null, answers:["Wet","Immersed in a water solution","Dry","Don't know"] },
-      {code:"D",  name:"Storage duration",       value:null, answers:["<1 month",">1 month","Don't know"] },
-      {code:"RP", name:"Cause of replacement",   value:null, answers:["Granted budget for replacement","Operating more than the expected lifespan","Lost of membrane integrity","Don't know"] },
-      {code:"P",  name:"Membrane position",      value:null, answers:["Single pass","Double pass - single stage","Double pass - double stage","Mix","Don't know"] },
-      {code:"WT", name:"Type of water",          value:null, answers:["Seawater","Brackish water","Wastewater","Chemical industry","Food industry"] },
+      // Survey 1
+      {code:"T",  name:"Type of membrane",          value:null, answers:["Reverse osmosis brackish model design","Reverse osmosis sea model design", "Nanofiltration","Ultrafiltration","Microfiltration","Other"]},
+      {code:"C",  name:"Membrane configuration",    value:null, answers:["Spiral-wound","Other"]},
+      {code:"S",  name:"Membrane size",             value:null, answers:["Length: 1m. Diameter: 0.2m", "Other"]},
+      {code:"W",  name:"Membrane weight",           value:null, answers:["<17kg","17-25 kg", ">25kg","Don't know"] },
+      {code:"ED", name:"External damage",           value:null, answers:["No","Yes","Don't know"] },
+      {code:"F",  name:"Fouling type",              value:null, answers:["Inorganic scaling","Other","Don't know"] },
+      {code:"ST", name:"Membrane storage",          value:null, answers:["Wet","Immersed in a water solution","Dry","Don't know"] },
+      {code:"D",  name:"Storage duration",          value:null, answers:["<1 month",">1 month","Don't know"] },
+      {code:"RP", name:"Cause of replacement",      value:null, answers:["Granted budget for replacement","Operating more than the expected lifespan","Lost of membrane integrity","Don't know"] },
+      {code:"P",  name:"Membrane position",         value:null, answers:["Single pass","Double pass - single stage","Double pass - double stage","Mix","Don't know"] },
+      {code:"WT", name:"Type of water",             value:null, answers:["Seawater","Brackish water","Wastewater","Chemical industry","Food industry"] },
+
+      // Survey 2
+      {code:"R",  name:"Rejection",                 value:null, answers:["Lost of Rejection <15% comparing the design","<10% of NaCl and <30% of MgSO4"]},
+      {code:"PV", name:"Variation of Permeability", value:null, answers:["<1-fold comparing to the design value","[1-5]-fold comparing to the design value",">5-fold comparing to the design value"]},
     ],
 
     membrane_reuse_options:[
+      // Survey 1
       {code:"LI", name:"Landfill disposal or incineration",                                                                color:"#be514e"},
       {code:"IR", name:"Indirect recycling",                                                                               color:"#604b79"},
       {code:"AM", name:"Membranes are suitable for an alternative management to landfill disposal or incineration.",       color:"#9ab959"},
       {code:"AMR", name:"Membranes are suitable for an alternative management to landfill disposal or incineration. " +
-          "Membranes might be need to be rehydrated using 50% w/w ethanol during 15 min.",                      color:"#c2d59a"},
+          "Membranes might be need to be rehydrated using 50% w/w ethanol during 15 min.",                                 color:"#c2d59a"},
       {code:"AMS", name:"Membranes are suitable for an alternative management to landfill disposal or incineration. " +
-          "Please fill the following survey to estimate which alternative would suit better.",                  color:"#9ab959"},
-
-
+          "Please fill the following survey to estimate which alternative would suit better.",                             color:"#9ab959"},
       {code:"IC", name:"Intensive cleaning before considering an alternative management to landfill disposal " +
-          "or incineration",                                                                                    color:"#0cae51"},
-      {code:"NEIM", name:"Not enough information. Potentially, membranes are suitable for alternative management.",          color:"#4dabc5"},
-      {code:"NEIC", name:"Not enough information. Potentially, apply intensive cleaning before alternative management.",     color:"#35849b"},
-      {code:"NEIR", name:"Not enough information. Potentially, indirect recycling.",                                         color:"#ffff00"},
+          "or incineration",                                                                                               color:"#0cae51"},
+      {code:"NEIM", name:"Not enough information. Potentially, membranes are suitable for alternative management.",        color:"#4dabc5"},
+      {code:"NEIC", name:"Not enough information. Potentially, apply intensive cleaning before alternative management.",   color:"#35849b"},
+      {code:"NEIR", name:"Not enough information. Potentially, indirect recycling.",                                       color:"#ffff00"},
       {code:"IRC", name:"Indirect recycling of those membranes placed in the second stage. Potentially, " +
           "apply intensive cleaning before considering an alternative management for those membranes " +
-          "placed in the first stage.",                                                                         color:"#f79447"},
+          "placed in the first stage.",                                                                                    color:"#f79447"},
+
+      // Survey 2
+      {code:"ReuRO", name:"Reuse as reverse osmosis membranes",                   color:"#00ff00"},
+      {code:"ReuNF", name:"Reuse as nanofiltration-like membranes",               color:"#66ff66"},
+      {code:"RegRO", name:"Regenerate to reuse as reverse osmosis membranes",     color:"#99ff33"},
+      {code:"RegNF", name:"Regenerate to reuse as nanofiltration membranes",      color:"#ccff33"},
+      {code:"RecNF", name:"Recycling into nanofiltration-like membranes",         color:"#33cc33"},
+      {code:"RecUF", name:"Recycling into ultrafiltration-like membranes",        color:"#77933c"},
     ],
   },
   methods:{
@@ -59,6 +71,16 @@ let app = new Vue({
       }
       return true;
     },
+    is_disabled(question){
+      let code = question.code;
+      let reuse_code = this.get_membrane_reuse();
+      if(code == "PV" || code == "R") {
+        if (reuse_code == "LI" || reuse_code == "IR") {
+          return true;
+        }
+      }
+      return false;
+    },
     get_membrane_reuse(){
       let get_question = this.get_question_by_code;
 
@@ -76,7 +98,7 @@ let app = new Vue({
       //Membrane weight
       if(get_question("W").value == ">25kg")                       return "LI";
 
-      if((get_question("T").value == "Reverse osmosis" || get_question("T").value == "Nanofiltration") && get_question("C").value == "Spiral-wound" && get_question("S").value == "Length: 1m. Diameter: 0.2m" && (get_question("W").value == "<17kg" || get_question("W").value == "17-25 kg")){
+      if((get_question("T").value == "Reverse osmosis brackish model design" || get_question("T").value == "Reverse osmosis sea model design" || get_question("T").value == "Nanofiltration") && get_question("C").value == "Spiral-wound" && get_question("S").value == "Length: 1m. Diameter: 0.2m" && (get_question("W").value == "<17kg" || get_question("W").value == "17-25 kg")){
         //External damage
         if(get_question("ED").value == "Yes"){
           return "IR";
@@ -130,7 +152,7 @@ let app = new Vue({
       }
 
       //Complementary information to the decision-making tree
-      if((get_question("T").value == "Reverse osmosis" || get_question("T").value == "Nanofiltration") && get_question("C").value == "Spiral-wound" && get_question("S").value == "Length: 1m. Diameter: 0.2m") {
+      if((get_question("T").value == "Reverse osmosis brackish model design" || get_question("T").value == "Reverse osmosis sea model design" || get_question("T").value == "Nanofiltration") && get_question("C").value == "Spiral-wound" && get_question("S").value == "Length: 1m. Diameter: 0.2m") {
 
         if (get_question("W").value == "<17kg" && (get_question("ED").value == "No" || get_question("ED").value == "Don't know") && (get_question("F").value == "Other" || get_question("F").value == "Don't know")) return "NEIM";
 
@@ -156,6 +178,9 @@ let app = new Vue({
         if (get_question("P").value == "Double pass - double stage" && get_question("W").value == "17-25 kg" && get_question("ST").value == "Dry") return "IR";
         
       }
+
+      // reuse value according to survey_2
+
       return "";
     },
 

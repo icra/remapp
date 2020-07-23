@@ -36,13 +36,13 @@
   <div id=app>
     <!--survey 1 inputs-->
     <div>
-      <b>Survey 1</b>
+      <b>Survey</b>
       <table border=1>
-        <tr v-for="q in questions" v-if="is_rendered(q)">
+        <tr v-for="q in questions" v-if="is_rendered(q)" :id="q.code">
           <td>{{q.code}}
           <td>{{q.name}}
           <td>
-            <select id="survey_1" v-model="q.value">
+            <select :id="q.name" v-model="q.value" :disabled="is_disabled(q)">
               <option :value="null">--select--</option>
               <option v-for="ans in q.answers">
                 {{ans}}
