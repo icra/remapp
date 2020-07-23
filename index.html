@@ -1,100 +1,11 @@
-<!doctype html><html><head>
-  <meta charset=utf8>
-  <title>REMApp</title>
-
-  <!--
-    VUE
-    development version, includes helpful console warnings
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    production version, optimized for size and speed
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-  -->
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
-  <style>
-    #app table{
-      border-collapse:collapse;
-    }
-    #app td, #app th {
-      padding:0.2em;
-    }
-    #app .membrane_reuse {
-      padding:1em;
-      font-size:large;
-      border:1px solid #ccc;
-    }
-  </style>
-</head><body>
-
-<!--title-->
-<h1>
-  REMApp
-</h1>
-
-<div>
-  <!--survey 1-->
-  <div id=app>
-    <!--survey 1 inputs-->
-    <div>
-      <b>Survey</b>
-      <table border=1>
-        <tr v-for="q in questions" v-if="is_rendered(q)" :id="q.code">
-          <td>{{q.code}}
-          <td>{{q.name}}
-          <td>
-            <select :id="q.name" v-model="q.value" :disabled="is_disabled(q)">
-              <option :value="null">--select--</option>
-              <option v-for="ans in q.answers">
-                {{ans}}
-              </option>
-            </select>
-          </td>
-        </tr>
-      </table><br>
-    </div>
-
-    <!--survey 1 outputs-->
-    <div>
-      <b>Membrane reuse</b>
-        <div class=membrane_reuse :style="`background:${get_membrane_reuse_color()}`">
-          {{show_membrane_reuse()}}
-        </div>
-      </div>
-    </div>
-  </div>
-  <br>
-  <!--survey 2-->
-  <div id="app2">
-    <!--survey 2 inputs-->
-    <div>
-      <b>Survey 2</b>
-      <table border=1>
-        <tr v-for="q in questions" v-if="is_rendered(q)">
-          <td>{{q.code}}
-          <td>{{q.name}}
-          <td>
-            <select id="survey_2" v-model="q.value">
-              <option :value="null">--select--</option>
-              <option v-for="ans in q.answers">
-                {{ans}}
-              </option>
-            </select>
-          </td>
-        </tr>
-      </table><br>
-    </div>
-    <!--survey 2 outputs-->
-    <div>
-      <b>Membrane reuse</b>
-      <div class=membrane_reuse :style="`background:${get_membrane_reuse_color()}`">
-        {{show_membrane_reuse()}}
-      </div>
-    </div>
-  </div>
-
-</div>
-
-
-<script src="survey_1.js"></script><!--vue object-->
-<script src="survey_2.js"></script><!--vue object-->
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>remapp</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="/dist/build.js"></script>
+  </body>
+</html>
