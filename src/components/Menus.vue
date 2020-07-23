@@ -46,7 +46,7 @@
           {code:"WT", name:"Type of water",             value:null, answers:["Seawater","Brackish water","Wastewater","Chemical industry","Food industry"] },
 
           // Survey 2
-          {code:"R",  name:"Rejection",                 value:null, answers:["Lost of Rejection <15% comparing the design","<10% of NaCl and <30% of MgSO4"]},
+          {code:"R",  name:"Rejection",                 value:null, answers:["Lost of Rejection <15% comparing the design",">10% of NaCl and >30% of MgSO4","<10% of NaCl and <30% of MgSO4"]},
           {code:"PV", name:"Variation of Permeability", value:null, answers:["<1-fold comparing to the design value","[1-5]-fold comparing to the design value",">5-fold comparing to the design value"]},
         ],
 
@@ -164,7 +164,7 @@
               if (storage == "Immersed in a water solution" || storage == "Wet") {
                 //Weight
                 if (weight == "17-25 kg") return "IC";
-                else if (weight == "<17kg") return "AMS";
+                else if (weight == "<17kg") return ("AM") ;
 
               } else if (storage == "Dry") {
 
@@ -188,7 +188,7 @@
 
                   //Weight
                   if (weight == "17-25 kg") return "IC";
-                  else if (weight == "<17kg") return "AMS";
+                  else if (weight == "<17kg") return "AM";
                 }
               }
             }
@@ -223,9 +223,61 @@
 
         }
 
-        // reuse value according to survey_2
-
         return "";
+      },
+      get_management_survey2(){
+        let get_question = this.get_question_by_code;
+        let type = get_question("T").value;
+        let rejection = get_question("R").value;
+        let permeability = get_question("PV").value;
+
+        // management according to survey_2
+        if(type == "Reverse osmosis brackish model design"){
+          if(permeability == "<1-fold comparing to the design value"){
+            if(rejection == "Lost of Rejection <15% comparing the design")    return "RegRO"
+            else if(rejection == ">10% of NaCl and >30% of MgSO4")            return "RecNF"
+            else if(rejection == "<10% of NaCl and <30% of MgSO4")            return "RecUF"
+          }
+          else if(permeability == "[1-5]-fold comparing to the design value"){
+            if(rejection == "Lost of Rejection <15% comparing the design")    return "ReuRO"
+            else if(rejection == ">10% of NaCl and >30% of MgSO4")            return "ReuNF"
+            else if(rejection == "<10% of NaCl and <30% of MgSO4")            return "RecUF"
+          }
+          else if(permeability == ">5-fold comparing to the design value"){
+            if(rejection == "Lost of Rejection <15% comparing the design")    return "ReuRO"
+            else if(rejection == ">10% of NaCl and >30% of MgSO4")            return "ReuNF"
+            else if(rejection == "<10% of NaCl and <30% of MgSO4")            return "RecUF"
+          }
+        }
+        else if(type == "Reverse osmosis sea model design"){
+          if(permeability == "<1-fold comparing to the design value"){
+            if(rejection == "Lost of Rejection <15% comparing the design")    return "RegRO"
+            else if(rejection == ">10% of NaCl and >30% of MgSO4")            return "RecNF"
+            else if(rejection == "<10% of NaCl and <30% of MgSO4")            return "RecUF"
+          }
+          else if(permeability == "[1-5]-fold comparing to the design value"){
+            if(rejection == "Lost of Rejection <15% comparing the design")    return "ReuRO"
+            else if(rejection == ">10% of NaCl and >30% of MgSO4")            return "ReuNF"
+            else if(rejection == "<10% of NaCl and <30% of MgSO4")            return "RecUF"
+          }
+          else if(permeability == ">5-fold comparing to the design value"){
+            if(rejection == ">10% of NaCl and >30% of MgSO4")                 return "ReuNF"
+          }
+        }
+        else if(type == "Nanofiltration"){
+          if(permeability == "<1-fold comparing to the design value"){
+            if(rejection == "Lost of Rejection <15% comparing the design")    return "RegNF"
+            else if(rejection == ">10% of NaCl and >30% of MgSO4")            return "RecUF"
+          }
+          else if(permeability == "[1-5]-fold comparing to the design value"){
+            if(rejection == ">10% of NaCl and >30% of MgSO4")                 return "ReuNF"
+            else if(rejection == "<10% of NaCl and <30% of MgSO4")            return "RecUF"
+          }
+          else if(permeability == ">5-fold comparing to the design value"){
+            if(rejection == "Lost of Rejection <15% comparing the design")    return "ReuNF"
+            else if(rejection == "<10% of NaCl and <30% of MgSO4")            return "RecUF"
+          }
+        }
       },
 
       //frontend
