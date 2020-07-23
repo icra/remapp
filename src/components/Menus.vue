@@ -9,7 +9,7 @@
         div
           b Survey 1
           table(border="1")
-          tr(v-for="q in questions" v-if="is_rendered(q)" :id="q.code")
+          tr(v-for="q in questions" :id="q.code")
             td {{q.code}}
             td {{q.name}}
             td
@@ -21,6 +21,7 @@
       div
         b Membrane reuse
           div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
+          div.membrane_reuse {{ get_fouling_type() }}
 
 
 </template>
@@ -113,68 +114,81 @@
       },
       get_membrane_reuse(){
         let get_question = this.get_question_by_code;
+        let type = get_question("T").value;
+        let config = get_question("C").value;
+        let size = get_question("S").value;
+        let weight = get_question("W").value;
+        let ext_damage = get_question("ED").value;
+        let fouling = this.get_fouling_type();
+        let storage = get_question("ST").value;
+        let storage_duration = get_question("D").value;
+        let water_type = get_question("WT").value;
+        let cause_replacement = get_question("RP").value;
+        let position = get_question("P").value;
+        let rejection = get_question("R").value;
+        let permeability = get_question("PV").value;
 
         //Type of membrane
-        if(get_question("T").value == "Other")                       return "LI";
-        if(get_question("T").value == "Ultrafiltration")             return "LI";
-        if(get_question("T").value == "Microfiltration")             return "LI";
+        if(type == "Other")                       return "LI";
+        if(type == "Ultrafiltration")             return "LI";
+        if(type == "Microfiltration")             return "LI";
 
         //Membrane configuration
-        if(get_question("C").value == "Other")                       return "LI";
+        if(config == "Other")                       return "LI";
 
         //Membrane size
-        if(get_question("S").value == "Other")                       return "LI";
+        if(size == "Other")                       return "LI";
 
         //Membrane weight
-        if(get_question("W").value == ">25kg")                       return "LI";
+        if(weight == ">25kg")                       return "LI";
 
-        if((get_question("T").value == "Reverse osmosis brackish model design" || get_question("T").value == "Reverse osmosis sea model design" || get_question("T").value == "Nanofiltration") && get_question("C").value == "Spiral-wound" && get_question("S").value == "Length: 1m. Diameter: 0.2m" && (get_question("W").value == "<17kg" || get_question("W").value == "17-25 kg")){
+        if((type == "Reverse osmosis brackish model design" || type == "Reverse osmosis sea model design" || type == "Nanofiltration") && config == "Spiral-wound" && size == "Length: 1m. Diameter: 0.2m" && (weight == "<17kg" || weight == "17-25 kg")){
           //External damage
-          if(get_question("ED").value == "Yes"){
+          if(ext_damage == "Yes"){
             return "IR";
-          }else if (get_question("ED").value == "No") {
+          }else if (ext_damage == "No") {
 
             //Fouling
-            if (get_question("F").value == "Inorganic scaling") {
+            if (fouling == "Inorganic scaling") {
 
               //Membrane storage
-              if (get_question("ST").value == "Immersed in a water solution" || get_question("ST").value == "Wet") {
+              if (storage == "Immersed in a water solution" || storage == "Wet") {
 
                 //Weight
-                if (get_question("W").value == "17-25 kg") return "IR";
-                else if (get_question("W").value == "<17kg") return "IC";
-              } else if (get_question("ST").value == "Dry") return "IR";
-            } else if (get_question("F").value == "Other") {
+                if (weight == "17-25 kg") return "IR";
+                else if (weight == "<17kg") return "IC";
+              } else if (storage == "Dry") return "IR";
+            } else if (fouling == "Other") {
 
               //Membrane storage
-              if (get_question("ST").value == "Immersed in a water solution" || get_question("ST").value == "Wet") {
+              if (storage == "Immersed in a water solution" || storage == "Wet") {
                 //Weight
-                if (get_question("W").value == "17-25 kg") return "IC";
-                else if (get_question("W").value == "<17kg") return "AMS";
+                if (weight == "17-25 kg") return "IC";
+                else if (weight == "<17kg") return "AMS";
 
-              } else if (get_question("ST").value == "Dry") {
+              } else if (storage == "Dry") {
 
                 //Duration of storage after the replacement
-                if (get_question("D").value == ">1 month") {
+                if (storage_duration == ">1 month") {
 
                   //Weight
-                  if (get_question("W").value == "17-25 kg") {
-                    if (get_question("P").value == "Mix" && (get_question("RP").value == "Operating more than the expected lifespan" || get_question("RP").value == "Lost of membrane integrity" || get_question("RP").value == "Don't know")) {
+                  if (weight == "17-25 kg") {
+                    if (position == "Mix" && (cause_replacement == "Operating more than the expected lifespan" || cause_replacement == "Lost of membrane integrity" || cause_replacement == "Don't know")) {
                       //2*
                       return "IRC";
-                    } else if (get_question("P").value == "Single pass" || get_question("P").value == "Double pass - single stage" || get_question("P").value == "Mix") {
+                    } else if (position == "Single pass" || position == "Double pass - single stage" || position == "Mix") {
                       //1*
                       return "IC";
-                    } else if (get_question("P").value == "Double pass - double stage") {
+                    } else if (position == "Double pass - double stage") {
                       //3*
                       return "IR";
                     }
-                  } else if (get_question("W").value == "<17kg") return "AMR";
-                } else if (get_question("D").value == "<1 month") {
+                  } else if (weight == "<17kg") return "AMR";
+                } else if (storage_duration == "<1 month") {
 
                   //Weight
-                  if (get_question("W").value == "17-25 kg") return "IC";
-                  else if (get_question("W").value == "<17kg") return "AMS";
+                  if (weight == "17-25 kg") return "IC";
+                  else if (weight == "<17kg") return "AMS";
                 }
               }
             }
@@ -182,30 +196,30 @@
         }
 
         //Complementary information to the decision-making tree
-        if((get_question("T").value == "Reverse osmosis brackish model design" || get_question("T").value == "Reverse osmosis sea model design" || get_question("T").value == "Nanofiltration") && get_question("C").value == "Spiral-wound" && get_question("S").value == "Length: 1m. Diameter: 0.2m") {
+        if((type == "Reverse osmosis brackish model design" || type == "Reverse osmosis sea model design" || type == "Nanofiltration") && config == "Spiral-wound" && size == "Length: 1m. Diameter: 0.2m") {
 
-          if (get_question("W").value == "<17kg" && (get_question("ED").value == "No" || get_question("ED").value == "Don't know") && (get_question("F").value == "Other" || get_question("F").value == "Don't know")) return "NEIM";
+          if (weight == "<17kg" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "Other" || fouling == "Don't know")) return "NEIM";
 
-          if (get_question("W").value == "17-25 kg" && (get_question("ST").value == "Immersed in a water solution" || get_question("ST").value == "Wet") && (get_question("ED").value == "No" || get_question("ED").value == "Don't know") && (get_question("F").value == "Other" || get_question("F").value == "Don't know")) return "NEIC";
-          if ((get_question("P").value == "Single pass" || get_question("P").value == "Double pass - single stage") && get_question("W").value == "17-25 kg" && get_question("ST").value == "Dry" && get_question("D").value == "<1 month" && get_question("ED").value == "Don't know" && get_question("F").value == "Don't know") return "NEIC";
-          if (get_question("RP").value == "Granted budget for replacement" && (get_question("P").value == "Single pass" || get_question("P").value == "Double pass - single stage" || get_question("P").value == "Mix") && get_question("W").value == "17-25 kg" && get_question("ST").value == "Dry" && get_question("D").value == "<1 month" && get_question("ED").value == "Don't know" && get_question("F").value == "Don't know") return "NEIC";
-          if (get_question("RP").value == "Operating more than the expected lifespan" && get_question("P").value == "Don't know" && get_question("W").value == "17-25 kg" && get_question("ST").value == "Dry" && get_question("D").value == "<1 month" && get_question("ED").value == "Don't know" && get_question("F").value == "Don't know") return "NEIC";
-          if (get_question("RP").value == "Don't know" && get_question("P").value == "Don't know" && get_question("W").value == "17-25 kg" && get_question("ST").value == "Dry" && get_question("D").value == "<1 month" && get_question("ED").value == "Don't know" && get_question("F").value == "Don't know") return "NEIC";
-          if ((get_question("P").value == "Single pass" || get_question("P").value == "Double pass - single stage") && get_question("W").value == "17-25 kg" && get_question("ST").value == "Don't know" && get_question("D").value == "<1 month" && (get_question("ED").value == "No" || get_question("ED").value == "Don't know") && (get_question("F").value == "No" || get_question("F").value == "Don't know")) return "NEIC";
-          if (get_question("RP").value == "Granted budget for replacement" && get_question("W").value == "17-25 kg" && get_question("ST").value == "Don't know" && get_question("D").value == "<1 month" && (get_question("ED").value == "No" || get_question("ED").value == "Don't know") && (get_question("F").value == "No" || get_question("F").value == "Don't know")) return "NEIC";
-          if ((get_question("RP").value == "Granted budget for replacement" || get_question("RP").value == "Operating more than the expected lifespan") && get_question("P").value == "Don't know" && get_question("W").value == "17-25 kg" && get_question("ST").value == "Don't know" && get_question("D").value == "<1 month" && (get_question("ED").value == "No" || get_question("ED").value == "Don't know") && (get_question("F").value == "No" || get_question("F").value == "Don't know")) return "NEIC";
-          if (get_question("RP").value == "Lost of membrane integrity" && (get_question("P").value == "Single pass" || get_question("P").value == "Double pass - single stage") && get_question("W").value == "17-25 kg" && get_question("ST").value == "Don't know" && get_question("D").value == "<1 month" && (get_question("ED").value == "No" || get_question("ED").value == "Don't know") && (get_question("F").value == "No" || get_question("F").value == "Don't know")) return "NEIC";
+          if (weight == "17-25 kg" && (storage == "Immersed in a water solution" || storage == "Wet") && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "Other" || fouling == "Don't know")) return "NEIC";
+          if ((position == "Single pass" || position == "Double pass - single stage") && weight == "17-25 kg" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") return "NEIC";
+          if (cause_replacement == "Granted budget for replacement" && (position == "Single pass" || position == "Double pass - single stage" || position == "Mix") && weight == "17-25 kg" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") return "NEIC";
+          if (cause_replacement == "Operating more than the expected lifespan" && position == "Don't know" && weight == "17-25 kg" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") return "NEIC";
+          if (cause_replacement == "Don't know" && position == "Don't know" && weight == "17-25 kg" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") return "NEIC";
+          if ((position == "Single pass" || position == "Double pass - single stage") && weight == "17-25 kg" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "NEIC";
+          if (cause_replacement == "Granted budget for replacement" && weight == "17-25 kg" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "NEIC";
+          if ((cause_replacement == "Granted budget for replacement" || cause_replacement == "Operating more than the expected lifespan") && position == "Don't know" && weight == "17-25 kg" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "NEIC";
+          if (cause_replacement == "Lost of membrane integrity" && (position == "Single pass" || position == "Double pass - single stage") && weight == "17-25 kg" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "NEIC";
 
 
-          if (get_question("W").value == "17-25 kg" && get_question("ST").value == "Don't know" && get_question("D").value == "Don't know" && get_question("ED").value == "Don't know" && get_question("F").value == "Don't know") return "IRC";
-          if (get_question("RP").value == "Operating more than the expected lifespan" && (get_question("P").value == "Double pass - double stage" || get_question("P").value == "Mix") && get_question("W").value == "17-25 kg" && get_question("ST").value == "Don't know" && get_question("D").value == "<1 month" && (get_question("ED").value == "No" || get_question("ED").value == "Don't know") && (get_question("F").value == "No" || get_question("F").value == "Don't know")) return "IRC";
-          if (get_question("RP").value == "Lost of membrane integrity" && (get_question("P").value == "Double pass - double stage" || get_question("P").value == "Mix" || get_question("P").value == "Don't know") && get_question("W").value == "17-25 kg" && get_question("ST").value == "Don't know" && get_question("D").value == "<1 month" && (get_question("ED").value == "No" || get_question("ED").value == "Don't know") && (get_question("F").value == "No" || get_question("F").value == "Don't know")) return "IRC";
-          if ((get_question("P").value == "Double pass - double stage" || get_question("P").value == "Mix" || get_question("P").value == "Don't know") && get_question("W").value == "17-25 kg" && get_question("ST").value == "Dry" && get_question("D").value == "Don't know" && (get_question("ED").value == "No" || get_question("ED").value == "Don't know") && (get_question("F").value == "No" || get_question("F").value == "Don't know")) return "IRC";
-          if (get_question("RP").value == "Lost of membrane integrity" && (get_question("P").value == "Mix" || get_question("P").value == "Don't know") && get_question("W").value == "17-25 kg" && get_question("ST").value == "Dry" && get_question("D").value == "<1 month" && (get_question("ED").value == "No" || get_question("ED").value == "Don't know") && (get_question("F").value == "No" || get_question("F").value == "Don't know")) return "IRC";
-          if (get_question("RP").value == "Don't know" && get_question("P").value == "Mix" && get_question("W").value == "17-25 kg" && get_question("ST").value == "Dry" && get_question("D").value == "<1 month" && (get_question("ED").value == "No" || get_question("ED").value == "Don't know") && (get_question("F").value == "No" || get_question("F").value == "Don't know")) return "IRC";
+          if (weight == "17-25 kg" && storage == "Don't know" && storage_duration == "Don't know" && ext_damage == "Don't know" && fouling == "Don't know") return "IRC";
+          if (cause_replacement == "Operating more than the expected lifespan" && (position == "Double pass - double stage" || position == "Mix") && weight == "17-25 kg" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "IRC";
+          if (cause_replacement == "Lost of membrane integrity" && (position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && weight == "17-25 kg" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "IRC";
+          if ((position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && weight == "17-25 kg" && storage == "Dry" && storage_duration == "Don't know" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "IRC";
+          if (cause_replacement == "Lost of membrane integrity" && (position == "Mix" || position == "Don't know") && weight == "17-25 kg" && storage == "Dry" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "IRC";
+          if (cause_replacement == "Don't know" && position == "Mix" && weight == "17-25 kg" && storage == "Dry" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "IRC";
 
-          if ( get_question("W").value == "17-25 kg" && get_question("ST").value == "Dry" && get_question("D").value == ">1 month") return "IR";
-          if (get_question("P").value == "Double pass - double stage" && get_question("W").value == "17-25 kg" && get_question("ST").value == "Dry") return "IR";
+          if ( weight == "17-25 kg" && storage == "Dry" && storage_duration == ">1 month") return "IR";
+          if (position == "Double pass - double stage" && weight == "17-25 kg" && storage == "Dry") return "IR";
 
         }
 
@@ -221,8 +235,6 @@
         if(reuse) return reuse.color;
         else return "";
       },
-    },
-    computed: {
       get_fouling_type(){
         let get_question = this.get_question_by_code;
         let fouling_value = get_question("F").value;
@@ -246,6 +258,9 @@
         } else
           return fouling_value;
       },
+    },
+    computed: {
+
     }
   }
 </script>
