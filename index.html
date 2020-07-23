@@ -31,9 +31,9 @@
   REMApp
 </h1>
 
-<div id=app>
+<div>
   <!--survey 1-->
-  <div>
+  <div id=app>
     <!--survey 1 inputs-->
     <div>
       <b>Survey 1</b>
@@ -62,8 +62,39 @@
       </div>
     </div>
   </div>
+  <br>
+  <!--survey 2-->
+  <div id="app2">
+    <!--survey 2 inputs-->
+    <div>
+      <b>Survey 2</b>
+      <table border=1>
+        <tr v-for="q in questions" v-if="is_rendered(q)">
+          <td>{{q.code}}
+          <td>{{q.name}}
+          <td>
+            <select id="survey_2" v-model="q.value">
+              <option :value="null">--select--</option>
+              <option v-for="ans in q.answers">
+                {{ans}}
+              </option>
+            </select>
+          </td>
+        </tr>
+      </table><br>
+    </div>
+    <!--survey 2 outputs-->
+    <div>
+      <b>Membrane reuse</b>
+      <div class=membrane_reuse :style="`background:${get_membrane_reuse_color()}`">
+        {{show_membrane_reuse()}}
+      </div>
+    </div>
+  </div>
+
 </div>
 
 
 <script src="survey_1.js"></script><!--vue object-->
+<script src="survey_2.js"></script><!--vue object-->
 
