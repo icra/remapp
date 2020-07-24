@@ -1,34 +1,60 @@
 <template lang="pug">
 
-  div
-    h1 REMApp
-    div
-      <!--survey 1-->
-      div
-        <!--survey 1 inputs-->
-        div
-          b Survey 1
-          table(border="1")
-          tr(v-for="q in questions" :id="q.code")
-            td {{q.code}}
-            td {{q.name}}
-            td
-              select(:id="q.name" v-model="q.value" :disabled="is_disabled(q)")
-                option(:value="null") --select--
-                option(v-for="ans in q.answers") {{ans}}
 
-      <!--survey 1 outputs-->
-      div
-        b Membrane reuse
-          div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
+
+
+
+
+  div
+
+    b-container.p-2
+
+    b-row(style="background-color: var(--light-gray-primary)")
+      b-col(cols="4" md="3" xl="3"    style="min-height: 100vh; position:sticky; top:0; background-color: white")
+        b-navbar
+          .sidebar-header
+            h2 Survey
+            template(v-for="q in questions" :id="q.code")
+              b {{q.name}}
+              multiselect(
+                v-model="q.value",
+                :options="q.answers",
+                placeholder="Pick a value"
+                ).multiselect
+
+      b-col()
+        router-view
+
+
+
+
+        <!--survey 1 outputs-->
+        div
+          b-tabs(content-class="mt-3" fill)
+            b-tab(title="SOLUTIONS" active)
+              b Membrane reuse
+                div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
+
+            b-tab(title="CASE STUDIES")
+              p Case studies
+
+            b-tab(title="FACT SHEETS")
+              p Fact Sheets
 
 
 
 </template>
 
 <script>
+  import Multiselect from 'vue-multiselect'
+
+
+
   export default {
     name: "Menus",
+    components: {
+      Multiselect
+    },
     data () {
       return {
         questions:[
@@ -332,5 +358,12 @@
     padding:1em;
     font-size:large;
     border:1px solid #ccc;
+  }
+  .sidebar-header > a {
+    color: var(--green-primary);
+  }
+
+  .multiselect {
+    width: 320px;
   }
 </style>
