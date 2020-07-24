@@ -21,7 +21,7 @@
       div
         b Membrane reuse
           div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
-          div.membrane_reuse {{ get_fouling_type() }}
+
 
 
 </template>
@@ -57,8 +57,6 @@
           {code:"AM", name:"Membranes are suitable for an alternative management to landfill disposal or incineration.",        color:"#9ab959"},
           {code:"AMR", name:"Membranes are suitable for an alternative management to landfill disposal or incineration. " +
               "Membranes might be need to be rehydrated using 50% w/w ethanol during 15 min.",                                  color:"#c2d59a"},
-          {code:"AMS", name:"Membranes are suitable for an alternative management to landfill disposal or incineration. " +
-              "Please fill the following survey to estimate which alternative would suit better.",                              color:"#9ab959"},
           {code:"IC", name:"Intensive cleaning before considering an alternative management to landfill disposal " +
               "or incineration",                                                                                                color:"#0cae51"},
           {code:"NEIM", name:"Not enough information. Potentially, membranes are suitable for alternative management.",         color:"#4dabc5"},
@@ -113,6 +111,7 @@
         return false;
       },
       get_membrane_reuse(){
+
         let get_question = this.get_question_by_code;
         let type = get_question("T").value;
         let config = get_question("C").value;
@@ -169,26 +168,30 @@
               } else if (storage == "Dry") {
 
                 //Duration of storage after the replacement
-                if (storage_duration == ">1 month") {
+                if (storage_duration == "<1 month") {
 
                   //Weight
                   if (weight == "17-25 kg") {
-                    if (position == "Mix" && (cause_replacement == "Operating more than the expected lifespan" || cause_replacement == "Lost of membrane integrity" || cause_replacement == "Don't know")) {
-                      //2*
-                      return "IRC";
-                    } else if (position == "Single pass" || position == "Double pass - single stage" || position == "Mix") {
-                      //1*
+
+                    if (position == "Single pass" || position == "Double pass - single stage") {
+                      //*1a
                       return "IC";
+                    } else if(position == "Mix" && cause_replacement == "Granted budget for replacement")
+                      //*1b
+                      return "IC"
+                    else if (position == "Mix" && (cause_replacement == "Operating more than the expected lifespan" || cause_replacement == "Lost of membrane integrity")) {
+                      //*2
+                      return "IRC";
                     } else if (position == "Double pass - double stage") {
-                      //3*
+                      //*3
                       return "IR";
                     }
-                  } else if (weight == "<17kg") return "AMR";
-                } else if (storage_duration == "<1 month") {
+                  } else if (weight == "<17kg") return "IC";
+                } else if (storage_duration == ">1 month") {
 
                   //Weight
-                  if (weight == "17-25 kg") return "IC";
-                  else if (weight == "<17kg") return "AM";
+                  if (weight == "17-25 kg") return "IR";
+                  else if (weight == "<17kg") return "AMR";
                 }
               }
             }
