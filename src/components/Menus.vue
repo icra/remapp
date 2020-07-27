@@ -20,8 +20,8 @@
       <!--survey 1 outputs-->
       div
         b Membrane reuse
-          div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
-
+          //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
+          div.membrane_reuse(v-for="s in get_available_solutions" :id="s.code" :key="s.code" :style="`background:${s.color}`")  {{ s.name }}
 
 
 </template>
@@ -56,7 +56,7 @@
           {code:"IR", name:"Indirect recycling",                                                                                color:"#604b79"},
           {code:"AM", name:"Membranes are suitable for an alternative management to landfill disposal or incineration.",        color:"#9ab959"},
           {code:"AMR", name:"Membranes are suitable for an alternative management to landfill disposal or incineration. " +
-              "Membranes might be need to be rehydrated using 50% w/w ethanol during 15 min.",                                  color:"#c2d59a"},
+              "Membranes might need to be rehydrated using 50% w/w ethanol during 15 min.",                                     color:"#c2d59a"},
           {code:"IC", name:"Intensive cleaning before considering an alternative management to landfill disposal " +
               "or incineration",                                                                                                color:"#0cae51"},
           {code:"NEIM", name:"Not enough information. Potentially, membranes are suitable for alternative management.",         color:"#4dabc5"},
@@ -74,11 +74,36 @@
           {code:"RecNF", name:"Recycling into nanofiltration-like membranes",         color:"#33cc33"},
           {code:"RecUF", name:"Recycling into ultrafiltration-like membranes",        color:"#77933c"},
         ],
+
+        available_solutions:[
+          // Survey 1
+          {code:"LI", name:"Landfill disposal or incineration",                                                                 color:"#be514e"},
+          {code:"IR", name:"Indirect recycling",                                                                                color:"#604b79"},
+          {code:"AM", name:"Membranes are suitable for an alternative management to landfill disposal or incineration.",        color:"#9ab959"},
+          {code:"AMR", name:"Membranes are suitable for an alternative management to landfill disposal or incineration. " +
+              "Membranes might need to be rehydrated using 50% w/w ethanol during 15 min.",                                     color:"#c2d59a"},
+          {code:"IC", name:"Intensive cleaning before considering an alternative management to landfill disposal " +
+              "or incineration",                                                                                                color:"#0cae51"},
+          {code:"NEIM", name:"Not enough information. Potentially, membranes are suitable for alternative management.",         color:"#4dabc5"},
+          {code:"NEIC", name:"Not enough information. Potentially, apply intensive cleaning before alternative management.",    color:"#35849b"},
+          {code:"NEIR", name:"Not enough information. Potentially, indirect recycling.",                                        color:"#ffff00"},
+          {code:"IRC", name:"Indirect recycling of those membranes placed in the second stage. Potentially, " +
+              "apply intensive cleaning before considering an alternative management for those membranes " +
+              "placed in the first stage.",                                                                                     color:"#f79447"},
+        ],
       }
     },
     methods:{
       get_question_by_code(code){
         return this.questions.find(q=>q.code==code);
+      },
+
+      //frontend
+      get_membrane_reuse_color(){
+        let code  = this.get_membrane_reuse();
+        let reuse = this.membrane_reuse_options.find(o=>o.code==code);
+        if(reuse) return reuse.color;
+        else return "";
       },
       get_membrane_reuse_option_by_code(code){
         if(code){
@@ -102,13 +127,25 @@
       },
       is_disabled(question){
         let code = question.code;
+        if(code == "PV" || code == "R") {
+          if (this.available_solutions.find(s=>s.code === "LI") || this.available_solutions.find(s=>s.code === "IR")) {
+            return true;
+          }
+        }
+        return false;
+        /*let code = question.code;
         let reuse_code = this.get_membrane_reuse();
         if(code == "PV" || code == "R") {
           if (reuse_code == "LI" || reuse_code == "IR") {
             return true;
           }
         }
-        return false;
+        return false;*/
+      },
+      remove_solutions(code){
+        let final_solution = this.available_solutions.find(s=>s.code === code);
+        console.log("final_solution:", final_solution);
+        //this.available_solutions = _.without(this.available_solutions, final_solution)
       },
       get_membrane_reuse(){
 
@@ -128,7 +165,10 @@
         let permeability = get_question("PV").value;
 
         //Type of membrane
-        if(type == "Other")                       return "LI";
+        if(type == "Other")                       {
+          //this.remove_solutions("LI");
+          return "LI";
+        }
         if(type == "Ultrafiltration")             return "LI";
         if(type == "Microfiltration")             return "LI";
 
@@ -282,14 +322,6 @@
           }
         }
       },
-
-      //frontend
-      get_membrane_reuse_color(){
-        let code  = this.get_membrane_reuse();
-        let reuse = this.membrane_reuse_options.find(o=>o.code==code);
-        if(reuse) return reuse.color;
-        else return "";
-      },
       get_fouling_type(){
         let get_question = this.get_question_by_code;
         let fouling_value = get_question("F").value;
@@ -315,7 +347,19 @@
       },
     },
     computed: {
-
+      get_available_solutions: function () {
+        let code = this.get_membrane_reuse();      // code of the final solution according to the decision-making tree
+        let final_solution = this.available_solutions.find(s=>s.code === code);
+        //console.log("final_solution:", final_solution);
+        let index = this.available_solutions.indexOf(final_solution);
+        //console.log("index solution:", index);
+        if(index >= 0){
+          return this.available_solutions.filter(function (solution) {
+            return solution.code == code;
+          });
+        }
+        return this.available_solutions;
+      }
     }
   }
 </script>
