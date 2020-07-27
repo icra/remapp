@@ -24,13 +24,15 @@
 
 <style>
   @import "https://fonts.googleapis.com/css?family=Fira+Sans:400,300,300italic,400italic,500,500italic,700,700italic";
+  @import "https://fonts.googleapis.com/css?family=Open+Sans";
 
   :root {
-    --font-family-primary: "Fira Sans",Helvetica,Arial,Lucida,sans-serif;
+    /*--font-family-primary: "Fira Sans",Helvetica,Arial,Lucida,sans-serif;*/
+    --font-family-primary: 'Open Sans', sans-serif;
     --green-primary: #5d8f49;
     --green-oldDesign: #3fcb9a;
     --green-secondary: #c2dcb8;
-    --gray-font-color: #706f6f;
+    --gray-font-color: #404040;
     --questions-font-color: #343a40;
     --dark-red: #c51e23;
     --light-gray-secondary: #f8f9fa;
@@ -40,10 +42,12 @@
     --height-child-comp: calc(100vh - 4rem);
   }
 
-  div {
+  body {
     font-family: var(--font-family-primary);
     color: var(--gray-font-color);
     font-weight: var(--text-weight);
+    font-size: 14px;
+    line-height: normal;
   }
 
   /*---- BANNERS ----*/
