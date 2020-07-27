@@ -14,7 +14,8 @@
               multiselect(
                 v-model="q.value",
                 :options="q.answers",
-                placeholder="Pick a value"
+                placeholder="Pick a value",
+                :disabled="is_disabled(q)"
                 ).multiselect
 
       b-col()
@@ -394,6 +395,6 @@
   }
 
   .multiselect {
-    width: 320px;
+    width: 19vw;
   }
 </style>
