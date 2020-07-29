@@ -242,12 +242,37 @@
         }
         return false;*/
       },
-      remove_solutions(code) {
-        let final_solution = this.available_solutions.find(s => s.code === code);
-        console.log("final_solution:", final_solution);
-        //this.available_solutions = _.without(this.available_solutions, final_solution)
+      remove_solutions(codes){
+
+        for(let i=0; i<codes.length; i++){
+          console.log("deleting "+codes[i]);
+          let index = this.available_solutions.findIndex(s=>s.code === codes[i]);
+          if(index >= 0){
+            this.available_solutions.splice(index, 1);
+          }
+        }
       },
-      get_membrane_reuse() {
+      init_available_solutions(){
+        this.available_solutions=[
+          // Survey 1
+          {code:"LI", name:"Landfill disposal or incineration",                                                                 color:"#be514e"},
+          {code:"IR", name:"Indirect recycling",                                                                                color:"#604b79"},
+          {code:"AM", name:"Membranes are suitable for an alternative management to landfill disposal or incineration.",        color:"#9ab959"},
+          {code:"AMR", name:"Membranes are suitable for an alternative management to landfill disposal or incineration. " +
+              "Membranes might need to be rehydrated using 50% w/w ethanol during 15 min.",                                     color:"#c2d59a"},
+          {code:"IC", name:"Intensive cleaning before considering an alternative management to landfill disposal " +
+              "or incineration",                                                                                                color:"#0cae51"},
+          {code:"NEIM", name:"Not enough information. Potentially, membranes are suitable for alternative management.",         color:"#4dabc5"},
+          {code:"NEIC", name:"Not enough information. Potentially, apply intensive cleaning before alternative management.",    color:"#35849b"},
+          {code:"NEIR", name:"Not enough information. Potentially, indirect recycling.",                                        color:"#ffff00"},
+          {code:"IRC", name:"Indirect recycling of those membranes placed in the second stage. Potentially, " +
+              "apply intensive cleaning before considering an alternative management for those membranes " +
+              "placed in the first stage.",                                                                                     color:"#f79447"},
+        ]
+      },
+      get_membrane_reuse(){
+
+        this.init_available_solutions();
 
         let get_question = this.get_question_by_code;
         let type = get_question("T").value;
@@ -264,109 +289,180 @@
         let rejection = get_question("R").value;
         let permeability = get_question("PV").value;
 
+
         //Type of membrane
-        if (type == "Other") {
-          //this.remove_solutions("LI");
-          return "LI";
+        if(type == "Other"){
+          this.remove_solutions(["IR", "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
+          return;
         }
-        if (type == "Ultrafiltration") return "LI";
-        if (type == "Microfiltration") return "LI";
+        else if(type == "Ultrafiltration"){
+          this.remove_solutions(["IR", "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
+          return;
+        }
+        else if(type == "Microfiltration"){
+          this.remove_solutions(["IR", "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
+          return;
+        }
+        else if(type == "Reverse osmosis brackish model design" || type == "Reverse osmosis sea model design" || type == "Nanofiltration"){
+          //Membrane configuration
+          if(config == "Other"){
+            this.remove_solutions(["IR", "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
+            return;
+          }
+          else if(config == "Spiral-wound"){
+            //Membrane size
+            if(size == "Other"){
+              this.remove_solutions(["IR", "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
+              return;
+            }
+            else if(size == "Length: 1m. Diameter: 0.2m"){
+              //Membrane weight
+              if(weight == ">25kg"){
+                this.remove_solutions(["IR", "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
+                return;
+              }
+              else if(weight == "<17kg" || weight == "17-25 kg"){
 
-        //Membrane configuration
-        if (config == "Other") return "LI";
+                this.remove_solutions([ "LI"]);
 
-        //Membrane size
-        if (size == "Other") return "LI";
+                //External damage
+                if(ext_damage == "Yes"){
+                  this.remove_solutions([ "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
+                  return;
+                }else if (ext_damage == "No") {
 
-        //Membrane weight
-        if (weight == ">25kg") return "LI";
+                  //Fouling
+                  if (fouling == "Inorganic scaling") {
+                    this.remove_solutions(["AM", "AMR", "IRC"]);
 
-        if ((type == "Reverse osmosis brackish model design" || type == "Reverse osmosis sea model design" || type == "Nanofiltration") && config == "Spiral-wound" && size == "Length: 1m. Diameter: 0.2m" && (weight == "<17kg" || weight == "17-25 kg")) {
-          //External damage
-          if (ext_damage == "Yes") {
-            return "IR";
-          } else if (ext_damage == "No") {
+                    //Membrane storage
+                    if (storage == "Immersed in a water solution" || storage == "Wet") {
 
-            //Fouling
-            if (fouling == "Inorganic scaling") {
+                      //Weight
+                      if (weight == "17-25 kg"){
+                        this.remove_solutions(["IC", "NEIM", "NEIC", "NEIR"]);
+                        return;
+                      }
 
-              //Membrane storage
-              if (storage == "Immersed in a water solution" || storage == "Wet") {
-
-                //Weight
-                if (weight == "17-25 kg") return "IR";
-                else if (weight == "<17kg") return "IC";
-              } else if (storage == "Dry") return "IR";
-            } else if (fouling == "Other") {
-
-              //Membrane storage
-              if (storage == "Immersed in a water solution" || storage == "Wet") {
-                //Weight
-                if (weight == "17-25 kg") return "IC";
-                else if (weight == "<17kg") return ("AM");
-
-              } else if (storage == "Dry") {
-
-                //Duration of storage after the replacement
-                if (storage_duration == "<1 month") {
-
-                  //Weight
-                  if (weight == "17-25 kg") {
-
-                    if (position == "Single pass" || position == "Double pass - single stage") {
-                      //*1a
-                      return "IC";
-                    } else if (position == "Mix" && cause_replacement == "Granted budget for replacement")
-                      //*1b
-                      return "IC"
-                    else if (position == "Mix" && (cause_replacement == "Operating more than the expected lifespan" || cause_replacement == "Lost of membrane integrity")) {
-                      //*2
-                      return "IRC";
-                    } else if (position == "Double pass - double stage") {
-                      //*3
-                      return "IR";
+                      else if (weight == "<17kg"){
+                        this.remove_solutions(["IR", "NEIM", "NEIC", "NEIR"]);
+                        return;
+                      }
+                    } else if (storage == "Dry"){
+                      this.remove_solutions(["IC", "NEIM", "NEIC", "NEIR"]);
+                      return;
                     }
-                  } else if (weight == "<17kg") return "IC";
-                } else if (storage_duration == ">1 month") {
+                  } else if (fouling == "Other") {
 
-                  //Weight
-                  if (weight == "17-25 kg") return "IR";
-                  else if (weight == "<17kg") return "AMR";
+                    //Membrane storage
+                    if (storage == "Immersed in a water solution" || storage == "Wet") {
+                      this.remove_solutions(["IR", "AMR", "IRC"]);
+                      //Weight
+                      if (weight == "17-25 kg"){
+                        this.remove_solutions(["AM", "NEIM", "NEIC", "NEIR"]);
+                        return;
+                      }
+                      else if (weight == "<17kg"){
+                        this.remove_solutions(["IC", "NEIM", "NEIC", "NEIR"]);
+                        return;
+                      }
+
+                    } else if (storage == "Dry") {
+                      //Duration of storage after the replacement
+                      this.remove_solutions(["AM"]);
+                      if (storage_duration == "<1 month") {
+                        this.remove_solutions(["AMR"]);
+                        //Weight
+                        if (weight == "17-25 kg") {
+                          if (position == "Single pass" || position == "Double pass - single stage") {
+                            //*1a
+                            this.remove_solutions(["NEIM", "NEIC", "NEIR", "IRC", "IR"]);
+                            return;
+                          } else if(position == "Mix" && cause_replacement == "Granted budget for replacement"){
+                            //*1b
+                            this.remove_solutions(["NEIM", "NEIC", "NEIR", "IRC", "IR"]);
+                            return;
+                          } else if (position == "Mix" && (cause_replacement == "Operating more than the expected lifespan" || cause_replacement == "Lost of membrane integrity")) {
+                            //*2
+                            this.remove_solutions(["NEIM", "NEIC", "NEIR", "IC", "IR"]);
+                            return;
+                          } else if (position == "Double pass - double stage") {
+                            //*3
+                            this.remove_solutions(["NEIM", "NEIC", "NEIR", "IC", "IRC"]);
+                            return;
+                          }
+                        } else if (weight == "<17kg"){
+                          this.remove_solutions(["NEIM", "NEIC", "NEIR", "IRC", "IR"]);
+                          return;
+                        }
+
+                      } else if (storage_duration == ">1 month") {
+                        this.remove_solutions(["IC", "AM", "IRC"]);
+                        //Weight
+                        if (weight == "17-25 kg"){
+                          this.remove_solutions(["NEIM", "NEIC", "NEIR", "AMR"]);
+                          return;
+                        }
+                        else if (weight == "<17kg"){
+                          this.remove_solutions(["NEIM", "NEIC", "NEIR", "IR"]);
+                          return;
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
+
           }
+
         }
+
 
         //Complementary information to the decision-making tree
-        if ((type == "Reverse osmosis brackish model design" || type == "Reverse osmosis sea model design" || type == "Nanofiltration") && config == "Spiral-wound" && size == "Length: 1m. Diameter: 0.2m") {
+        if((type == "Reverse osmosis brackish model design" || type == "Reverse osmosis sea model design" || type == "Nanofiltration") && config == "Spiral-wound" && size == "Length: 1m. Diameter: 0.2m") {
 
-          if (weight == "<17kg" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "Other" || fouling == "Don't know")) return "NEIM";
-
-          if (weight == "17-25 kg" && (storage == "Immersed in a water solution" || storage == "Wet") && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "Other" || fouling == "Don't know")) return "NEIC";
-          if ((position == "Single pass" || position == "Double pass - single stage") && weight == "17-25 kg" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") return "NEIC";
-          if (cause_replacement == "Granted budget for replacement" && (position == "Single pass" || position == "Double pass - single stage" || position == "Mix") && weight == "17-25 kg" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") return "NEIC";
-          if (cause_replacement == "Operating more than the expected lifespan" && position == "Don't know" && weight == "17-25 kg" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") return "NEIC";
-          if (cause_replacement == "Don't know" && position == "Don't know" && weight == "17-25 kg" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") return "NEIC";
-          if ((position == "Single pass" || position == "Double pass - single stage") && weight == "17-25 kg" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "NEIC";
-          if (cause_replacement == "Granted budget for replacement" && weight == "17-25 kg" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "NEIC";
-          if ((cause_replacement == "Granted budget for replacement" || cause_replacement == "Operating more than the expected lifespan") && position == "Don't know" && weight == "17-25 kg" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "NEIC";
-          if (cause_replacement == "Lost of membrane integrity" && (position == "Single pass" || position == "Double pass - single stage") && weight == "17-25 kg" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "NEIC";
+          console.log("aaaa");
+          console.log(cause_replacement);
+          console.log(position);
+          console.log(storage_duration);
+          console.log(ext_damage)
+          console.log(fouling);
 
 
-          if (weight == "17-25 kg" && storage == "Don't know" && storage_duration == "Don't know" && ext_damage == "Don't know" && fouling == "Don't know") return "IRC";
-          if (cause_replacement == "Operating more than the expected lifespan" && (position == "Double pass - double stage" || position == "Mix") && weight == "17-25 kg" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "IRC";
-          if (cause_replacement == "Lost of membrane integrity" && (position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && weight == "17-25 kg" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "IRC";
-          if ((position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && weight == "17-25 kg" && storage == "Dry" && storage_duration == "Don't know" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "IRC";
-          if (cause_replacement == "Lost of membrane integrity" && (position == "Mix" || position == "Don't know") && weight == "17-25 kg" && storage == "Dry" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "IRC";
-          if (cause_replacement == "Don't know" && position == "Mix" && weight == "17-25 kg" && storage == "Dry" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) return "IRC";
 
-          if (weight == "17-25 kg" && storage == "Dry" && storage_duration == ">1 month") return "IR";
-          if (position == "Double pass - double stage" && weight == "17-25 kg" && storage == "Dry") return "IR";
+
+          this.remove_solutions(["LI", "AM", "AMR", "IC", "IRC"]);
+          if (weight == "<17kg" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "Other" || fouling == "Don't know")) this.remove_solutions(["NEIC", "NEIR", "IR"]);
+          else if(weight == "17-25 kg"){
+
+            if ((storage == "Immersed in a water solution" || storage == "Wet") && (ext_damage == "No" || ext_damage == "Don't know") && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIR", "IR"]);
+            else if ((position == "Single pass" || position == "Double pass - single stage") && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIR", "IR"]);
+            else if (cause_replacement == "Granted budget for replacement" && (position == "Single pass" || position == "Double pass - single stage" || position == "Mix") && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIR", "IR"]);
+
+            else if (cause_replacement == "Operating more than the expected lifespan" && position == "Don't know" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIR", "IR"]);
+            else if (cause_replacement == "Don't know" && position == "Don't know" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIR", "IR"]);
+            else if ((position == "Single pass" || position == "Double pass - single stage") && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIR", "IR"]);
+            else if (cause_replacement == "Granted budget for replacement" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIR", "IR"]);
+            else if ((cause_replacement == "Granted budget for replacement" || cause_replacement == "Operating more than the expected lifespan") && position == "Don't know" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIR", "IR"]);
+            else if (cause_replacement == "Lost of membrane integrity" && (position == "Single pass" || position == "Double pass - single stage") && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIR", "IR"]);
+
+
+            else if (storage == "Don't know" && storage_duration == "Don't know" && ext_damage == "Don't know" && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIC", "IR"]);
+            else if (cause_replacement == "Operating more than the expected lifespan" && (position == "Double pass - double stage" || position == "Mix") && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIC", "IR"]);
+            else if (cause_replacement == "Lost of membrane integrity" && (position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIC", "IR"]);
+            else if ((position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && storage == "Dry" && storage_duration == "Don't know" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIC", "IR"]);
+
+            else if (cause_replacement == "Lost of membrane integrity" && (position == "Mix" || position == "Don't know") &&  storage == "Dry" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIC", "IR"]);
+            else if (cause_replacement == "Don't know" && position == "Mix" && storage == "Dry" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIC", "IR"]);
+
+            else if (storage == "Dry" && storage_duration == ">1 month") this.remove_solutions(["NEIC", "NEIR", "NEIM"]);
+            else if (position == "Double pass - double stage" && storage == "Dry") this.remove_solutions(["NEIC", "NEIR", "NEIM"]);
+          }
+
+
 
         }
-
-        return "";
       },
       get_management_survey2() {
         let get_question = this.get_question_by_code;
@@ -414,13 +510,13 @@
           }
         }
       },
-      get_fouling_type() {
+      get_fouling_type(){
         let get_question = this.get_question_by_code;
         let fouling_value = get_question("F").value;
         let water_type = get_question("WT").value;
         let membrane_position = get_question("P").value;
 
-        if (fouling_value == "Don't know") {
+        if(fouling_value == "Don't know") {
           if (water_type == "Seawater" && !(membrane_position == "Double pass - double stage" || membrane_position == "Mix")) {
             return "Other";
           } else if (water_type == "Seawater" && (membrane_position == "Double pass - double stage" || membrane_position == "Mix")) {
@@ -433,6 +529,8 @@
             return "Other";
           } else if (water_type == "Chemical industry") {
             return "Inorganic scaling";
+          } else {
+            return fouling_value;
           }
         } else
           return fouling_value;
@@ -440,16 +538,7 @@
     },
     computed: {
       get_available_solutions: function () {
-        let code = this.get_membrane_reuse();      // code of the final solution according to the decision-making tree
-        let final_solution = this.available_solutions.find(s => s.code === code);
-        //console.log("final_solution:", final_solution);
-        let index = this.available_solutions.indexOf(final_solution);
-        //console.log("index solution:", index);
-        if (index >= 0) {
-          return this.available_solutions.filter(function (solution) {
-            return solution.code == code;
-          });
-        }
+        this.get_membrane_reuse();
         return this.available_solutions;
       }
     }
