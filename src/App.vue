@@ -27,17 +27,20 @@
   @import "https://fonts.googleapis.com/css?family=Open+Sans";
 
   :root {
-    /*--font-family-primary: "Fira Sans",Helvetica,Arial,Lucida,sans-serif;*/
     --font-family-primary: 'Open Sans', sans-serif;
-    --green-primary: #5d8f49;
-    --green-oldDesign: #3fcb9a;
-    --green-secondary: #c2dcb8;
+    --green-primary: #a0c04d;
+    --blue-primary: #3a89b4;
+    --red-primary: #ab585b;
+    --bold-text: 600;
+    --light-gray-primary: #ababab;
+    --dark-gray-primary: #383838;
+
+    /*EDICITY to remove */
+    /*--font-family-primary: "Fira Sans",Helvetica,Arial,Lucida,sans-serif;*/
     --gray-font-color: #404040;
     --questions-font-color: #343a40;
     --dark-red: #c51e23;
     --light-gray-secondary: #f8f9fa;
-    --light-gray-primary: #e9ecef;
-    --bold-text: 600;
     --text-weight: 400;
     --height-child-comp: calc(100vh - 4rem);
   }
