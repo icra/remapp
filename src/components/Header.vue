@@ -9,6 +9,7 @@
             b-col(cols="auto")
               a(type="button") ABOUT REMapp
             b-col
+
               b-icon(
                 icon="chevron-up"
                 size="sm"
@@ -17,6 +18,8 @@
                 aria-controls="about"
                 @click="info = !info"
               )
+
+
       b-row(align-h="end")
         b-col()
           b-collapse.collapsed(id="about" v-model="info" class="mt-2").p-2
@@ -26,6 +29,8 @@
             p Membrane users who are going to replace membranes and are seeking alternative end-of-life membrane managements.
             h4 Which are the potential kind of end-of-life membrane managements?
             p The preferable order is: reuse, regeneration for reuse, direct recycling, indirect recycling, incineration and landfill disposal. Worldwide the most common management is incineration and landfill disposal (by far). REMapp shows current investigations and companies that try to boost alternative end-of-life membrane managements to those two last.
+
+
 
     b-jumbotron(
       header="REMapp decision-making tool"
