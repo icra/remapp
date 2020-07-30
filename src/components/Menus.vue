@@ -8,7 +8,6 @@
           <!--(style="background-color: var(--light-gray-primary)")-->
           b-col(sm="12" md="4" xl="3")
             //style="min-height: 90vh;  top:0; background-color: white"
-<<<<<<< HEAD
             b-navbar.pt-0
               .sidebar-header
                 b-row.mb-0.pb-0
@@ -27,19 +26,6 @@
                       :disabled="is_disabled(q)"
                     ).multiselect
                 //b-button.clearButt.mt-3(block @click="clearValues") CLEAR ALL
-=======
-            b-navbar
-              .sidebar-header
-                h2 Survey
-                template(v-for="q in questions" :id="q.code")
-                  b {{q.name}}
-                  multiselect(
-                    v-model="q.value",
-                    :options="q.answers",
-                    placeholder="Pick a value",
-                    :disabled="is_disabled(q)"
-                  ).multiselect
->>>>>>> joan
           b-col
             //router-view
             <!--survey 1 outputs-->
@@ -65,7 +51,6 @@
   import FactSheets from "./FactSheets";
   import Footer from "./Footer";
   import Header from "./Header";
-
   export default {
     name: "Menus",
     components: {
@@ -115,7 +100,6 @@
             value: null,
             answers: ["Seawater", "Brackish water", "Wastewater", "Chemical industry", "Food industry"]
           },
-
           // Survey 2
           {
             code: "R",
@@ -130,7 +114,6 @@
             answers: ["<1-fold comparing to the design value", "[1-5]-fold comparing to the design value", ">5-fold comparing to the design value"]
           },
         ],
-
         membrane_reuse_options: [
           // Survey 1
           {code: "LI", name: "Landfill disposal or incineration", color: "#be514e"},
@@ -166,7 +149,6 @@
               "apply intensive cleaning before considering an alternative management for those membranes " +
               "placed in the first stage.", color: "#f79447"
           },
-
           // Survey 2
           {code: "ReuRO", name: "Reuse as reverse osmosis membranes", color: "#00ff00"},
           {code: "ReuNF", name: "Reuse as nanofiltration-like membranes", color: "#66ff66"},
@@ -175,7 +157,6 @@
           {code: "RecNF", name: "Recycling into nanofiltration-like membranes", color: "#33cc33"},
           {code: "RecUF", name: "Recycling into ultrafiltration-like membranes", color: "#77933c"},
         ],
-
         available_solutions: [
           // Survey 1
           {code: "LI", name: "Landfill disposal or incineration", color: "#be514e"},
@@ -218,16 +199,12 @@
       get_question_by_code(code) {
         return this.questions.find(q => q.code == code);
       },
-<<<<<<< HEAD
       clearValues() {
         this.questions.forEach(function (item) {
           item.value = null;
         });
         console.log("all values cleared: ", this.questions);
       },
-=======
->>>>>>> joan
-
       //frontend
       get_membrane_reuse_color() {
         let code = this.get_membrane_reuse();
@@ -241,7 +218,6 @@
           return option.name;
         }
         return "answer survey 1 to get a membrane reuse";
-
       },
       show_membrane_reuse() {
         let code = this.get_membrane_reuse();
@@ -273,7 +249,6 @@
         return false;*/
       },
       remove_solutions(codes){
-
         for(let i=0; i<codes.length; i++){
           console.log("deleting "+codes[i]);
           let index = this.available_solutions.findIndex(s=>s.code === codes[i]);
@@ -301,9 +276,7 @@
         ]
       },
       get_membrane_reuse(){
-
         this.init_available_solutions();
-
         let get_question = this.get_question_by_code;
         let type = get_question("T").value;
         let config = get_question("C").value;
@@ -313,21 +286,11 @@
         let fouling = this.get_fouling_type();
         let storage = get_question("ST").value;
         let storage_duration = get_question("D").value;
-<<<<<<< HEAD
         let water_type = get_question("WT").value;
         let cause_replacement = get_question("RP").value;
         let position = get_question("P").value;
         let rejection = get_question("R").value;
         let permeability = get_question("PV").value;
-=======
-        //let water_type = get_question("WT").value;
-        let cause_replacement = get_question("RP").value;
-        let position = get_question("P").value;
-        //let rejection = get_question("R").value;
-        //let permeability = get_question("PV").value;
->>>>>>> joan
-
-
         //Type of membrane
         if(type == "Other"){
           this.remove_solutions(["IR", "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
@@ -360,28 +323,22 @@
                 return;
               }
               else if(weight == "<17kg" || weight == "17-25 kg"){
-
                 this.remove_solutions([ "LI"]);
-
                 //External damage
                 if(ext_damage == "Yes"){
                   this.remove_solutions([ "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
                   return;
                 }else if (ext_damage == "No") {
-
                   //Fouling
                   if (fouling == "Inorganic scaling") {
                     this.remove_solutions(["AM", "AMR", "IRC"]);
-
                     //Membrane storage
                     if (storage == "Immersed in a water solution" || storage == "Wet") {
-
                       //Weight
                       if (weight == "17-25 kg"){
                         this.remove_solutions(["IC", "NEIM", "NEIC", "NEIR"]);
                         return;
                       }
-
                       else if (weight == "<17kg"){
                         this.remove_solutions(["IR", "NEIM", "NEIC", "NEIR"]);
                         return;
@@ -391,7 +348,6 @@
                       return;
                     }
                   } else if (fouling == "Other") {
-
                     //Membrane storage
                     if (storage == "Immersed in a water solution" || storage == "Wet") {
                       this.remove_solutions(["IR", "AMR", "IRC"]);
@@ -404,7 +360,6 @@
                         this.remove_solutions(["IC", "NEIM", "NEIC", "NEIR"]);
                         return;
                       }
-
                     } else if (storage == "Dry") {
                       //Duration of storage after the replacement
                       this.remove_solutions(["AM"]);
@@ -433,7 +388,6 @@
                           this.remove_solutions(["NEIM", "NEIC", "NEIR", "IRC", "IR"]);
                           return;
                         }
-
                       } else if (storage_duration == ">1 month") {
                         this.remove_solutions(["IC", "AM", "IRC"]);
                         //Weight
@@ -451,52 +405,36 @@
                 }
               }
             }
-
           }
-
         }
-
-
         //Complementary information to the decision-making tree
         if((type == "Reverse osmosis brackish model design" || type == "Reverse osmosis sea model design" || type == "Nanofiltration") && config == "Spiral-wound" && size == "Length: 1m. Diameter: 0.2m") {
-
           console.log("aaaa");
           console.log(cause_replacement);
           console.log(position);
           console.log(storage_duration);
           console.log(ext_damage)
           console.log(fouling);
-
-
           if (weight == "<17kg" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "Other" || fouling == "Don't know")) this.remove_solutions(["NEIC", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
           else if(weight == "17-25 kg"){
-
             if ((storage == "Immersed in a water solution" || storage == "Wet") && (ext_damage == "No" || ext_damage == "Don't know") && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if ((position == "Single pass" || position == "Double pass - single stage") && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Granted budget for replacement" && (position == "Single pass" || position == "Double pass - single stage" || position == "Mix") && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
-
             else if (cause_replacement == "Operating more than the expected lifespan" && position == "Don't know" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Don't know" && position == "Don't know" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if ((position == "Single pass" || position == "Double pass - single stage") && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Granted budget for replacement" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if ((cause_replacement == "Granted budget for replacement" || cause_replacement == "Operating more than the expected lifespan") && position == "Don't know" && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Lost of membrane integrity" && (position == "Single pass" || position == "Double pass - single stage") && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
-
-
             else if (storage == "Don't know" && storage_duration == "Don't know" && ext_damage == "Don't know" && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Operating more than the expected lifespan" && (position == "Double pass - double stage" || position == "Mix") && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Lost of membrane integrity" && (position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && storage == "Don't know" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if ((position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && storage == "Dry" && storage_duration == "Don't know" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
-
             else if (cause_replacement == "Lost of membrane integrity" && (position == "Mix" || position == "Don't know") &&  storage == "Dry" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Don't know" && position == "Mix" && storage == "Dry" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
-
             else if (storage == "Dry" && storage_duration == ">1 month") this.remove_solutions(["NEIC", "NEIR", "NEIM", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (position == "Double pass - double stage" && storage == "Dry") this.remove_solutions(["NEIC", "NEIR", "NEIM", "LI", "AM", "AMR", "IC", "IRC"]);
           }
-
-
-
         }
       },
       get_management_survey2() {
@@ -504,7 +442,6 @@
         let type = get_question("T").value;
         let rejection = get_question("R").value;
         let permeability = get_question("PV").value;
-
         // management according to survey_2
         if (type == "Reverse osmosis brackish model design") {
           if (permeability == "<1-fold comparing to the design value") {
@@ -550,7 +487,6 @@
         let fouling_value = get_question("F").value;
         let water_type = get_question("WT").value;
         let membrane_position = get_question("P").value;
-
         if(fouling_value == "Don't know") {
           if (water_type == "Seawater" && !(membrane_position == "Double pass - double stage" || membrane_position == "Mix")) {
             return "Other";
@@ -575,12 +511,7 @@
       get_available_solutions: function () {
         this.get_membrane_reuse();
         return this.available_solutions;
-<<<<<<< HEAD
       }
-=======
-      },
-
->>>>>>> joan
     }
   }
 </script>
@@ -592,19 +523,16 @@
     font-size: 18px;
     font-weight: var(--bold-text);
   }
-
   a.nav-link:hover {
     color: white;
     background-color: var(--light-gray-primary) !important;
     font-size: 18px;
   }
-
   .nav-tabs .nav-link {
     background-color: white !important;
     border: 1px solid var(--light-gray-primary) !important;
     border-radius: 0 !important;
   }
-
   .nav-tabs #solutions___BV_tab_button__.nav-link.active {
     background-color: var(--blue-primary) !important;
     border: 2px solid var(--blue-primary) !important;
@@ -612,7 +540,6 @@
     color: white;
     font-weight: var(--bold-text);
   }
-
   .nav-tabs #caseStudies___BV_tab_button__.nav-link.active {
     background-color: var(--green-primary) !important;
     border: 2px solid var(--green-primary) !important;
@@ -620,7 +547,6 @@
     color: white;
     font-weight: var(--bold-text);
   }
-
   .nav-tabs #factSheets___BV_tab_button__.nav-link.active {
     background-color: var(--red-primary) !important;
     border: 2px solid var(--red-primary) !important;
@@ -628,72 +554,51 @@
     color: white;
     font-weight: var(--bold-text);
   }
-
   #__BVID__48__BV_tab_container_.tab-content #solutions {
     border: 2px solid var(--blue-primary) !important;
   }
-
   #__BVID__48__BV_tab_container_.tab-content #caseStudies {
     border: 2px solid var(--green-primary) !important;
   }
-
   #__BVID__48__BV_tab_container_.tab-content #factSheets {
     border: 2px solid var(--red-primary) !important;
   }
-
-
 </style>
 
 <style scoped>
   table {
     border-collapse: collapse;
   }
-
   td, th {
     padding: 0.2em;
   }
-
   .membrane_reuse {
     padding: 1em;
     font-size: large;
     border: 1px solid #ccc;
   }
-
   .sidebar-header > a {
     color: var(--green-primary);
   }
-
   .sidebar-header {
     width: 100%;
   }
-
   .tabBox {
-<<<<<<< HEAD
     min-height: 70vh;
-=======
-    min-height: 60vh;
->>>>>>> joan
   }
-
   .remapToolbox {
     position: relative;
     min-height: 100vh;
   }
-
   .header {
     width: 100%;
     height: fit-content; /* Footer height */
     background-color: var(--dark-gray-primary);
   }
-
   .content {
     padding-bottom: 5rem; /* Footer height */
-<<<<<<< HEAD
     /*max-height: 60vh;*/
-=======
->>>>>>> joan
   }
-
   .footer {
     position: absolute;
     bottom: 0;
@@ -701,13 +606,10 @@
     height: 4rem; /* Footer height */
     background-color: var(--dark-gray-primary);
   }
-
-<<<<<<< HEAD
   .multiselect{
     margin-bottom: 0.75rem;
     margin-top: 0.35rem;
   }
-
   .clearButt.btn-secondary  {
     color: white;
     background-color: var(--dark-gray-primary);
@@ -717,7 +619,4 @@
     overflow: hidden;
     min-width: fit-content;
   }
-
-=======
->>>>>>> joan
 </style>

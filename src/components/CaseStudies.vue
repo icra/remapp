@@ -4,7 +4,6 @@
 
 <script>
   export default {
-<<<<<<< HEAD
     name: "CaseStudies",
     props: ['solutions', 'typeWater'],
     data: function () {
@@ -55,10 +54,7 @@
           {code: "RecUF", name: "Recycling into ultrafiltration-like membranes", color: "#77933c"},
         ],
       }
-    },
-=======
-    name: "CaseStudies"
->>>>>>> joan
+    }
   }
 </script>
 
