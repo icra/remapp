@@ -6,7 +6,11 @@
   import Menus from "./components/Menus";
 
   export default {
+<<<<<<< HEAD
     name: 'app',
+=======
+    name: 'App',
+>>>>>>> joan
     components: {
       Menus
     },
@@ -23,7 +27,11 @@
 
 
 <style>
+<<<<<<< HEAD
   @import "https://fonts.googleapis.com/css?family=Fira+Sans:400,300,300italic,400italic,500,500italic,700,700italic";
+=======
+  @import 'https://fonts.googleapis.com/css?family=Fira+Sans:400,300,300italic,400italic,500,500italic,700,700italic';
+>>>>>>> joan
   @import "https://fonts.googleapis.com/css?family=Open+Sans";
 
   :root {

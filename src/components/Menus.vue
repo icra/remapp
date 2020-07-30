@@ -8,6 +8,7 @@
           <!--(style="background-color: var(--light-gray-primary)")-->
           b-col(sm="12" md="4" xl="3")
             //style="min-height: 90vh;  top:0; background-color: white"
+<<<<<<< HEAD
             b-navbar.pt-0
               .sidebar-header
                 b-row.mb-0.pb-0
@@ -26,6 +27,19 @@
                       :disabled="is_disabled(q)"
                     ).multiselect
                 //b-button.clearButt.mt-3(block @click="clearValues") CLEAR ALL
+=======
+            b-navbar
+              .sidebar-header
+                h2 Survey
+                template(v-for="q in questions" :id="q.code")
+                  b {{q.name}}
+                  multiselect(
+                    v-model="q.value",
+                    :options="q.answers",
+                    placeholder="Pick a value",
+                    :disabled="is_disabled(q)"
+                  ).multiselect
+>>>>>>> joan
           b-col
             //router-view
             <!--survey 1 outputs-->
@@ -204,12 +218,15 @@
       get_question_by_code(code) {
         return this.questions.find(q => q.code == code);
       },
+<<<<<<< HEAD
       clearValues() {
         this.questions.forEach(function (item) {
           item.value = null;
         });
         console.log("all values cleared: ", this.questions);
       },
+=======
+>>>>>>> joan
 
       //frontend
       get_membrane_reuse_color() {
@@ -296,11 +313,19 @@
         let fouling = this.get_fouling_type();
         let storage = get_question("ST").value;
         let storage_duration = get_question("D").value;
+<<<<<<< HEAD
         let water_type = get_question("WT").value;
         let cause_replacement = get_question("RP").value;
         let position = get_question("P").value;
         let rejection = get_question("R").value;
         let permeability = get_question("PV").value;
+=======
+        //let water_type = get_question("WT").value;
+        let cause_replacement = get_question("RP").value;
+        let position = get_question("P").value;
+        //let rejection = get_question("R").value;
+        //let permeability = get_question("PV").value;
+>>>>>>> joan
 
 
         //Type of membrane
@@ -550,7 +575,12 @@
       get_available_solutions: function () {
         this.get_membrane_reuse();
         return this.available_solutions;
+<<<<<<< HEAD
       }
+=======
+      },
+
+>>>>>>> joan
     }
   }
 </script>
@@ -638,7 +668,11 @@
   }
 
   .tabBox {
+<<<<<<< HEAD
     min-height: 70vh;
+=======
+    min-height: 60vh;
+>>>>>>> joan
   }
 
   .remapToolbox {
@@ -654,7 +688,10 @@
 
   .content {
     padding-bottom: 5rem; /* Footer height */
+<<<<<<< HEAD
     /*max-height: 60vh;*/
+=======
+>>>>>>> joan
   }
 
   .footer {
@@ -665,6 +702,7 @@
     background-color: var(--dark-gray-primary);
   }
 
+<<<<<<< HEAD
   .multiselect{
     margin-bottom: 0.75rem;
     margin-top: 0.35rem;
@@ -680,4 +718,6 @@
     min-width: fit-content;
   }
 
+=======
+>>>>>>> joan
 </style>

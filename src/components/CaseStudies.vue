@@ -4,6 +4,7 @@
 
 <script>
   export default {
+<<<<<<< HEAD
     name: "CaseStudies",
     props: ['solutions', 'typeWater'],
     data: function () {
@@ -55,6 +56,9 @@
         ],
       }
     },
+=======
+    name: "CaseStudies"
+>>>>>>> joan
   }
 </script>
 

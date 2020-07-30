@@ -3,23 +3,20 @@
     b-container(fluid="true").p-2.mx-lg-5
       b-row
         b-col(style="height: 8vh;" align-h="start")
-          b-img.p-2(src="static/img/logo_mem.png" style="max-width: 100%; max-height: 100%; display: block;")
+
+          b-img.p-2(src="/img/logo_mem.png" style="max-width: 100%; max-height: 100%; display: block;")
         b-col(align-self="center" align-h="end" cols="auto" )
           b-row
             b-col(cols="auto")
               a(type="button") ABOUT REMapp
+
             b-col
 
               b-icon(
                 icon="chevron-up"
                 size="sm"
-                :class="info ? null : 'collapsed'"
-                :aria-expanded="info ? 'true' : 'false'"
-                aria-controls="about"
-                @click="info = !info"
+                v-b-toggle.about
               )
-
-
       b-row(align-h="end")
         b-col()
           b-collapse.collapsed(id="about" v-model="info" class="mt-2").p-2
@@ -59,7 +56,8 @@
   }
 
   .jumbotron {
-    background-image: url(/static/img/header_foto.gif);
+
+    background-image: url(/img/header_foto.gif);
     background-size: cover;
     height: fit-content;
     font-weight: bold;
