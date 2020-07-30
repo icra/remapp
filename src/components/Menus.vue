@@ -286,11 +286,11 @@
         let fouling = this.get_fouling_type();
         let storage = get_question("ST").value;
         let storage_duration = get_question("D").value;
-        let water_type = get_question("WT").value;
+        //let water_type = get_question("WT").value;
         let cause_replacement = get_question("RP").value;
         let position = get_question("P").value;
-        let rejection = get_question("R").value;
-        let permeability = get_question("PV").value;
+        //let rejection = get_question("R").value;
+        //let permeability = get_question("PV").value;
         //Type of membrane
         if(type == "Other"){
           this.remove_solutions(["IR", "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
