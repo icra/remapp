@@ -8,17 +8,24 @@
           <!--(style="background-color: var(--light-gray-primary)")-->
           b-col(sm="12" md="4" xl="3")
             //style="min-height: 90vh;  top:0; background-color: white"
-            b-navbar
+            b-navbar.pt-0
               .sidebar-header
-                h2 Survey
-                template(v-for="q in questions" :id="q.code")
-                  b {{q.name}}
-                  multiselect(
-                    v-model="q.value",
-                    :options="q.answers",
-                    placeholder="Pick a value",
-                    :disabled="is_disabled(q)"
-                  ).multiselect
+                b-row.mb-0.pb-0
+                  b-col
+                    h4(style="font-weight: var(--bold-text); text-align:left") Survey
+                  b-col(cols="auto" align-h="end")
+                    b-button.clearButt(@click="clearValues") CLEAR ALL
+                b-dropdown-divider(style="height: 0; margin: 0 0 0.75rem 0; overflow: hidden; border-top: 1px solid var(--light-gray-primary);")
+                div(style="overflow-y: scroll; max-height: 70vh;").pr-2
+                  template(v-for="q in questions" :id="q.code" style="overflow-y: auto")
+                    b {{q.name}}
+                    multiselect(
+                      v-model="q.value",
+                      :options="q.answers",
+                      placeholder="Pick a value",
+                      :disabled="is_disabled(q)"
+                    ).multiselect
+                //b-button.clearButt.mt-3(block @click="clearValues") CLEAR ALL
           b-col
             //router-view
             <!--survey 1 outputs-->
@@ -196,6 +203,12 @@
     methods: {
       get_question_by_code(code) {
         return this.questions.find(q => q.code == code);
+      },
+      clearValues() {
+        this.questions.forEach(function (item) {
+          item.value = null;
+        });
+        console.log("all values cleared: ", this.questions);
       },
 
       //frontend
@@ -628,7 +641,7 @@
   }
 
   .tabBox {
-    min-height: 60vh;
+    min-height: 70vh;
   }
 
   .remapToolbox {
@@ -644,6 +657,7 @@
 
   .content {
     padding-bottom: 5rem; /* Footer height */
+    /*max-height: 60vh;*/
   }
 
   .footer {
@@ -652,6 +666,21 @@
     width: 100%;
     height: 4rem; /* Footer height */
     background-color: var(--dark-gray-primary);
+  }
+
+  .multiselect{
+    margin-bottom: 0.75rem;
+    margin-top: 0.35rem;
+  }
+
+  .clearButt.btn-secondary  {
+    color: white;
+    background-color: var(--dark-gray-primary);
+    border-color: var(--dark-gray-primary);
+    font-weight: var(--bold-text);
+    font-size: small;
+    overflow: hidden;
+    min-width: fit-content;
   }
 
 </style>
