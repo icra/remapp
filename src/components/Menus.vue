@@ -36,7 +36,7 @@
                   //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
                   div.membrane_reuse(v-for="s in get_available_solutions" :id="s.code" :key="s.code" :style="`background:${s.color}`")  {{ s.name }}
                 b-tab#caseStudies(title="CASE STUDIES").p-3.tabBox
-                  CaseStudies
+                  CaseStudies(v-bind:solution-code="this.get_available_solutions" v-bind:type-membrane="this.get_question_by_code('T').value" )
                 b-tab#factSheets(title="FACT SHEETS").p-3.tabBox
                   FactSheets
     footer.footer
@@ -596,14 +596,14 @@
     background-color: var(--dark-gray-primary);
   }
   .content {
-    padding-bottom: 5rem; /* Footer height */
+    padding-bottom: 2.5rem; /* Footer height */
     /*max-height: 60vh;*/
   }
   .footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
-    height: 4rem; /* Footer height */
+    height: fit-content; /* Footer height */
     background-color: var(--dark-gray-primary);
   }
   .multiselect{

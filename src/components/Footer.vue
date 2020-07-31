@@ -2,14 +2,17 @@
   .footerContent
     b-container(fluid="true")
       div.p-2.mx-lg-5
-        h6.py-3 Founding partners:
-        b-container(fluid="true" style="max-width: fit-content; left: auto;").mb-3
-          b-row(style="height: 10vh; background-color: white ")
-
-            b-img.p-2(src="/img/logo_lequia.png" style="max-width: 100%; max-height: 100%; display: block;")
-            b-img.p-2(src="/img/logo_udg.png" style="max-width: 100%; max-height: 100%; display: block;")
-            b-img.p-2(src="/img/logo_unsw.png" style="max-width: 100%; max-height: 100%; display: block;")
-
+        h6.pt-3 Founding partners:
+        b-container(fluid="true" style="left: auto;").mb-3
+          b-row(style="background-color: white; width: fit-content;")
+            b-col(style="height: 8vh;" cols="auto" )
+              b-img.p-2(src="/img/logo_lequia.png" fluid style="max-width: 100%; max-height: 100%;")
+            b-col(style="height: 8vh;" cols="auto")
+              b-img.p-2(src="/img/logo_udg.png" fluid style="max-width: 100%; max-height: 100%;")
+            b-col(style="height: 8vh;" cols="auto" )
+              b-img.p-2(src="/img/logo_unsw.png" fluid style="max-width: 100%; max-height: 100%;")
+      div.p-2.mx-lg-5
+        h6 Founding partners:
 
 
 </template>
