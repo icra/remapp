@@ -2,16 +2,13 @@
   .headerContent
     b-container(fluid="true").p-2.mx-lg-5
       b-row
-        b-col(style="height: 8vh;" align-h="start")
-
-          b-img.p-2(src="/img/logo_mem.png" style="max-width: 100%; max-height: 100%; display: block;")
+        b-col(align-h="start" style="height: 8vh;")
+          b-img.p-2(src="/img/logo_mem.png" fluid style="max-width: 100%; max-height: 100%;")
         b-col(align-self="center" align-h="end" cols="auto" )
           b-row
             b-col(cols="auto")
               a(type="button") ABOUT REMapp
-
             b-col
-
               b-icon(
                 icon="chevron-up"
                 size="sm"
