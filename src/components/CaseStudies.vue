@@ -13,12 +13,16 @@
 <script>
 
   import _ from 'lodash';
+  //import survey_2 from "./components/survey_2";
+  //import * as XLSX from "fs";
+  //import XlsxJson from "./components/XlsxJson";
 
   export default {
     name: "CaseStudies",
     props: ['solutionCode', 'typeMembrane', 'saltRejection', 'permeability'],
     data: function () {
       return {
+        file: null,
         mainPath: "/caseStudies/",
         images: [
           {
@@ -323,8 +327,25 @@
         ],
       }
     },
-    mounted: function(){
-    },
+    /*mounted: function(){
+      var fs = require("fs");
+      console.log("HOLAAAAAA");
+      let filename = "./src/components/survey_2.xlxs"
+      fs.readFile(filename, "utf8", function(err, data) {
+        if (err) {
+          console.log(err.toString());
+        } else {
+          console.log(data.toString());
+        }
+      });
+
+      //let workbook = XLSX.readFile(path);
+      //let xlsxReaded = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+      //let first_sheet_name = workbook.SheetNames[0];
+      console.log("workbook: ", fs);
+      //console.log("fjfjj: ", xlsxReaded);
+      //xlsxReaded.forEach(row => {
+    },*/
     watch:{
     },
     methods: {

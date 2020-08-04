@@ -5132,12 +5132,11 @@
       },
       result_survey_2(){
 
-
         let code = this.get_management_survey2();
-        console.log("ccccccccccc")
+        //console.log("ccccccccccc")
         console.log(code);
         let survey2Output = this.membrane_reuse_options.find(q=>q.code==code);
-        console.log("bbbbbbbbbbbbbbbbbbbbb")
+        //console.log("bbbbbbbbbbbbbbbbbbbbb")
         console.log(survey2Output)
         if (survey2Output){
           let get_question = this.get_question_by_code;
@@ -5155,11 +5154,8 @@
             "Alternative end-of-life RO membrane management recommended": "Regenerate to reuse as reverse osmosis membranes",
           };*/
 
-
-
-
           let ret = this.membrane_reuse_options.find(i => _.isEqual(i.code, auxObject));
-          console.log("aaaaaaaaaaaaaaaaa");
+          //console.log("aaaaaaaaaaaaaaaaa");
           console.log(auxObject);
           console.log(ret);
           if(!ret) return [];
