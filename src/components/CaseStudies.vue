@@ -49,27 +49,7 @@
                 saltRejection: "<10% of NaCl and <30% of MgSO4",
                 membraneReuse: "Recycling into ultrafiltration-like membranes"
               },
-            caseNumbers: [15]
-          },
-          {
-            inputs:
-              {
-                typeMembrane: "Reverse osmosis brackish model design",
-                permeability: "<1-fold comparing to the design value",
-                saltRejection: "<10% of NaCl and <30% of MgSO4",
-                membraneReuse: "Recycling into ultrafiltration-like membranes"
-              },
-            caseNumbers: [16]
-          },
-          {
-            inputs:
-              {
-                typeMembrane: "Reverse osmosis brackish model design",
-                permeability: "<1-fold comparing to the design value",
-                saltRejection: "<10% of NaCl and <30% of MgSO4",
-                membraneReuse: "Recycling into ultrafiltration-like membranes"
-              },
-            caseNumbers: [17, 10, 18, 19, 9, 20, 21, 22, 6]
+            caseNumbers: [15, 16, 17, 10, 18, 19, 9, 20, 21, 22, 6]
           },
           {
             inputs:
@@ -159,17 +139,7 @@
                 saltRejection: "<10% of NaCl and <30% of MgSO4",
                 membraneReuse: "Recycling into ultrafiltration-like membranes"
               },
-            caseNumbers: [15]
-          },
-          {
-            inputs:
-              {
-                typeMembrane: "Reverse osmosis sea model design",
-                permeability: "<1-fold comparing to the design value",
-                saltRejection: "<10% of NaCl and <30% of MgSO4",
-                membraneReuse: "Recycling into ultrafiltration-like membranes"
-              },
-            caseNumbers: [16, 17, 18, 19, 9, 20, 21, 22, 6]
+            caseNumbers: [15, 16, 17, 18, 19, 9, 20, 21, 22, 6]
           },
           {
             inputs:
@@ -363,22 +333,8 @@
         let path = this.mainPath + aux.toString() + ".JPG";
         return path;
       },
-      is_equal(obj1, obj2){
-        const obj1_keys = Object.keys(obj1);
-        const obj2_keys = Object.keys(obj2);
-
-        if(obj1_keys.length !== obj2_keys.length)
-          return false;
-
-        for(let obj_key of obj1_keys){
-          if(obj1_keys[obj_key] !== obj2_keys[obj_key])
-            return false;
-        }
-        return true;
-      }
     },
     computed: {
-
       get_cases_to_show() {
         let caseNumbers = [];
         console.log("caseNumbers ini: ", caseNumbers);
