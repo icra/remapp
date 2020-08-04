@@ -32,17 +32,15 @@
             div
               b-tabs(content-class="" fill)
                 b-tab#solutions(title="SOLUTIONS" active).p-3.tabBox
-                  b Survey 1
+                  b Alternative end-of-life membrane management
                   //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
                   div.membrane_reuse(v-for="s in get_available_solutions" :id="s.code" :key="s.code" :style="`background:${s.color}`")  {{ s.name }}
-
                   br
-
-                  b Survey 2
-                  //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}
-                  div.membrane_reuse(v-for="s in result_survey_2")
-                    b-table(striped hover :items="[s.survey2_result]")
-
+                  template(v-if="result_survey_2.length !== 0")
+                    b Considerations to reproduce the recommended second-hand membranes
+                    //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}
+                    div.membrane_reuse(v-for="s in result_survey_2")
+                      b-table(striped hover :items="[s.survey2_result]")
 
                 b-tab#caseStudies(title="CASE STUDIES").p-3.tabBox
                   CaseStudies(
@@ -51,7 +49,7 @@
                     :salt-rejection="this.get_question_by_code('R').value"
                     :permeability="this.get_question_by_code('PV').value"
                     )
-                b-tab#factSheets(title="FACT SHEETS").p-3.tabBox
+                //b-tab#factSheets(title="FACT SHEETS").p-3.tabBox
                   FactSheets
     footer.footer
       Footer
