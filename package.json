@@ -13,8 +13,8 @@
     "vue": "^2.6.11",
     "vue-lodash": "^2.1.2",
     "vue-multiselect": "^2.1.6",
-    "xlsx": "^0.16.5",
-    "xlsx-import": "^2.2.1"
+    "vue-xlsx": "^0.2.1",
+    "xlsx": "^0.16.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-eslint": "~4.4.0",
