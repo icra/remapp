@@ -44,7 +44,7 @@
 
                 b-tab#caseStudies(title="CASE STUDIES").p-3.tabBox
                   CaseStudies(
-                    v-bind:solution-code="this.get_available_solutions"
+                    v-bind:solution-code="this.get_solutions_for_case_studies"
                     v-bind:type-membrane="this.get_question_by_code('T').value"
                     :salt-rejection="this.get_question_by_code('R').value"
                     :permeability="this.get_question_by_code('PV').value"
@@ -143,8 +143,10 @@
             color: "#c2d59a"
           },
           {
-            code: "IC", name: "Intensive cleaning before considering an alternative management to landfill disposal " +
-              "or incineration", color: "#0cae51"
+            code: "IC",
+            name: "Intensive cleaning before considering an alternative management to landfill disposal " +
+              "or incineration",
+            color: "#0cae51"
           },
           {
             code: "NEIM",
@@ -156,103 +158,25 @@
             name: "Not enough information. Potentially, apply intensive cleaning before alternative management.",
             color: "#35849b"
           },
-          {code: "NEIR", name: "Not enough information. Potentially, indirect recycling.", color: "#ffff00"},
           {
-            code: "IRC", name: "Indirect recycling of those membranes placed in the second stage. Potentially, " +
+            code: "NEIR",
+            name: "Not enough information. Potentially, indirect recycling.",
+            color: "#ffff00"
+          },
+          {
+            code: "IRC",
+            name: "Indirect recycling of those membranes placed in the second stage. Potentially, " +
               "apply intensive cleaning before considering an alternative management for those membranes " +
-              "placed in the first stage.", color: "#f79447"
+              "placed in the first stage.",
+            color: "#f79447"
           },
           // Survey 2
-          {
-            code: "ReuRO",
-            solution:
-              {
-                name: "Reuse as reverse osmosis membranes",
-                freeChlorinePatent: 0,
-                freeChlorineQualitative: 0,
-                potentialEnvironmentReduction: "high+++",
-                potentialEconomicalCost: "0",
-                potentialEconomicalSaving: "high+++",
-                skilledScrew: "Not required",
-                potentialApplication: "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"
-              },
-            color: "#00ff00"
-          },
-          {
-            code: "ReuNF",
-            solution:
-              {
-                name: "Reuse as nanofiltration-like membranes",
-                freeChlorinePatent: 0,
-                freeChlorineQualitative: 0,
-                potentialEnvironmentReduction: "high+++",
-                potentialEconomicalCost: "0",
-                potentialEconomicalSaving: "high+++",
-                skilledScrew: "Not required",
-                potentialApplication: "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"
-              },
-            color: "#66ff66"
-          },
-          {
-            code: "RegRO",
-            solution:
-              {
-                name: "Regenerate to reuse as reverse osmosis membranes",
-                freeChlorinePatent: 0,
-                freeChlorineQualitative: 0,
-                potentialEnvironmentReduction: "high+++",
-                potentialEconomicalCost: "0",
-                potentialEconomicalSaving: "high+++",
-                skilledScrew: "Not required",
-                potentialApplication: "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"
-              },
-            color: "#99ff33"
-          },
-          {
-            code: "RegNF",
-            solution:
-              {
-                name: "Regenerate to reuse as nanofiltration membranes",
-                freeChlorinePatent: 0,
-                freeChlorineQualitative: 0,
-                potentialEnvironmentReduction: "high+++",
-                potentialEconomicalCost: "0",
-                potentialEconomicalSaving: "high+++",
-                skilledScrew: "Not required",
-                potentialApplication: "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"
-              },
-            color: "#ccff33"
-          },
-          {
-            code: "RecNF",
-            solution:
-              {
-                name: "Recycling into nanofiltration-like membranes",
-                freeChlorinePatent: 0,
-                freeChlorineQualitative: 0,
-                potentialEnvironmentReduction: "high+++",
-                potentialEconomicalCost: "0",
-                potentialEconomicalSaving: "high+++",
-                skilledScrew: "Not required",
-                potentialApplication: "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"
-              },
-            color: "#33cc33"
-          },
-          {
-            code: "RecUF",
-            color: "#77933c",
-            solution:
-              {
-                name: "Recycling into ultrafiltration-like membranes",
-                freeChlorinePatent: 0,
-                freeChlorineQualitative: 0,
-                potentialEnvironmentReduction: "high+++",
-                potentialEconomicalCost: "0",
-                potentialEconomicalSaving: "high+++",
-                skilledScrew: "Not required",
-                potentialApplication: "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"
-              },
-          },
+          {code: "ReuRO", name: "Reuse as reverse osmosis membranes",               color: "#00ff00"},
+          {code: "ReuNF", name: "Reuse as nanofiltration-like membranes",           color: "#66ff66"},
+          {code: "RegRO", name: "Regenerate to reuse as reverse osmosis membranes", color: "#99ff33"},
+          {code: "RegNF", name: "Regenerate to reuse as nanofiltration membranes",  color: "#ccff33"},
+          {code: "RecNF", name: "Recycling into nanofiltration-like membranes",     color: "#33cc33"},
+          {code: "RecUF", name: "Recycling into ultrafiltration-like membranes",    color: "#77933c"},
           {
             code: {
               "Type of RO membrane": "Reverse osmosis brackish model design",
@@ -5144,7 +5068,7 @@
             "Type of RO membrane": get_question("T").value,
             "Permeability": get_question("PV").value,
             "% Salt rejection": get_question("R").value,
-            "Alternative end-of-life RO membrane management recommended": survey2Output.solution.name,
+            "Alternative end-of-life RO membrane management recommended": survey2Output.name,
           };
           /*
           let auxObject = {
@@ -5163,6 +5087,27 @@
 
         }
         return [];
+
+      },
+      get_solutions_for_case_studies() {
+        let solutions = [];
+        let aux = this.get_management_survey2();
+        let options = this.membrane_reuse_options;
+        console.log("solutions: ",this.available_solutions);
+        console.log("aux: ", aux);
+        this.available_solutions.forEach(function (sol) {
+          let code = sol.code;
+          if((code === "AM" || code === "AMR" || code === "IC")){
+            if(aux !== ""){
+              let survey2Output = options.find(q=>q.code == aux);
+              console.log(survey2Output);
+              solutions.push(survey2Output);
+            }
+          } else
+            solutions.push(sol);
+        });
+        solutions = [ ...new Set(solutions) ]; //removes duplicate solutions.
+        return solutions;
 
       }
     }
