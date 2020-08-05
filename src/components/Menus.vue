@@ -1128,7 +1128,8 @@
     width: 100%;
   }
   .tabBox {
-    min-height: 70vh;
+    height: 70vh;
+    overflow-y: scroll;
   }
   .remapToolbox {
     position: relative;
