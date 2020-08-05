@@ -34,14 +34,14 @@
                 b-tab#solutions(title="SOLUTIONS" active).p-3.tabBox
                   b Alternative end-of-life membrane management
                   //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
-                  div.membrane_reuse(v-for="s in get_available_solutions" :id="s.code" :key="s.code" :style="`background:${s.color}`")  {{ s.name }}
+                  div.membrane_reuse(v-for="s  in get_available_solutions" :id="s.code" :key="s.code" :style="`background:${s.color}`")  {{ s.name }}
                   br
 
                   template(v-if="result_survey_2.length !== 0")
                     b Considerations to reproduce the recommended second-hand membranes
                     //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}
                     div.membrane_reuse(v-for="s in result_survey_2")
-                      b-table(striped hover :items="[s.survey2Result]")
+                      b-table(stacked small outlined :items="[s.survey2Result]")
 
                 b-tab#caseStudies(title="CASE STUDIES").p-3.tabBox
                   CaseStudies(
@@ -194,8 +194,7 @@
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[26-55]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high ++",
               "Skilled crew for the production of secon-hand membrane production ": "medium",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"
-            }
+              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -211,8 +210,7 @@
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[26-55]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +",
               "Skilled crew for the production of secon-hand membrane production ": "high",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"
-            }
+              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -228,8 +226,7 @@
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high ",
               "Skilled crew for the production of secon-hand membrane production ": "low ",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"
-            }
+              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -240,12 +237,12 @@
             },
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-              "Free chlorine exposure dose qualitative": "high +++",
-              "Potential environmental reduction for the production of second-hand membranes": "0",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high +++",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Not required",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"
-            }
+              "Free chlorine exposure dose qualitative": "0",
+              "Potential environmental reduction for the production of second-hand membranes": "high +++",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+              "Skilled crew for the production of secon-hand membrane production ": "Not required",
+              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -256,12 +253,12 @@
             },
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-              "Free chlorine exposure dose qualitative": "high +++",
-              "Potential environmental reduction for the production of second-hand membranes": "0",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high +++",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Not required",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"
-            }
+              "Free chlorine exposure dose qualitative": "0",
+              "Potential environmental reduction for the production of second-hand membranes": "high +++",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+              "Skilled crew for the production of secon-hand membrane production ": "Not required",
+              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -273,11 +270,11 @@
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "[10,000-60,000] ppm h",
               "Free chlorine exposure dose qualitative": "high",
-              "Potential environmental reduction for the production of second-hand membranes": "[32-63]",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "low ",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"
-            }
+              "Potential environmental reduction for the production of second-hand membranes": "high",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high",
+              "Skilled crew for the production of secon-hand membrane production ": "low ",
+              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -288,12 +285,12 @@
             },
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-              "Free chlorine exposure dose qualitative": "high +++",
-              "Potential environmental reduction for the production of second-hand membranes": "0",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high +++",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Not required",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"
-            }
+              "Free chlorine exposure dose qualitative": "0",
+              "Potential environmental reduction for the production of second-hand membranes": "high +++",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+              "Skilled crew for the production of secon-hand membrane production ": "Not required",
+              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -304,12 +301,12 @@
             },
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-              "Free chlorine exposure dose qualitative": "high +++",
-              "Potential environmental reduction for the production of second-hand membranes": "0",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high +++",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Not required",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"
-            }
+              "Free chlorine exposure dose qualitative": "0",
+              "Potential environmental reduction for the production of second-hand membranes": "high +++",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+              "Skilled crew for the production of secon-hand membrane production ": "Not required",
+              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -321,11 +318,11 @@
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "[10,000-60,000] ppm h",
               "Free chlorine exposure dose qualitative": "high",
-              "Potential environmental reduction for the production of second-hand membranes": "[32-63]",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "low ",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"
-            }
+              "Potential environmental reduction for the production of second-hand membranes": "high",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high",
+              "Skilled crew for the production of secon-hand membrane production ": "low ",
+              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -341,8 +338,7 @@
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[33-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high ++",
               "Skilled crew for the production of secon-hand membrane production ": "medium",
-              "Potential application of the second hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"
-            }
+              "Potential application of the second hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"            }
           },
           {
             code: {
@@ -358,8 +354,7 @@
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[33-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +",
               "Skilled crew for the production of secon-hand membrane production ": "high",
-              "Potential application of the second hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"
-            }
+              "Potential application of the second hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"            }
           },
           {
             code: {
@@ -375,8 +370,7 @@
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[42-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high ",
               "Skilled crew for the production of secon-hand membrane production ": "low ",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"
-            }
+              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -387,12 +381,12 @@
             },
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-              "Free chlorine exposure dose qualitative": "high +++",
-              "Potential environmental reduction for the production of second-hand membranes": "0",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high +++",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Not required",
-              "Skilled crew for the production of secon-hand membrane production ": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"
-            }
+              "Free chlorine exposure dose qualitative": "0",
+              "Potential environmental reduction for the production of second-hand membranes": "high +++",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+              "Skilled crew for the production of secon-hand membrane production ": "Not required",
+              "Potential application of the second hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"            }
           },
           {
             code: {
@@ -403,12 +397,12 @@
             },
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-              "Free chlorine exposure dose qualitative": "high +++",
-              "Potential environmental reduction for the production of second-hand membranes": "0",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high +++",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Not required",
-              "Skilled crew for the production of secon-hand membrane production ": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"
-            }
+              "Free chlorine exposure dose qualitative": "0",
+              "Potential environmental reduction for the production of second-hand membranes": "high +++",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+              "Skilled crew for the production of secon-hand membrane production ": "Not required",
+              "Potential application of the second hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"            }
           },
           {
             code: {
@@ -420,11 +414,11 @@
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "[20,000-200,000] ppm h",
               "Free chlorine exposure dose qualitative": "high",
-              "Potential environmental reduction for the production of second-hand membranes": "[42-63]",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "low ",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"
-            }
+              "Potential environmental reduction for the production of second-hand membranes": "high",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "[42-63]",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high",
+              "Skilled crew for the production of secon-hand membrane production ": "low ",
+              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -435,12 +429,12 @@
             },
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-              "Free chlorine exposure dose qualitative": "high +++",
-              "Potential environmental reduction for the production of second-hand membranes": "0",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high +++",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Not required",
-              "Skilled crew for the production of secon-hand membrane production ": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"
-            }
+              "Free chlorine exposure dose qualitative": "0",
+              "Potential environmental reduction for the production of second-hand membranes": "high +++",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+              "Skilled crew for the production of secon-hand membrane production ": "Not required",
+              "Potential application of the second hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"            }
           },
           {
             code: {
@@ -451,11 +445,11 @@
             },
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-              "Free chlorine exposure dose qualitative": "high +++",
-              "Potential environmental reduction for the production of second-hand membranes": "0",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high +++",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Not required"
-            }
+              "Free chlorine exposure dose qualitative": "0",
+              "Potential environmental reduction for the production of second-hand membranes": "high +++",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+              "Skilled crew for the production of secon-hand membrane production ": "Not required"            }
           },
           {
             code: {
@@ -467,11 +461,11 @@
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "[20,000-200,000] ppm h",
               "Free chlorine exposure dose qualitative": "high",
-              "Potential environmental reduction for the production of second-hand membranes": "[42-63]",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "low ",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"
-            }
+              "Potential environmental reduction for the production of second-hand membranes": "high",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "[42-63]",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high",
+              "Skilled crew for the production of secon-hand membrane production ": "low ",
+              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -487,8 +481,7 @@
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[26-55]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high ++",
               "Skilled crew for the production of secon-hand membrane production ": "medium",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"
-            }
+              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -504,8 +497,7 @@
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +",
               "Skilled crew for the production of secon-hand membrane production ": "low ",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"
-            }
+              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -521,8 +513,7 @@
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high ",
               "Skilled crew for the production of secon-hand membrane production ": "low",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"
-            }
+              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -533,12 +524,12 @@
             },
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-              "Free chlorine exposure dose qualitative": "high +++",
-              "Potential environmental reduction for the production of second-hand membranes": "0",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high +++",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Not required",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"
-            }
+              "Free chlorine exposure dose qualitative": "0",
+              "Potential environmental reduction for the production of second-hand membranes": "high +++",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+              "Skilled crew for the production of secon-hand membrane production ": "Not required",
+              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -549,12 +540,12 @@
             },
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-              "Free chlorine exposure dose qualitative": "high +++",
-              "Potential environmental reduction for the production of second-hand membranes": "0",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high +++",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Not required",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"
-            }
+              "Free chlorine exposure dose qualitative": "0",
+              "Potential environmental reduction for the production of second-hand membranes": "high +++",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+              "Skilled crew for the production of secon-hand membrane production ": "Not required",
+              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -566,11 +557,11 @@
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "[10,000-60,000] ppm h",
               "Free chlorine exposure dose qualitative": "high",
-              "Potential environmental reduction for the production of second-hand membranes": "[32-63]",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "low",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"
-            }
+              "Potential environmental reduction for the production of second-hand membranes": "high",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high",
+              "Skilled crew for the production of secon-hand membrane production ": "low",
+              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -581,12 +572,12 @@
             },
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-              "Free chlorine exposure dose qualitative": "high +++",
-              "Potential environmental reduction for the production of second-hand membranes": "0",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high +++",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Not required",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"
-            }
+              "Free chlorine exposure dose qualitative": "0",
+              "Potential environmental reduction for the production of second-hand membranes": "high +++",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+              "Skilled crew for the production of secon-hand membrane production ": "Not required",
+              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -597,12 +588,12 @@
             },
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-              "Free chlorine exposure dose qualitative": "high +++",
-              "Potential environmental reduction for the production of second-hand membranes": "0",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high +++",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Not required",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"
-            }
+              "Free chlorine exposure dose qualitative": "0",
+              "Potential environmental reduction for the production of second-hand membranes": "high +++",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+              "Skilled crew for the production of secon-hand membrane production ": "Not required",
+              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -614,39 +605,43 @@
             survey2Result: {
               "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "[10,000-60,000] ppm h",
               "Free chlorine exposure dose qualitative": "high",
-              "Potential environmental reduction for the production of second-hand membranes": "[32-63]",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "low",
-              "Skilled crew for the production of secon-hand membrane production ": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"
-            }
+              "Potential environmental reduction for the production of second-hand membranes": "high",
+              "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high",
+              "Skilled crew for the production of secon-hand membrane production ": "low",
+              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
+              "permeabiltiy": null,
+              "saltRejection": null,
               "membraneReuse": "Indirect recycling",
             },
             survey2Result: {
-              "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "high",
-              "Free chlorine exposure dose qualitative": ">63",
+              "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "[10,000-200,000] ppm h",
+              "Free chlorine exposure dose qualitative": "high",
               "Potential environmental reduction for the production of second-hand membranes": "high",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water). It requires taking out the fiber glass casing",
-              "Skilled crew for the production of secon-hand membrane production ": "high"
-            }
+              "Potential economical cost for the production of second-hand membranes, quantitative €": ">63",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high",
+              "Skilled crew for the production of secon-hand membrane production ": "high",
+              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water). It requires taking out the fiber glass casing"            }
           },
           {
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
+              "permeabiltiy": null,
+              "saltRejection": null,
               "membraneReuse": "Indirect recycling",
             },
             survey2Result: {
-              "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "high",
-              "Free chlorine exposure dose qualitative": ">63",
+              "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "[10,000-200,000] ppm h",
+              "Free chlorine exposure dose qualitative": "high",
               "Potential environmental reduction for the production of second-hand membranes": "high",
-              "Potential economical cost for the production of second-hand membranes, quantitative €": "high",
-              "Potential economical saving for the production of second-hand membranes, qualitative": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water). It requires taking out the fiber glass casing",
-              "Skilled crew for the production of secon-hand membrane production ": "high"
-            }
+              "Potential economical cost for the production of second-hand membranes, quantitative €": ">63",
+              "Potential economical saving for the production of second-hand membranes, qualitative": "high",
+              "Skilled crew for the production of secon-hand membrane production ": "high",
+              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           }
 
 
@@ -1004,6 +999,15 @@
         } else
           return fouling_value;
       },
+      compare_membrane_reuse(){
+        /*
+      if(obj1.membraneReuse === obj2.membraneReuse)
+        return true;
+      else
+        return false;
+      }*/
+        return true;
+      }
 
     },
     computed: {
@@ -1015,23 +1019,38 @@
 
         let code = this.get_management_survey2();
         let survey2Output = this.membrane_reuse_options.find(q=>q.code==code);
-        if (survey2Output){
-          let get_question = this.get_question_by_code;
-          let auxObject = {
-            "typeMembrane": get_question("T").value,
-            "permeabiltiy": get_question("PV").value,
-            "saltRejection": get_question("R").value,
+        let auxObject;
+        let get_question = this.get_question_by_code;
+
+        let membrane = get_question("T").value;
+        let perm = get_question("PV").value;
+        let rejection = get_question("R").value;
+
+        if (survey2Output) {
+          auxObject = {
+            "typeMembrane": membrane,
+            "permeabiltiy": perm,
+            "saltRejection": rejection,
             "membraneReuse": survey2Output.name,
           };
-
+        }else if(this.available_solutions.length === 1 && this.available_solutions[0].code === "IR" && (membrane === "Reverse osmosis brackish model design" || membrane === "Reverse osmosis sea model design")){  //Indirect Recycling
+          auxObject = {
+            "typeMembrane": membrane,
+            "permeabiltiy": null,
+            "saltRejection": null,
+            "membraneReuse": "Indirect recycling",
+          };
+        }else{
+          return [];
+        }
 
           let ret = this.membrane_reuse_options.find(i => _.isEqual(i.code, auxObject));
 
           if(!ret) return [];
           else return [ret];
 
-        }
-        return [];
+
+
 
       },
       get_solutions_for_case_studies() {
