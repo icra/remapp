@@ -960,16 +960,15 @@
             else if (rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
           } else if (permeability == ">5-fold comparing to the design value") {
             if (rejection == ">10% of NaCl and >30% of MgSO4") return "ReuNF"
+            else if (rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
+            else if (rejection == "<15% comparing to the design value") return "ReuRO"
           }
         } else if (type == "Nanofiltration") {
           if (permeability == "<1-fold comparing to the design value") {
             if (rejection == "<15% comparing to the design value") return "RegNF"
-            else if (rejection == ">10% of NaCl and >30% of MgSO4") return "RecUF"
-          } else if (permeability == "[1-5]-fold comparing to the design value") {
-            if (rejection == ">10% of NaCl and >30% of MgSO4") return "ReuNF"
-            else if (rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
-          } else if (permeability == ">5-fold comparing to the design value") {
-            if (rejection == "<15% comparing to the design value") return "ReuNF"
+            else if (rejection == ">10% of NaCl and >30% of MgSO4" || rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
+          } else if (permeability == "[1-5]-fold comparing to the design value" || permeability == ">5-fold comparing to the design value") {
+            if (rejection == ">10% of NaCl and >30% of MgSO4" || rejection == "<15% comparing to the design value") return "ReuNF"
             else if (rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
           }
         }
