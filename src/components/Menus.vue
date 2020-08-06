@@ -45,7 +45,7 @@
                     b Considerations to reproduce the recommended second-hand membranes
                     //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}
                     div.membrane_reuse(v-for="s in result_survey_2")
-                      b-table(stacked small outlined :items="[s.survey2Result]")
+                      b-table(stacked small outlined :fields="table_fields" :items="[adapt_survey_2_result(s)]")
 
                 b-tab#caseStudies(title="CASE STUDIES").p-3.tabBox
                   CaseStudies(
@@ -81,7 +81,25 @@
     },
     data() {
       return {
-        questions: [
+
+        table_fields: [
+          {
+            key: "Membrane reuse",
+            isRowHeader: true,
+            label: "Membrane reuse",
+            //thStyle: {background: '#3eef33'},
+            variant: "danger"
+          },
+          "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931",
+          "Free chlorine exposure dose qualitative",
+          "Potential environmental reduction for the production of second-hand membranes",
+          "Potential economical cost for the production of second-hand membranes, quantitative €",
+          "Potential economical saving for the production of second-hand membranes, qualitative",
+          "Skilled crew for the production of secon-hand membrane production ",
+          "Potential application of the second hand membranes"
+        ],
+
+      questions: [
           // Survey 1
           {
             code: "T",
@@ -1002,6 +1020,11 @@
         } else
           return fouling_value;
       },
+      adapt_survey_2_result(solution){
+        //let ret = solution.survey2Result;
+        let aux = {"Membrane reuse": solution.code.membraneReuse}
+        return Object.assign(aux, solution.survey2Result);
+      }
 
 
     },
@@ -1045,8 +1068,6 @@
             "saltRejection": rejection,
             "membraneReuse": survey2Output.name,
           };
-          console.log("aaaaa");
-          console.log(auxObject)
         }else if(this.available_solutions.length === 1 && this.available_solutions[0].code === "IR" && (membrane === "Reverse osmosis brackish model design" || membrane === "Reverse osmosis sea model design")){  //Indirect Recycling
           auxObject = {
             "typeMembrane": membrane,
@@ -1062,7 +1083,9 @@
           console.log("bbbbb");
           console.log(ret)
           if(!ret) return [];
-          else return [ret];
+          else {
+            return [ret];
+          }
 
 
 
