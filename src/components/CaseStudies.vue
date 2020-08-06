@@ -3,12 +3,18 @@
     b-container(fluid="true")
       //p {{ solutionCode }}
       b-row(v-for="c in get_cases_to_show" :key="c" )
-        b-col(lg="8" sm="12" xl="6" )
+        b-col(sm="10" xl="5" offset-sm="1" offset-xl="0" align-self="center")
           b-img(:src="get_case_path({c})" fluid style="max-width: 100%; max-height: 100%;")
-        b-col(lg="8" sm="12" xl="6" )
+        b-col(sm="12" xl="7" )
           //div(v-text="get_image_info({c})")
-          b-table(stacked :items="[get_image_info({c})]")
-        b-dropdown-divider(style="height: 0; margin: 0 0 0.75rem 0; overflow: hidden; border-top: 1px solid var(--light-gray-primary);")
+          b-table(stacked small outlined :items="[get_image_info({c})]" :fields="table_fields" )
+            template(v-slot:cell(website)="{ value }")
+              b-link.url(:href="value" target="_blank") {{ value }}
+            template(v-slot:cell(results)="{ value }")
+              b-link.url(:href="value" target="_blank") {{ value }}
+            template(v-slot:cell(contacts)="{ value }")
+              b-link.url(:href="'mailto:'+value+'?Subject=reverse osmosis and nanofiltration membranes'" target="_blank") {{ value }}
+        b-dropdown-divider(style="height: 0px; margin: 0px 0.75rem 0.75rem; width: 100%; overflow: hidden; border-top: 2px solid var(--green-primary);")
 
 </template>
 
@@ -340,7 +346,7 @@
             "Research  - Business activity": "Preparing for reuse & Direct reuse",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Life Remembrane: demonstration plant in which diverse mechanical and chemical treatments are developed in order to recover these membranes to reuse them in reverse osmosis technology ",
-            "Main results / products": "http://life-remembrane.eu/results/",
+            "results": "http://life-remembrane.eu/results/",
             "Mailing address of the supervising organization": "Aqualia gestión integral del agua, S.A. Av. del Camino de Santiago, 40. 28050, Madrid, Spain",
             "Contacts": "mviallon@leitat.org"
           },
@@ -355,7 +361,7 @@
             "Research  - Business activity": "Direct reuse and preparing for reuse",
             "Scale of implementation": "Industrial",
             "Main Investigation": "Cleans, tests, repackages, and repurposes used RO, UF and NF membranes and associated equipment at significant cost savings to the user",
-            "Main results / products": "https://www.watersurplus.com/surplus-assets.cfm?c=MEM&s=286&a=Membrane%20Elements&b=RO%20-%20Brackish%208%20Inch&#10;https://www.watersurplus.com/surplus-assets.cfm?c=MEM&s=286&a=Membrane%20Elements&b=RO%20-%20Brackish%208%20Inch&#10;",
+            "results": "https://www.watersurplus.com/surplus-assets.cfm?c=MEM&s=286&a=Membrane%20Elements&b=RO%20-%20Brackish%208%20Inch&#10;https://www.watersurplus.com/surplus-assets.cfm?c=MEM&s=286&a=Membrane%20Elements&b=RO%20-%20Brackish%208%20Inch&#10;",
             "Mailing address of the supervising organization": "726 Beacon Street, 61111, Loves Park, IL ",
             "Contacts": "sales@watersurplus.com"
           },
@@ -370,7 +376,7 @@
             "Research  - Business activity": "Direct reuse and preparing for reuse",
             "Scale of implementation": "Industrial",
             "Main Investigation": "Refurbishment of old equipment supply of RO membranes",
-            "Main results / products": "https://www.pacificwatertreatment.com/refurbishments-service",
+            "results": "https://www.pacificwatertreatment.com/refurbishments-service",
             "Mailing address of the supervising organization": "PO Box 5869 Manly, Australia, 4179",
             "Contacts": "phil@avanale.com.au"
           },
@@ -385,7 +391,7 @@
             "Research  - Business activity": "Direct reuse and preparing for reuse",
             "Scale of implementation": "Industrial",
             "Main Investigation": "End-of-life RO membranes examination, cleaning and repackaging",
-            "Main results / products": "http://www.membraneservices.com/Recycled_Membranes.html",
+            "results": "http://www.membraneservices.com/Recycled_Membranes.html",
             "Mailing address of the supervising organization": "Membrane Services, LLC 10385 Commerce Row Suite C Montgomery, Texas 77356",
             "Contacts": "http://membraneservices.com/Contact_Us.html"
           },
@@ -400,9 +406,9 @@
             "Research  - Business activity": "Preparing for reuse",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Refurbishing of the used RO membrane through chemical cleaning and repairing with a new system",
-            "Main results / products": "https://www.sciencedirect.com/science/article/pii/S0011916413001756?via%3Dihub",
+            "results": "https://www.sciencedirect.com/science/article/pii/S0011916413001756?via%3Dihub",
             "Mailing address of the supervising organization": "Chemical Engineering School of Sichuan University, Chengdu, Sichuan 610065, China",
-            "Contacts": "li-yongsheng@scu.edu.cn, lysgxf2005@yahoo.com.cn (Y.-S."
+            "Contacts": "li-yongsheng@scu.edu.cn lysgxf2005@yahoo.com.cn"
           },
           {
             code: 6,
@@ -415,8 +421,8 @@
             "Research  - Business activity": "Application of recycled RO/NF/UF membranes ",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Eflucomp project: Application of recycled membranes for treating industrial wastewater ",
-            "Main results / products": "https://eurecat.org/es/portfolio-items/eflucomp/",
-            "Mailing address of the supervising organization": "Parc Científic i de la Innovació TecnoCampus, Av. de Ernest Lluch, 36, 08302 Mataró, Barcelona",
+            "results": "https://eurecat.org/es/portfolio-items/eflucomp/",
+            "Mailing address of the supervising organization": "Parc Científic i de la Innovació TecnoCampus, Av. d'Ernest Lluch, 36, 08302 Mataró, Barcelona",
             "Contacts": "xavier.martinez@eurecat.org"
           },
           {
@@ -430,7 +436,7 @@
             "Research  - Business activity": "Application of regenerated RO membranes (seawater models)",
             "Scale of implementation": "Industrial",
             "Main Investigation": "Mem2.0: Landfill leachate water treatment using end-of-life RO and regenerated membranes",
-            "Main results / products": "http://www.lequia.udg.edu/research/ongoing-projects/item/2621-mem2-0.html",
+            "results": "http://www.lequia.udg.edu/research/ongoing-projects/item/2621-mem2-0.html",
             "Mailing address of the supervising organization": "LEQUIA. Institut de Medi Ambient, Universitat de Girona. Campus Montilivi - 17003 Girona ",
             "Contacts": " joaquim.comas@udg.edu "
           },
@@ -445,8 +451,8 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Validation of recycled membranes for treating brackish water at pilot scale",
-            "Main results / products": "https://doi.org/10.1016/j.desal.2017.12.034",
-            "Mailing address of the supervising organization": "IMDEA WATER. Avenida Punto Com. n°2. 28805, Alcalá de Henares, Madrid, Spain",
+            "results": "https://doi.org/10.1016/j.desal.2017.12.034",
+            "Mailing address of the supervising organization": "IMDEA WATER. Avenida Punto Com, n°2 - 28805 Alcalá de Henares, Madrid, Spain",
             "Contacts": "membranas.agua@imdea.org"
           },
           {
@@ -460,8 +466,8 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Recycling of end-of-life reverse osmosis membranes: Comparative LCA and cost-effectiveness analysis at pilot scale",
-            "Main results / products": "https://doi.org/10.1016/j.resconrec.2019.104423",
-            "Mailing address of the supervising organization": "IMDEA WATER. Avenida Punto Com. n°2. 28805, Alcalá de Henares, Madrid, Spain",
+            "results": "https://doi.org/10.1016/j.resconrec.2019.104423",
+            "Mailing address of the supervising organization": "IMDEA WATER. Avenida Punto Com, n°2 - 28805 Alcalá de Henares, Madrid, Spain",
             "Contacts": "membranas.agua@imdea.org"
           },
           {
@@ -475,7 +481,7 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Mem2.0:Novel membrane housing designs for gravity-driven NF and UF recycled membrane-based systems",
-            "Main results / products": "http://www.lequia.udg.edu/research/ongoing-projects/item/2621-mem2-0.html",
+            "results": "http://www.lequia.udg.edu/research/ongoing-projects/item/2621-mem2-0.html",
             "Mailing address of the supervising organization": "LEQUIA. Institut de Medi Ambient, Universitat de Girona. Campus Montilivi - 17003 Girona ",
             "Contacts": " joaquim.comas@udg.edu "
           },
@@ -490,7 +496,7 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Lab",
             "Main Investigation": "Evaluation of parameters that affect the efficiency of end-of-life RO membrane recycling by chemical oxidization / Extending the life-cycle of reverse osmosis membranes: A review ",
-            "Main results / products": "http://journals.sagepub.com/doi/10.1177/0734242X16684383",
+            "results": "http://journals.sagepub.com/doi/10.1177/0734242X16684383",
             "Mailing address of the supervising organization": "Federal University of Itajubá, Itabira, Minas Gerais, Brazil ",
             "Contacts": "ecoutinho@unifei.edu.br"
           },
@@ -505,7 +511,7 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Lab",
             "Main Investigation": "Rejuvenating polyamide reverse osmosis membranes by tannic acid treatment",
-            "Main results / products": "https://www.sciencedirect.com/science/article/pii/S1383586612004108",
+            "results": "https://www.sciencedirect.com/science/article/pii/S1383586612004108",
             "Mailing address of the supervising organization": "UFRGS. Department of Chemical Engineering, Universidade Federal do Rio Grande do Sul, 90040-040 Porto Alegre, RS, Brazil",
             "Contacts": "isabel@enq.ufrgs.br"
           },
@@ -520,7 +526,7 @@
             "Research  - Business activity": "Direct recycling ",
             "Scale of implementation": "Lab / Pilot",
             "Main Investigation": "Use of end-of-life RO membranes to treat wastewater for industrial and Agricultural use",
-            "Main results / products": "https://www.medrc.org/kick-off-meeting-for-membrane-reuse-project/",
+            "results": "https://www.medrc.org/kick-off-meeting-for-membrane-reuse-project/",
             "Mailing address of the supervising organization": "The Middle East Desalination Research Center (MEDRC) ",
             "Contacts": "elkharraz@medrc.org"
           },
@@ -535,7 +541,7 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Lab",
             "Main Investigation": "Study on Potassium Permanganate Chemical Treatment of Discarded Reverse Osmosis Membranes Aiming their Reuse",
-            "Main results / products": "https://www.tandfonline.com/doi/abs/10.1080/01496395.2012.745876",
+            "results": "https://www.tandfonline.com/doi/abs/10.1080/01496395.2012.745876",
             "Mailing address of the supervising organization": "Laboratory ofMembrane Separation Processes, Department of Chemical Engineering,  Universidade Federal do Rio Grande do Sul, Porto Alegre, Brazil",
             "Contacts": "alan.ambrosi@gmail.com"
           },
@@ -550,7 +556,7 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Reusing old seawater RO membranes in wastewater, conversion to a type of microfiltration membrane",
-            "Main results / products": "https://www.sciencedirect.com/science/article/pii/S0011916403003849 ; https://www.sciencedirect.com/science/article/pii/S0011916402009773",
+            "results": "https://www.sciencedirect.com/science/article/pii/S0011916403003849 ; https://www.sciencedirect.com/science/article/pii/S0011916402009773",
             "Mailing address of the supervising organization": "Departemento de Ingenieria de Procesos, Universidad de Las Palmas de Gran Canaria (ULPGC), Campus Tafira Baja, E-35017 Las Palmas de Gran Canaria, Spain ",
             "Contacts": "jveza@dip.ulpgc.es"
           },
@@ -565,7 +571,7 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Lab",
             "Main Investigation": "Production and characterisation of UF membranes by chemical conversion of used RO membranes",
-            "Main results / products": "https://doi.org/10.1016/j.memsci.2013.07.015",
+            "results": "https://doi.org/10.1016/j.memsci.2013.07.015",
             "Mailing address of the supervising organization": "The UNESCO Centre for Membrane Science and Technology & University of New South Wales (UNSW). School of Chemical Engineering (F10 building), NSW, 2052, Australia",
             "Contacts": "p.le-clech@unsw.edu.au"
           },
@@ -580,7 +586,7 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Lab",
             "Main Investigation": "Comparative life cycle assessment of end-of-life options for reverse osmosis membranes",
-            "Main results / products": "https://doi.org/10.1016/j.desal.2014.10.013",
+            "results": "https://doi.org/10.1016/j.desal.2014.10.013",
             "Mailing address of the supervising organization": "The UNESCO Centre for Membrane Science and Technology & University of New South Wales (UNSW). School of Chemical Engineering (F10 building), NSW, 2052, Australia",
             "Contacts": "p.le-clech@unsw.edu.au"
           },
@@ -595,8 +601,8 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Life-Transfomem project. Production of recycled UF membranes for seawater treatment as substitution of standard sand filtration",
-            "Main results / products": "https://www.youtube.com/watch?v=DPp8uYN-iT8&feature=youtu.be",
-            "Mailing address of the supervising organization": "IMDEA WATER. Avenida Punto Com. n°2. 28805, Alcalá de Henares, Madrid, Spain",
+            "results": "https://www.youtube.com/watch?v=DPp8uYN-iT8&feature=youtu.be",
+            "Mailing address of the supervising organization": "IMDEA WATER. Avenida Punto Com, n°2 - 28805 Alcalá de Henares, Madrid, Spain",
             "Contacts": "membranas.agua@imdea.org"
           },
           {
@@ -610,8 +616,8 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Life-Transfomem project. Production of recycled UF membranes for wastewater treatment. Spiral-wound, semiopened and star configurations",
-            "Main results / products": "https://drive.google.com/file/d/1AZxH825pFNvNKMYyNBoTDKOu80dR2DL4/view",
-            "Mailing address of the supervising organization": "IMDEA WATER. Avenida Punto Com. n°2. 28805, Alcalá de Henares, Madrid, Spain",
+            "results": "https://drive.google.com/file/d/1AZxH825pFNvNKMYyNBoTDKOu80dR2DL4/view",
+            "Mailing address of the supervising organization": "IMDEA WATER. Avenida Punto Com, n°2 - 28805, Alcalá de Henares, Madrid, Spain",
             "Contacts": "membranas.agua@imdea.org"
           },
           {
@@ -625,7 +631,7 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Lab",
             "Main Investigation": "Environmental and economic evaluation of end-of-life reverse osmosis membranes recycling by means of chemical conversion",
-            "Main results / products": "https://www.sciencedirect.com/science/article/pii/S0959652618314355#!",
+            "results": "https://www.sciencedirect.com/science/article/pii/S0959652618314355#!",
             "Mailing address of the supervising organization": "Department of Sanitary and Environmental Engineering, Federal University of Minas Gerais, Av. Antônio Carlos, no. 6627, Pampulha, Belo Horizonte, Minas Gerais, Brazil",
             "Contacts": "ecoutinho@desa.ufmg.br"
           },
@@ -640,7 +646,7 @@
             "Research  - Business activity": "Application of recyed UF membrane ",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Nextgenwater project: Application of recyed UF membrane for water reclaiming",
-            "Main results / products": "https://nextgenwater.eu/demonstration-cases/costa-brava-region/",
+            "results": "https://nextgenwater.eu/demonstration-cases/costa-brava-region/",
             "Mailing address of the supervising organization": "Gelderlandhaven 7D, 3433 PG Nieuwegein, Netherlands",
             "Contacts": "xavier.martinez@eurecat.org"
           },
@@ -655,8 +661,8 @@
             "Research  - Business activity": "Application of recyed UF membrane ",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Regireu project: Application of recycled membranes for treating urban wastewater",
-            "Main results / products": "https://eurecat.org/es/portfolio-items/regireu/",
-            "Mailing address of the supervising organization": "Parc Científic i de la Innovació TecnoCampus, Av. de Ernest Lluch, 36, 08302 Mataró, Barcelona",
+            "results": "https://eurecat.org/es/portfolio-items/regireu/",
+            "Mailing address of the supervising organization": "Parc Científic i de la Innovació TecnoCampus, Av. d'Ernest Lluch, 36 - 08302 Mataró, Barcelona",
             "Contacts": "xavier.martinez@eurecat.org"
           },
           {
@@ -670,7 +676,7 @@
             "Research  - Business activity": "Direct reuse ",
             "Scale of implementation": "Industrial",
             "Main Investigation": "Collecting unwanted or used Reverse Osmosis membranes from water treatment plants with the aim to dispose, recycle, or repurpose them for a different application",
-            "Main results / products": "https://aquatip.com.au/services/",
+            "results": "https://aquatip.com.au/services/",
             "Mailing address of the supervising organization": "Sydney, Australia",
             "Contacts": "director@aquatip.com.au"
           },
@@ -685,7 +691,7 @@
             "Research  - Business activity": "Direct reuse",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Wastewater reclamation using discarded reverse osmosis membranes for reuse in irrigation in Djibouti, an arid country",
-            "Main results / products": "https://www.ncbi.nlm.nih.gov/pubmed/23508163",
+            "results": "https://www.ncbi.nlm.nih.gov/pubmed/23508163",
             "Mailing address of the supervising organization": "Centre d’Etude et de Recherche de Djibouti (CERD), Djibouti",
             "Contacts": "awaleh@gmail.com"
           },
@@ -700,7 +706,7 @@
             "Research  - Business activity": "Direct reuse",
             "Scale of implementation": "Lab",
             "Main Investigation": "Virus removal (MS2 phage) and four membrane integrity indicators (salt, dissolved organic matter, rhodamine WT and sulphateand) in aged RO membranes ",
-            "Main results / products": "https://www.sciencedirect.com/science/article/pii/S0043135415304206",
+            "results": "https://www.sciencedirect.com/science/article/pii/S0043135415304206",
             "Mailing address of the supervising organization": "Advanced Water Management Centre, The University of Queensland, Brisbane, QLD 4072, Australia",
             "Contacts": "m.pype@awmc.uq.edu.au"
           },
@@ -715,7 +721,7 @@
             "Research  - Business activity": "Direct reuse",
             "Scale of implementation": "Lab/Pilot",
             "Main Investigation": "Reuse of end-of-life RO membranes as NF membranes",
-            "Main results / products": "https://www.sciencedirect.com/science/article/pii/S0011916409013204",
+            "results": "https://www.sciencedirect.com/science/article/pii/S0011916409013204",
             "Mailing address of the supervising organization": "GEPEA, UMR CNRS 6144, Université de Nantes, 37 Bd. de l'université, CRTT BP406, 44602 Saint-Nazaire, France",
             "Contacts": "maxime.pontie@univ-angers.fr"
           },
@@ -730,8 +736,8 @@
             "Research  - Business activity": "Application of regenerated RO membranes for high concentrated sodium-sulfate solutions of industry",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Application of recycled NF membranes for high concentrated sodium-sulfate solutions of silica industry ",
-            "Main results / products": "http://www.zerobrine.eu/pilot-projects/spain/",
-            "Mailing address of the supervising organization": "TU Delft – Valorisation Centre&#10;Building 26&#10;Van der Burgh Tower – 4th floor&#10;Van der Burghweg 1&#10;2628CS Delft",
+            "results": "http://www.zerobrine.eu/pilot-projects/spain/",
+            "Mailing address of the supervising organization": "TU Delft – Valorisation Centre, Building 26 Van der Burgh Tower – 4th floor. Van der Burghweg 1 Delft",
             "Contacts": "info@revolve.media"
           },
           {
@@ -745,8 +751,8 @@
             "Research  - Business activity": "Application of recycled membranes",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Life-Releach: new landfill leachate treatment strategies based on the use of different existing technologies including recycled NF and RO membranes",
-            "Main results / products": "http://releach.ctm.com.es/en/the-project/main-project-results",
-            "Mailing address of the supervising organization": "Centro Tecnológico de Manresa (CTM). Plaça de la Ciència, 2 08243 Manresa (Barcelona)",
+            "results": "http://releach.ctm.com.es/en/the-project/main-project-results",
+            "Mailing address of the supervising organization": "Centro Tecnológico de Manresa (CTM). Plaça de la Ciència, 2 - 08243 Manresa (Barcelona)",
             "Contacts": "xavier.martinez@eurecat.org"
           },
           {
@@ -760,7 +766,7 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Lab",
             "Main Investigation": "End-of-life RO membranes recycling: Reuse as NF membranes by polyelectrolyte layer-by-layer deposition",
-            "Main results / products": "https://www.sciencedirect.com/science/article/pii/S0376738818327728",
+            "results": "https://www.sciencedirect.com/science/article/pii/S0376738818327728",
             "Mailing address of the supervising organization": "LUT School of Engineering Science, Lappeenranta University of Technology, Lappeenranta 53851, Finland",
             "Contacts": "arto.pihlajamaki@lut.fi"
           },
@@ -775,7 +781,7 @@
             "Research  - Business activity": "Direct recycling",
             "Scale of implementation": "Lab / Pilot",
             "Main Investigation": "Bench and pilot scale performance assessment of recycled membrane converted from old nanofiltration membranes",
-            "Main results / products": "https://doi.org/10.1080/09593330.2018.1526218",
+            "results": "https://doi.org/10.1080/09593330.2018.1526218",
             "Mailing address of the supervising organization": "Department of Sanitary and Environmental Engineering, Federal University of Minas Gerais, Av. Antônio Carlos, no. 6627, Pampulha, Belo Horizonte, Minas Gerais, Brazil",
             "Contacts": "ecoutinho@desa.ufmg.br"
           },
@@ -790,7 +796,7 @@
             "Research  - Business activity": "Indirect recycling",
             "Scale of implementation": "Pilot",
             "Main Investigation": "Mem2.0: Novel membrane housing designs for gravity-driven NF and UF recycled membrane-based systems",
-            "Main results / products": "http://www.lequia.udg.edu/research/ongoing-projects/item/2621-mem2-0.html",
+            "results": "http://www.lequia.udg.edu/research/ongoing-projects/item/2621-mem2-0.html",
             "Mailing address of the supervising organization": "LEQUIA. Institut de Medi Ambient, Universitat de Girona. Campus Montilivi - 17003 Girona ",
             "Contacts": " joaquim.comas@udg.edu "
           },
@@ -805,8 +811,8 @@
             "Research  - Business activity": "Indirect recycling",
             "Scale of implementation": "Lab",
             "Main Investigation": "INREMEM project: innovation and recycling membranes  for water filtration(UF-MBR, FO, electrodyalisis, support)",
-            "Main results / products": "http://inremem.simplesite.com/",
-            "Mailing address of the supervising organization": "IMDEA Water. Avenida Punto Com. n°2. 28805, Alcalá de Henares, Madrid, Spain",
+            "results": "http://inremem.simplesite.com/",
+            "Mailing address of the supervising organization": "IMDEA Water. Avenida Punto Com, n°2 - 28805, Alcalá de Henares, Madrid, Spain",
             "Contacts": "membranas.agua@imdea.org"
           },
           {
@@ -820,8 +826,8 @@
             "Research  - Business activity": "Indirect recycling",
             "Scale of implementation": "Lab",
             "Main Investigation": "Circular economy in membrane technology: using end-of-life reverse osmosis modules for preparation of recycled anion exchange membranes and validation in electrodialysis.",
-            "Main results / products": "https://doi.org/10.1016/j.memsci.2019.117423",
-            "Mailing address of the supervising organization": "IMDEA Water. Avenida Punto Com. n°2. 28805, Alcalá de Henares, Madrid, Spain",
+            "results": "https://doi.org/10.1016/j.memsci.2019.117423",
+            "Mailing address of the supervising organization": "IMDEA Water. Avenida Punto Com, n°2 - 28805, Alcalá de Henares, Madrid, Spain",
             "Contacts": "membranas.agua@imdea.org"
           },
           {
@@ -835,8 +841,8 @@
             "Research  - Business activity": "Indirect recycling",
             "Scale of implementation": "Lab",
             "Main Investigation": "Recycled desalination membranes as a support material for biofilm development: A new approach for microcystin removal during water treatment",
-            "Main results / products": "http://dx.doi.org/10.1016/j.scitotenv.2018.07.435",
-            "Mailing address of the supervising organization": "IMDEA Water. Avenida Punto Com. n°2. 28805, Alcalá de Henares, Madrid, Spain",
+            "results": "http://dx.doi.org/10.1016/j.scitotenv.2018.07.435",
+            "Mailing address of the supervising organization": "IMDEA Water. Avenida Punto Com, n°2 - 28805, Alcalá de Henares, Madrid, Spain",
             "Contacts": "membranas.agua@imdea.org"
           },
           {
@@ -850,8 +856,8 @@
             "Research  - Business activity": "Indirect recycling",
             "Scale of implementation": "Industrial",
             "Main Investigation": "H2020 Remeb. Implementation and validation of a low cost recycled ceramic membrane bioreactor (MBR) for water reuse in a Wastewater Treatment Plant (WWTP)",
-            "Main results / products": "http://www.remeb-h2020.com/project-progress/",
-            "Mailing address of the supervising organization": "Grupo Gimeno. Av. del Mar, 53&#10;12003 Castellón de la Plana. Castellón Spain&#10;",
+            "results": "http://www.remeb-h2020.com/project-progress/",
+            "Mailing address of the supervising organization": "Grupo Gimeno. Av. del Mar, 53 - 12003 Castellón de la Plana, Castellón, Spain",
             "Contacts": "ezuriaga@facsa.com"
           },
           {
@@ -865,7 +871,7 @@
             "Research  - Business activity": "Indirect recycling",
             "Scale of implementation": "Industrial",
             "Main Investigation": "end-of-life membranes transportation and labeling, from the pickup on site until the recycling plant and special services for radioactive contaminated membranes if requested",
-            "Main results / products": "https://www.dme-gmbh.de/new-founded-company-memre-gmbh/",
+            "results": "https://www.dme-gmbh.de/new-founded-company-memre-gmbh/",
             "Mailing address of the supervising organization": "Memre. Achert 677889, Seebach,Germany ",
             "Contacts": "kontakt@memre.de"
           },
@@ -880,8 +886,8 @@
             "Research  - Business activity": "Indirect recycling",
             "Scale of implementation": "Lab/Pilot",
             "Main Investigation": "Old RO membranes: solutions for reuse",
-            "Main results / products": "https://www.tandfonline.com/doi/abs/10.1080/19443994.2014.943060",
-            "Mailing address of the supervising organization": "GEPEA, UMR CNRS 6144, Universite ́de Nantes, 37 Bd. de l’universite ́, CRTT BP406, 44602 Saint-Nazaire, France",
+            "results": "https://www.tandfonline.com/doi/abs/10.1080/19443994.2014.943060",
+            "Mailing address of the supervising organization": "GEPEA, UMR CNRS 6144, Université de Nantes, 37 Bd. de l’université, CRTT BP406, 44602 Saint-Nazaire, France",
             "Contacts": "maxime.pontie@univ-angers.fr"
           },
           {
@@ -895,7 +901,7 @@
             "Research  - Business activity": "Indirect recycling & energy recovery",
             "Scale of implementation": "Lab/Pilot",
             "Main Investigation": "Recycling and energy recovery solutions of end-of-life reverse osmosis (RO) membrane materials: A sustainable approach",
-            "Main results / products": "https://www.sciencedirect.com/science/article/pii/S0011916417301042 ",
+            "results": "https://www.sciencedirect.com/science/article/pii/S0011916417301042 ",
             "Mailing address of the supervising organization": "COMUE UBL, Angers University, GEIHP, EA3142, 4 rue Larrey, CHU - IBS, 49933 Angers 09, France",
             "Contacts": "maxime.pontie@univ-angers.fr"
           },
@@ -910,10 +916,18 @@
             "Research  - Business activity": "Indirect recycling",
             "Scale of implementation": "Lab",
             "Main Investigation": "Interfacial polymerization study for recycling RO membranes in FO wastewater treatment; Recycling RO membranes for the treatment of high saline solutions by membrane distillation ",
-            "Main results / products": "EUROMEMBRANE 2018 CONGRESS: POSTER (N-404) (N-600)",
-            "Mailing address of the supervising organization": "Department of Applied Physics I, Faculty of Physics, University Complutense of Madrid, Avda. Complutense s/n, 28040 Madrid, Spain",
+            "results": "EUROMEMBRANE 2018 CONGRESS: POSTER (N-404) (N-600)",
+            "Mailing address of the supervising organization": "Department of Applied Physics I, Faculty of Physics, University Complutense of Madrid, Avda. Complutense s/n - 28040 Madrid, Spain",
             "Contacts": "mcgpayo@ucm.es"
           }
+        ],
+        table_fields: [
+          "Specific application of second-hand membranes", "Company name", "Name of the project", "Entity", "website",
+          "Type of end-of-life membranes", "Research  - Business activity", "Scale of implementation",
+          "Main Investigation",
+          { key: "results",
+            label: "Main results / products"
+          }, "Mailing address of the supervising organization", "Contacts"
         ]
       }
     },
