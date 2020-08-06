@@ -204,7 +204,7 @@
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
               "permeabiltiy": "<1-fold comparing to the design value",
-              "saltRejection": ">10% of NaCl and >30% of MgSO4 ",
+              "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Recycling into nanofiltration-like membranes",
             },
             survey2Result: {
@@ -220,7 +220,7 @@
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
               "permeabiltiy": "<1-fold comparing to the design value",
-              "saltRejection": "<10% of NaCl and <30% of MgSO4 ",
+              "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
             survey2Result: {
@@ -252,7 +252,7 @@
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
               "permeabiltiy": "[1-5]-fold comparing to the design value",
-              "saltRejection": ">10% of NaCl and >30% of MgSO4 ",
+              "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
             survey2Result: {
@@ -268,7 +268,7 @@
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
               "permeabiltiy": "[1-5]-fold comparing to the design value",
-              "saltRejection": "<10% of NaCl and <30% of MgSO4 ",
+              "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
             survey2Result: {
@@ -300,7 +300,7 @@
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
               "permeabiltiy": ">5-fold comparing to the design value",
-              "saltRejection": ">10% of NaCl and >30% of MgSO4 ",
+              "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
             survey2Result: {
@@ -316,7 +316,7 @@
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
               "permeabiltiy": ">5-fold comparing to the design value",
-              "saltRejection": "<10% of NaCl and <30% of MgSO4 ",
+              "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
             survey2Result: {
@@ -348,7 +348,7 @@
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
               "permeabiltiy": "<1-fold comparing to the design value",
-              "saltRejection": ">10% of NaCl and >30% of MgSO4 ",
+              "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Recycling into nanofiltration-like membranes",
             },
             survey2Result: {
@@ -364,7 +364,7 @@
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
               "permeabiltiy": "<1-fold comparing to the design value",
-              "saltRejection": "<10% of NaCl and <30% of MgSO4 ",
+              "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
             survey2Result: {
@@ -396,7 +396,7 @@
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
               "permeabiltiy": "[1-5]-fold comparing to the design value",
-              "saltRejection": ">10% of NaCl and >30% of MgSO4 ",
+              "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
             survey2Result: {
@@ -412,7 +412,7 @@
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
               "permeabiltiy": "[1-5]-fold comparing to the design value",
-              "saltRejection": "<10% of NaCl and <30% of MgSO4 ",
+              "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
             survey2Result: {
@@ -444,7 +444,7 @@
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
               "permeabiltiy": ">5-fold comparing to the design value",
-              "saltRejection": ">10% of NaCl and >30% of MgSO4 ",
+              "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
             survey2Result: {
@@ -459,7 +459,7 @@
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
               "permeabiltiy": ">5-fold comparing to the design value",
-              "saltRejection": "<10% of NaCl and <30% of MgSO4 ",
+              "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
             survey2Result: {
@@ -491,7 +491,7 @@
             code: {
               "typeMembrane": "Nanofiltration",
               "permeabiltiy": "<1-fold comparing to the design value",
-              "saltRejection": ">10% of NaCl and >30% of MgSO4 ",
+              "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
             survey2Result: {
@@ -507,7 +507,7 @@
             code: {
               "typeMembrane": "Nanofiltration",
               "permeabiltiy": "<1-fold comparing to the design value",
-              "saltRejection": "<10% of NaCl and <30% of MgSO4 ",
+              "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
             survey2Result: {
@@ -539,7 +539,7 @@
             code: {
               "typeMembrane": "Nanofiltration",
               "permeabiltiy": "[1-5]-fold comparing to the design value",
-              "saltRejection": ">10% of NaCl and >30% of MgSO4 ",
+              "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
             survey2Result: {
@@ -555,7 +555,7 @@
             code: {
               "typeMembrane": "Nanofiltration",
               "permeabiltiy": "[1-5]-fold comparing to the design value",
-              "saltRejection": "<10% of NaCl and <30% of MgSO4 ",
+              "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
             survey2Result: {
@@ -587,7 +587,7 @@
             code: {
               "typeMembrane": "Nanofiltration",
               "permeabiltiy": ">5-fold comparing to the design value",
-              "saltRejection": ">10% of NaCl and >30% of MgSO4 ",
+              "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
             survey2Result: {
@@ -603,7 +603,7 @@
             code: {
               "typeMembrane": "Nanofiltration",
               "permeabiltiy": ">5-fold comparing to the design value",
-              "saltRejection": "<10% of NaCl and <30% of MgSO4 ",
+              "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
             survey2Result: {
@@ -1022,6 +1022,23 @@
         let perm = get_question("PV").value;
         let rejection = get_question("R").value;
 
+      /*
+        code: {
+          "typeMembrane": "Reverse osmosis sea model design",
+            "permeabiltiy": ">5-fold comparing to the design value",
+            "saltRejection": ">10% of NaCl and >30% of MgSO4 ",
+            "membraneReuse": "Reuse as nanofiltration-like membranes",
+        },
+        survey2Result: {
+          "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
+            "Free chlorine exposure dose qualitative": "0",
+            "Potential environmental reduction for the production of second-hand membranes": "high +++",
+            "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
+            "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
+            "Skilled crew for the production of secon-hand membrane production ": "Not required"            }
+      }*/
+
+
         if (survey2Output) {
           auxObject = {
             "typeMembrane": membrane,
@@ -1029,6 +1046,8 @@
             "saltRejection": rejection,
             "membraneReuse": survey2Output.name,
           };
+          console.log("aaaaa");
+          console.log(auxObject)
         }else if(this.available_solutions.length === 1 && this.available_solutions[0].code === "IR" && (membrane === "Reverse osmosis brackish model design" || membrane === "Reverse osmosis sea model design")){  //Indirect Recycling
           auxObject = {
             "typeMembrane": membrane,
@@ -1041,7 +1060,8 @@
         }
 
           let ret = this.membrane_reuse_options.find(i => _.isEqual(i.code, auxObject));
-
+          console.log("bbbbb");
+          console.log(ret)
           if(!ret) return [];
           else return [ret];
 
