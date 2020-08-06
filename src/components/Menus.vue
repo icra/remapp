@@ -41,8 +41,9 @@
                       b-col(:style="`background:${s.color}`" sm="2")
                       b-col(sm="10") {{ s.name }}
 
+                  b Considerations to reproduce the recommended second-hand membranes
+                  b.asterisk_mark(v-b-tooltip.hover title="Please answer 'Salt Rejection' and 'Variation of Permeability' to see the considerations to reproduce the recommended second-hand membranes") *
                   template(v-if="result_survey_2.length !== 0")
-                    b Considerations to reproduce the recommended second-hand membranes
                     //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}
                     div.membrane_reuse(v-for="s in result_survey_2")
                       b-table(stacked small outlined :fields="table_fields" :items="[adapt_survey_2_result(s)]")
@@ -88,7 +89,7 @@
             isRowHeader: true,
             label: "Membrane reuse",
             //thStyle: {background: '#3eef33'},
-            variant: "danger"
+            //variant: "danger"
           },
           "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931",
           "Free chlorine exposure dose qualitative",
@@ -1220,5 +1221,8 @@
     font-size: small;
     overflow: hidden;
     min-width: fit-content;
+  }
+  .asterisk_mark{
+    color: #c51e23;
   }
 </style>
