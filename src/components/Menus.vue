@@ -34,8 +34,12 @@
                 b-tab#solutions(title="SOLUTIONS" active).p-3.tabBox
                   b Alternative end-of-life membrane management
                   //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
-                  div.membrane_reuse(v-for="s  in get_available_solutions" :id="s.code" :key="s.code" :style="`background:${s.color}`")  {{ s.name }}
-                  br
+
+                  div.membrane_reuse(v-for="s  in get_available_solutions")
+                    //div.membrane_reuse(:id="s.code" :key="s.code" :style="`background:${s.color}`")  {{ s.name }}
+                    b-row.ml-0
+                      b-col(:style="`background:${s.color}`" sm="2")
+                      b-col(sm="10") {{ s.name }}
 
                   template(v-if="result_survey_2.length !== 0")
                     b Considerations to reproduce the recommended second-hand membranes
@@ -999,15 +1003,7 @@
         } else
           return fouling_value;
       },
-      compare_membrane_reuse(){
-        /*
-      if(obj1.membraneReuse === obj2.membraneReuse)
-        return true;
-      else
-        return false;
-      }*/
-        return true;
-      }
+
 
     },
     computed: {
@@ -1138,7 +1134,7 @@
   .membrane_reuse {
     padding: 1em;
     font-size: large;
-    border: 1px solid #ccc;
+    //border: 1px solid #ccc;
   }
   .sidebar-header > a {
     color: var(--green-primary);
