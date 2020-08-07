@@ -38,10 +38,10 @@
                   div.membrane_reuse(v-for="s  in get_available_solutions")
                     //div.membrane_reuse(:id="s.code" :key="s.code" :style="`background:${s.color}`")  {{ s.name }}
                     b-row.ml-0
-                      b-col(:style="`background:${s.color}`" sm="2")
-                      b-col(sm="10") {{ s.name }}
-
+                      b-col(:style="`background:${s.color}`" sm="2" xl="1" )
+                      b-col(sm="10" xl="11" ) {{ s.name }}
                   template(v-if="result_survey_2.length !== 0")
+                    br
                     b Considerations to reproduce the recommended second-hand membranes
                     //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}
                     div.membrane_reuse(v-for="s in result_survey_2")
