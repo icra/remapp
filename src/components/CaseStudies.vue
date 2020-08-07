@@ -1,14 +1,14 @@
 <template lang="pug">
   .caseStudies
     b-container(fluid="true")
-      //p {{ solutionCode }}
       template(v-if='solutionCode.length === 1')
         template(v-if="get_cases_to_show.length !== 0")
           b-row(v-for="c in get_cases_to_show" :key="c" )
             b-col(sm="10" xl="5" offset-sm="1" offset-xl="0" align-self="center")
-              b-img(:src="get_case_path({c})" fluid style="max-width: 100%; max-height: 100%;")
+              b-img(:src="get_case_path({c})" fluid v-b-modal="getID({c})")#caseImg
+              b-modal(:id="getID({c})" model-class="modal-content" hide-footer hide-header size="xl" centered)
+                b-img(:src="get_case_path({c})" fluid-grow)#img
             b-col(sm="12" xl="7" )
-              //div(v-text="get_image_info({c})")
               b-table(stacked small outlined :items="[get_image_info({c})]" :fields="table_fields" )
                 template(v-slot:cell(website)="{ value }")
                   b-link.url(:href="value" target="_blank") {{ value }}
@@ -25,11 +25,10 @@
                 b-row.ml-0
                   b-col(:style="`background:${solutionCode[0].color}`" sm="2")
                   b-col(sm="10") {{ solutionCode[0].name }}
-
       template(v-else)
         b-row
           b-col
-            b Please, complete the survey to see case studies.
+            b Please, complete all the survey to see case studies.
 
 </template>
 
@@ -979,6 +978,11 @@
         let path = this.mainPath + aux.toString() + ".JPG";
         return path;
       },
+      getID: function(num) {
+        let aux = JSON.stringify(num.c);
+        let id="caseImg" + aux.toString();
+        return id;
+      },
       get_image_info(num){
         let aux = JSON.stringify(num.c);
         let imageInfo = this.info.find(i => i.code == aux);
@@ -988,7 +992,6 @@
     computed: {
       get_cases_to_show() {
         let caseNumbers = [];
-        console.log("caseNumbers ini: ", caseNumbers);
 
         let membrane = this.typeMembrane;
         let perm = this.permeability;
@@ -996,8 +999,6 @@
         let imagesList = this.images;
 
         this.solutionCode.forEach(function (sol) {
-          console.log("name: ", sol.name);
-
             let auxObject = {
               typeMembrane: membrane,
               permeability: perm,
@@ -1023,7 +1024,7 @@
             }
         });
         caseNumbers = [ ...new Set(caseNumbers) ]; //removes duplicate numbers.
-        console.log("caseNumbers: ", caseNumbers);
+        console.log("caseNumbers to show: ", caseNumbers);
         return caseNumbers;
 
       },
@@ -1044,8 +1045,20 @@
   }
 
   .membrane_reuse {
-    padding: 1em;
-    font-size: large;
+    padding: 0.6em 1em;
+  }
+
+  .imageContainer:hover img {
+    transform: scale(1.5);
+    //overflow: visible;
+  }
+
+  #caseImg {
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  #caseImg:hover {
+    opacity: 0.5;
   }
 
 </style>

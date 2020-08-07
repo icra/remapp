@@ -36,13 +36,14 @@
                     b-row.ml-0
                       b-col(:style="`background:${s.color}`" sm="2" xl="1" )
                       b-col(sm="10"  xl="11" ) {{ s.name }}
+                  br
                   b Considerations to reproduce the recommended second-hand membranes
-                  b.asterisk_mark(v-b-tooltip.hover title="Please answer 'Salt Rejection' and 'Variation of Permeability' to see the considerations to reproduce the recommended second-hand membranes") *
                   template(v-if="result_survey_2.length !== 0")
-                    //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}
                     div.membrane_reuse(v-for="s in result_survey_2")
                       b-table(stacked small outlined :fields="table_fields" :items="[adapt_survey_2_result(s)]")
-
+                  template(v-else)
+                    b.asterisk_mark#tooltip  *
+                    b-tooltip(target="tooltip" ) Please answer 'Salt Rejection' and 'Variation of Permeability' to see the considerations to reproduce the recommended second-hand membranes
                 b-tab#caseStudies(title="CASE STUDIES").p-3.tabBox
                   CaseStudies(
                     v-bind:solution-code="this.get_solutions_for_case_studies"
@@ -78,9 +79,10 @@
       return {
         table_fields: [
           {
-            key: "Membrane reuse",
+            key: "membrane_reuse",
             isRowHeader: true,
             label: "Membrane reuse",
+            class: "tHeader",
             //thStyle: {background: '#3eef33'},
             //variant: "danger"
           },
@@ -1002,7 +1004,7 @@
       },
       adapt_survey_2_result(solution){
         //let ret = solution.survey2Result;
-        let aux = {"Membrane reuse": solution.code.membraneReuse}
+        let aux = {"membrane_reuse": solution.code.membraneReuse}
         return Object.assign(aux, solution.survey2Result);
       }
     },
@@ -1121,6 +1123,7 @@
   #__BVID__48__BV_tab_container_.tab-content #factSheets {
     border: 2px solid var(--red-primary) !important;
   }
+
 </style>
 
 <style scoped>
@@ -1130,9 +1133,10 @@
   td, th {
     padding: 0.2em;
   }
+
   .membrane_reuse {
-    padding: 1em;
-    font-size: large;
+    padding: 0.6em 1em;
+    //font-size: large;
     //border: 1px solid #ccc;
   }
   .sidebar-header > a {
