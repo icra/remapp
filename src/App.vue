@@ -34,6 +34,7 @@
     --bold-text: 600;
     --light-gray-primary: #ababab;
     --dark-gray-primary: #383838;
+    --gray-for-tables: #dee2e6;
 
     /*EDICITY to remove */
     /*--font-family-primary: "Fira Sans",Helvetica,Arial,Lucida,sans-serif;*/

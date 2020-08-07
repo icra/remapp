@@ -5,9 +5,7 @@
     div.content
       b-container.p-2.mx-lg-5(fluid="true")
         b-row
-          <!--(style="background-color: var(--light-gray-primary)")-->
           b-col(sm="12" md="4" xl="3")
-            //style="min-height: 90vh;  top:0; background-color: white"
             b-navbar.pt-0
               .sidebar-header
                 b-row.mb-0.pb-0
@@ -25,7 +23,6 @@
                       placeholder="Pick a value",
                       :disabled="is_disabled(q)"
                     ).multiselect
-                //b-button.clearButt.mt-3(block @click="clearValues") CLEAR ALL
           b-col
             //router-view
             <!--survey 1 outputs-->
@@ -34,13 +31,11 @@
                 b-tab#solutions(title="SOLUTIONS" active).p-3.tabBox
                   b Alternative end-of-life membrane management
                   //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
-
                   div.membrane_reuse(v-for="s  in get_available_solutions")
                     //div.membrane_reuse(:id="s.code" :key="s.code" :style="`background:${s.color}`")  {{ s.name }}
                     b-row.ml-0
-                      b-col(:style="`background:${s.color}`" sm="2")
-                      b-col(sm="10") {{ s.name }}
-
+                      b-col(:style="`background:${s.color}`" sm="2" xl="1" )
+                      b-col(sm="10"  xl="11" ) {{ s.name }}
                   b Considerations to reproduce the recommended second-hand membranes
                   b.asterisk_mark(v-b-tooltip.hover title="Please answer 'Salt Rejection' and 'Variation of Permeability' to see the considerations to reproduce the recommended second-hand membranes") *
                   template(v-if="result_survey_2.length !== 0")
@@ -59,7 +54,6 @@
                   FactSheets
     footer.footer
       Footer
-
 
 </template>
 
@@ -82,7 +76,6 @@
     },
     data() {
       return {
-
         table_fields: [
           {
             key: "Membrane reuse",
@@ -99,8 +92,7 @@
           "Skilled crew for the production of secon-hand membrane production ",
           "Potential application of the second hand membranes"
         ],
-
-      questions: [
+        questions: [
           // Survey 1
           {
             code: "T",
@@ -169,8 +161,7 @@
           },
           {
             code: "IC",
-            name: "Intensive cleaning before considering an alternative management to landfill disposal " +
-              "or incineration",
+            name: "Intensive cleaning before considering an alternative management to landfill disposal or incineration",
             color: "#0cae51"
           },
           {
@@ -190,9 +181,8 @@
           },
           {
             code: "IRC",
-            name: "Indirect recycling of those membranes placed in the second stage. Potentially, " +
-              "apply intensive cleaning before considering an alternative management for those membranes " +
-              "placed in the first stage.",
+            name: "Indirect recycling of those membranes placed in the second stage. Potentially, apply intensive " +
+              "cleaning before considering an alternative management for those membranes placed in the first stage.",
             color: "#f79447"
           },
           // Survey 2
@@ -202,11 +192,10 @@
           {code: "RegNF", name: "Regenerate to reuse as nanofiltration membranes",  color: "#ccff33"},
           {code: "RecNF", name: "Recycling into nanofiltration-like membranes",     color: "#33cc33"},
           {code: "RecUF", name: "Recycling into ultrafiltration-like membranes",    color: "#77933c"},
-
           {
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
-              "permeabiltiy": "<1-fold comparing to the design value",
+              "permeability": "<1-fold comparing to the design value",
               "saltRejection": "<15% comparing to the design value",
               "membraneReuse": "Regenerate to reuse as reverse osmosis membranes",
             },
@@ -222,7 +211,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
-              "permeabiltiy": "<1-fold comparing to the design value",
+              "permeability": "<1-fold comparing to the design value",
               "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Recycling into nanofiltration-like membranes",
             },
@@ -238,7 +227,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
-              "permeabiltiy": "<1-fold comparing to the design value",
+              "permeability": "<1-fold comparing to the design value",
               "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
@@ -254,7 +243,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
-              "permeabiltiy": "[1-5]-fold comparing to the design value",
+              "permeability": "[1-5]-fold comparing to the design value",
               "saltRejection": "<15% comparing to the design value",
               "membraneReuse": "Reuse as reverse osmosis membranes",
             },
@@ -270,7 +259,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
-              "permeabiltiy": "[1-5]-fold comparing to the design value",
+              "permeability": "[1-5]-fold comparing to the design value",
               "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
@@ -286,7 +275,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
-              "permeabiltiy": "[1-5]-fold comparing to the design value",
+              "permeability": "[1-5]-fold comparing to the design value",
               "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
@@ -302,7 +291,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
-              "permeabiltiy": ">5-fold comparing to the design value",
+              "permeability": ">5-fold comparing to the design value",
               "saltRejection": "<15% comparing to the design value",
               "membraneReuse": "Reuse as reverse osmosis membranes",
             },
@@ -318,7 +307,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
-              "permeabiltiy": ">5-fold comparing to the design value",
+              "permeability": ">5-fold comparing to the design value",
               "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
@@ -334,7 +323,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
-              "permeabiltiy": ">5-fold comparing to the design value",
+              "permeability": ">5-fold comparing to the design value",
               "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
@@ -350,7 +339,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
-              "permeabiltiy": "<1-fold comparing to the design value",
+              "permeability": "<1-fold comparing to the design value",
               "saltRejection": "<15% comparing to the design value",
               "membraneReuse": "Regenerate to reuse as reverse osmosis membranes",
             },
@@ -366,7 +355,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
-              "permeabiltiy": "<1-fold comparing to the design value",
+              "permeability": "<1-fold comparing to the design value",
               "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Recycling into nanofiltration-like membranes",
             },
@@ -382,7 +371,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
-              "permeabiltiy": "<1-fold comparing to the design value",
+              "permeability": "<1-fold comparing to the design value",
               "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
@@ -398,7 +387,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
-              "permeabiltiy": "[1-5]-fold comparing to the design value",
+              "permeability": "[1-5]-fold comparing to the design value",
               "saltRejection": "<15% comparing to the design value",
               "membraneReuse": "Reuse as reverse osmosis membranes",
             },
@@ -414,7 +403,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
-              "permeabiltiy": "[1-5]-fold comparing to the design value",
+              "permeability": "[1-5]-fold comparing to the design value",
               "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
@@ -430,7 +419,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
-              "permeabiltiy": "[1-5]-fold comparing to the design value",
+              "permeability": "[1-5]-fold comparing to the design value",
               "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
@@ -446,7 +435,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
-              "permeabiltiy": "[1-5]-fold comparing to the design value",
+              "permeability": "[1-5]-fold comparing to the design value",
               "saltRejection": "<15% comparing to the design value",
               "membraneReuse": "Reuse as reverse osmosis membranes",
             },
@@ -462,7 +451,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
-              "permeabiltiy": ">5-fold comparing to the design value",
+              "permeability": ">5-fold comparing to the design value",
               "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
@@ -477,7 +466,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
-              "permeabiltiy": ">5-fold comparing to the design value",
+              "permeability": ">5-fold comparing to the design value",
               "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
@@ -493,7 +482,7 @@
           {
             code: {
               "typeMembrane": "Nanofiltration",
-              "permeabiltiy": "<1-fold comparing to the design value",
+              "permeability": "<1-fold comparing to the design value",
               "saltRejection": "<15% comparing to the design value",
               "membraneReuse": "Regenerate to reuse as nanofiltration membranes",
             },
@@ -509,7 +498,7 @@
           {
             code: {
               "typeMembrane": "Nanofiltration",
-              "permeabiltiy": "<1-fold comparing to the design value",
+              "permeability": "<1-fold comparing to the design value",
               "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
@@ -525,7 +514,7 @@
           {
             code: {
               "typeMembrane": "Nanofiltration",
-              "permeabiltiy": "<1-fold comparing to the design value",
+              "permeability": "<1-fold comparing to the design value",
               "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
@@ -541,7 +530,7 @@
           {
             code: {
               "typeMembrane": "Nanofiltration",
-              "permeabiltiy": "[1-5]-fold comparing to the design value",
+              "permeability": "[1-5]-fold comparing to the design value",
               "saltRejection": "<15% comparing to the design value",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
@@ -557,7 +546,7 @@
           {
             code: {
               "typeMembrane": "Nanofiltration",
-              "permeabiltiy": "[1-5]-fold comparing to the design value",
+              "permeability": "[1-5]-fold comparing to the design value",
               "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
@@ -573,7 +562,7 @@
           {
             code: {
               "typeMembrane": "Nanofiltration",
-              "permeabiltiy": "[1-5]-fold comparing to the design value",
+              "permeability": "[1-5]-fold comparing to the design value",
               "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
@@ -589,7 +578,7 @@
           {
             code: {
               "typeMembrane": "Nanofiltration",
-              "permeabiltiy": ">5-fold comparing to the design value",
+              "permeability": ">5-fold comparing to the design value",
               "saltRejection": "<15% comparing to the design value",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
@@ -605,7 +594,7 @@
           {
             code: {
               "typeMembrane": "Nanofiltration",
-              "permeabiltiy": ">5-fold comparing to the design value",
+              "permeability": ">5-fold comparing to the design value",
               "saltRejection": ">10% of NaCl and >30% of MgSO4",
               "membraneReuse": "Reuse as nanofiltration-like membranes",
             },
@@ -621,7 +610,7 @@
           {
             code: {
               "typeMembrane": "Nanofiltration",
-              "permeabiltiy": ">5-fold comparing to the design value",
+              "permeability": ">5-fold comparing to the design value",
               "saltRejection": "<10% of NaCl and <30% of MgSO4",
               "membraneReuse": "Recycling into ultrafiltration-like membranes",
             },
@@ -637,7 +626,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis brackish model design",
-              "permeabiltiy": null,
+              "permeability": null,
               "saltRejection": null,
               "membraneReuse": "Indirect recycling",
             },
@@ -653,7 +642,7 @@
           {
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
-              "permeabiltiy": null,
+              "permeability": null,
               "saltRejection": null,
               "membraneReuse": "Indirect recycling",
             },
@@ -687,8 +676,9 @@
             color: "#c2d59a"
           },
           {
-            code: "IC", name: "Intensive cleaning before considering an alternative management to landfill disposal " +
-              "or incineration", color: "#0cae51"
+            code: "IC",
+            name: "Intensive cleaning before considering an alternative management to landfill disposal or incineration",
+            color: "#0cae51"
           },
           {
             code: "NEIM",
@@ -702,12 +692,11 @@
           },
           {code: "NEIR", name: "Not enough information. Potentially, indirect recycling.", color: "#ffff00"},
           {
-            code: "IRC", name: "Indirect recycling of those membranes placed in the second stage. Potentially, " +
-              "apply intensive cleaning before considering an alternative management for those membranes " +
-              "placed in the first stage.", color: "#f79447"
+            code: "IRC",
+            name: "Indirect recycling of those membranes placed in the second stage. Potentially, apply intensive " +
+              "cleaning before considering an alternative management for those membranes placed in the first stage.",
+            color: "#f79447"
           },
-
-
         ],
       }
     },
@@ -755,14 +744,6 @@
           }
         }
         return false;
-        /*let code = question.code;
-        let reuse_code = this.get_membrane_reuse();
-        if(code == "PV" || code == "R") {
-          if (reuse_code == "LI" || reuse_code == "IR") {
-            return true;
-          }
-        }
-        return false;*/
       },
       remove_solutions(codes){
         for(let i=0; i<codes.length; i++){
@@ -802,11 +783,9 @@
         let fouling = this.get_fouling_type();
         let storage = get_question("ST").value;
         let storage_duration = get_question("D").value;
-        //let water_type = get_question("WT").value;
         let cause_replacement = get_question("RP").value;
         let position = get_question("P").value;
-        //let rejection = get_question("R").value;
-        //let permeability = get_question("PV").value;
+
         //Type of membrane
         if(type == "Other"){
           this.remove_solutions(["IR", "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
@@ -1026,8 +1005,6 @@
         let aux = {"Membrane reuse": solution.code.membraneReuse}
         return Object.assign(aux, solution.survey2Result);
       }
-
-
     },
     computed: {
       get_available_solutions: function () {
@@ -1035,44 +1012,27 @@
         return this.available_solutions;
       },
       result_survey_2(){
-
         let code = this.get_management_survey2();
         let survey2Output = this.membrane_reuse_options.find(q=>q.code==code);
         let auxObject;
         let get_question = this.get_question_by_code;
-
         let membrane = get_question("T").value;
         let perm = get_question("PV").value;
         let rejection = get_question("R").value;
 
-      /*
-        code: {
-          "typeMembrane": "Reverse osmosis sea model design",
-            "permeabiltiy": ">5-fold comparing to the design value",
-            "saltRejection": ">10% of NaCl and >30% of MgSO4 ",
-            "membraneReuse": "Reuse as nanofiltration-like membranes",
-        },
-        survey2Result: {
-          "Free chlorine exposure dose (ppm h) according to the patent PCT/EP2016/30931": "0",
-            "Free chlorine exposure dose qualitative": "0",
-            "Potential environmental reduction for the production of second-hand membranes": "high +++",
-            "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
-            "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-            "Skilled crew for the production of secon-hand membrane production ": "Not required"            }
-      }*/
-
-
         if (survey2Output) {
           auxObject = {
             "typeMembrane": membrane,
-            "permeabiltiy": perm,
+            "permeability": perm,
             "saltRejection": rejection,
             "membraneReuse": survey2Output.name,
           };
-        }else if(this.available_solutions.length === 1 && this.available_solutions[0].code === "IR" && (membrane === "Reverse osmosis brackish model design" || membrane === "Reverse osmosis sea model design")){  //Indirect Recycling
+        }
+        //Indirect Recycling
+        else if(this.available_solutions.length === 1 && this.available_solutions[0].code === "IR" && (membrane === "Reverse osmosis brackish model design" || membrane === "Reverse osmosis sea model design")){
           auxObject = {
             "typeMembrane": membrane,
-            "permeabiltiy": null,
+            "permeability": null,
             "saltRejection": null,
             "membraneReuse": "Indirect recycling",
           };
@@ -1080,16 +1040,12 @@
           return [];
         }
 
-          let ret = this.membrane_reuse_options.find(i => _.isEqual(i.code, auxObject));
-          console.log("bbbbb");
-          console.log(ret)
-          if(!ret) return [];
-          else {
-            return [ret];
-          }
-
-
-
+        let ret = this.membrane_reuse_options.find(i => _.isEqual(i.code, auxObject));
+        console.log(ret)
+        if(!ret)
+          return [];
+        else
+          return [ret];
 
       },
       get_solutions_for_case_studies() {

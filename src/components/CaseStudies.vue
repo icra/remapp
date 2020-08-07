@@ -2,24 +2,34 @@
   .caseStudies
     b-container(fluid="true")
       //p {{ solutionCode }}
-      template(v-if="get_cases_to_show.length !== 0")
-        b-row(v-for="c in get_cases_to_show" :key="c" )
-          b-col(sm="10" xl="5" offset-sm="1" offset-xl="0" align-self="center")
-            b-img(:src="get_case_path({c})" fluid style="max-width: 100%; max-height: 100%;")
-          b-col(sm="12" xl="7" )
-            //div(v-text="get_image_info({c})")
-            b-table(stacked small outlined :items="[get_image_info({c})]" :fields="table_fields" )
-              template(v-slot:cell(website)="{ value }")
-                b-link.url(:href="value" target="_blank") {{ value }}
-              template(v-slot:cell(results)="{ value }")
-                b-link.url(:href="value" target="_blank") {{ value }}
-              template(v-slot:cell(contacts)="{ value }")
-                b-link.url(:href="'mailto:'+value+'?Subject=reverse osmosis and nanofiltration membranes'" target="_blank") {{ value }}
-          b-dropdown-divider(style="height: 0px; margin: 0px 0.75rem 0.75rem; width: 100%; overflow: hidden; border-top: 2px solid var(--green-primary);")
+      template(v-if='solutionCode.length === 1')
+        template(v-if="get_cases_to_show.length !== 0")
+          b-row(v-for="c in get_cases_to_show" :key="c" )
+            b-col(sm="10" xl="5" offset-sm="1" offset-xl="0" align-self="center")
+              b-img(:src="get_case_path({c})" fluid style="max-width: 100%; max-height: 100%;")
+            b-col(sm="12" xl="7" )
+              //div(v-text="get_image_info({c})")
+              b-table(stacked small outlined :items="[get_image_info({c})]" :fields="table_fields" )
+                template(v-slot:cell(website)="{ value }")
+                  b-link.url(:href="value" target="_blank") {{ value }}
+                template(v-slot:cell(results)="{ value }")
+                  b-link.url(:href="value" target="_blank") {{ value }}
+                template(v-slot:cell(contacts)="{ value }")
+                  b-link.url(:href="'mailto:'+value+'?Subject=reverse osmosis and nanofiltration membranes'" target="_blank") {{ value }}
+            b-dropdown-divider(style="height: 0px; margin: 0px 0.75rem 0.75rem; width: 100%; overflow: hidden; border-top: 2px solid var(--green-primary);")
+        template(v-else)
+          b-row
+            b-col
+              b No case studies are available to this specific solution.
+              div.membrane_reuse
+                b-row.ml-0
+                  b-col(:style="`background:${solutionCode[0].color}`" sm="2")
+                  b-col(sm="10") {{ solutionCode[0].name }}
+
       template(v-else)
         b-row
           b-col
-            b No case studies are available to this specific solution.
+            b Please, complete the survey to see case studies.
 
 </template>
 
@@ -927,7 +937,11 @@
           }
         ],
         table_fields: [
-          "Specific application of second-hand membranes", "Company name", "Name of the project", "Entity", "website",
+          {
+            key: "Specific application of second-hand membranes",
+            isRowHeader: true,
+            label: "Specific application of second-hand membranes",
+          }, "Company name", "Name of the project", "Entity", "website",
           "Type of end-of-life membranes", "Research  - Business activity", "Scale of implementation",
           "Main Investigation",
           { key: "results",
@@ -1017,9 +1031,21 @@
   }
 </script>
 
+<style >
+  th  {
+    background: var(--gray-for-tables);
+  }
+
+</style>
+
 <style scoped>
   .url{
     word-wrap: break-word;
+  }
+
+  .membrane_reuse {
+    padding: 1em;
+    font-size: large;
   }
 
 </style>

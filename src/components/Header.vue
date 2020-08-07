@@ -19,11 +19,16 @@
           b-collapse.collapsed(id="about" v-model="info" class="mt-2").p-2
             h4 What is REMapp for?
             p REMapp is a simple decision-making tool for end-of-life spiral-wound reverse osmosis and nanofiltration membranes with the specific size of 40 inches of length and 8 inches of diameter.
+            br
             h4 Who is REMapp useful for?
             p Membrane users who are going to replace membranes and are seeking alternative end-of-life membrane managements.
+            br
             h4 Which are the potential kind of end-of-life membrane managements?
             p The preferable order is: reuse, regeneration for reuse, direct recycling, indirect recycling, incineration and landfill disposal. Worldwide the most common management is incineration and landfill disposal (by far). REMapp shows current investigations and companies that try to boost alternative end-of-life membrane managements to those two last.
-
+            br
+            h4 Who owns REMapp?
+            p This decision-making tree has been developed by LEQUIA research group of University of Girona in collaboration with the University of New South Wales.
+            p The authors acknowledge the financial support of the European Union’s Horizon 2020 research and innovation programme under the Marie Skłodowska-Curie grant agreement nº 712949 (TECNIOspring PLUS) and to the Agency for Business Competitiveness of the Government of Catalonia for the grant TECSPR17-1-0019 Mem2.0 project.
 
 
     b-jumbotron(
@@ -76,7 +81,7 @@
 
   .collapsed > p{
     font-weight: normal;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .collapsed > h4{
