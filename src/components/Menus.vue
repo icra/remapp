@@ -38,12 +38,13 @@
                       b-col(sm="10"  xl="11" ) {{ s.name }}
                   br
                   b Considerations to reproduce the recommended second-hand membranes
+                  b.asterisk_mark#tooltip  *
+                  b-tooltip(target="tooltip" ) Please answer 'Salt Rejection' and 'Variation of Permeability' to see the considerations to reproduce the recommended second-hand membranes
+
                   template(v-if="result_survey_2.length !== 0")
                     div.membrane_reuse(v-for="s in result_survey_2")
                       b-table(stacked small outlined :fields="table_fields" :items="[adapt_survey_2_result(s)]")
                   template(v-else)
-                    b.asterisk_mark#tooltip  *
-                    b-tooltip(target="tooltip" ) Please answer 'Salt Rejection' and 'Variation of Permeability' to see the considerations to reproduce the recommended second-hand membranes
                 b-tab#caseStudies(title="CASE STUDIES").p-3.tabBox
                   CaseStudies(
                     v-bind:solution-code="this.get_solutions_for_case_studies"
