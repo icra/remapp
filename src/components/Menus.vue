@@ -38,13 +38,12 @@
                       b-col(sm="10"  xl="11" ) {{ s.name }}
                   br
                   b Considerations to reproduce the recommended second-hand membranes
-                  b.asterisk_mark#tooltip  *
-                  b-tooltip(target="tooltip" ) Please answer 'Salt Rejection' and 'Variation of Permeability' to see the considerations to reproduce the recommended second-hand membranes
-
                   template(v-if="result_survey_2.length !== 0")
                     div.membrane_reuse(v-for="s in result_survey_2")
                       b-table(stacked small outlined :fields="table_fields" :items="[adapt_survey_2_result(s)]")
                   template(v-else)
+                    b.asterisk_mark#tooltip  *
+                    b-tooltip(target="tooltip" ) Please answer 'Salt Rejection' and 'Variation of Permeability' to see the considerations to reproduce the recommended second-hand membranes
                 b-tab#caseStudies(title="CASE STUDIES").p-3.tabBox
                   CaseStudies(
                     v-bind:solution-code="this.get_solutions_for_case_studies"
@@ -92,8 +91,8 @@
           "Potential environmental reduction for the production of second-hand membranes",
           "Potential economical cost for the production of second-hand membranes, quantitative €",
           "Potential economical saving for the production of second-hand membranes, qualitative",
-          "Skilled crew for the production of secon-hand membrane production ",
-          "Potential application of the second hand membranes"
+          "Skilled crew for the production of second-hand membranes, production",
+          "Potential application of the second-hand membranes"
         ],
         questions: [
           // Survey 1
@@ -208,8 +207,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high ++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[26-55]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high ++",
-              "Skilled crew for the production of secon-hand membrane production ": "medium",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
+              "Skilled crew for the production of second-hand membranes, production": "medium",
+              "Potential application of the second-hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -224,8 +223,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[26-55]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +",
-              "Skilled crew for the production of secon-hand membrane production ": "high",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
+              "Skilled crew for the production of second-hand membranes, production": "high",
+              "Potential application of the second-hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -240,8 +239,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high ",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high ",
-              "Skilled crew for the production of secon-hand membrane production ": "low ",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
+              "Skilled crew for the production of second-hand membranes, production": "low ",
+              "Potential application of the second-hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -256,8 +255,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-              "Skilled crew for the production of secon-hand membrane production ": "Not required",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
+              "Skilled crew for the production of second-hand membranes, production": "Not required",
+              "Potential application of the second-hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -272,8 +271,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-              "Skilled crew for the production of secon-hand membrane production ": "Not required",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
+              "Skilled crew for the production of second-hand membranes, production": "Not required",
+              "Potential application of the second-hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -288,8 +287,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high",
-              "Skilled crew for the production of secon-hand membrane production ": "low ",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
+              "Skilled crew for the production of second-hand membranes, production": "low ",
+              "Potential application of the second-hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -304,8 +303,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-              "Skilled crew for the production of secon-hand membrane production ": "Not required",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
+              "Skilled crew for the production of second-hand membranes, production": "Not required",
+              "Potential application of the second-hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -320,8 +319,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-              "Skilled crew for the production of secon-hand membrane production ": "Not required",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
+              "Skilled crew for the production of second-hand membranes, production": "Not required",
+              "Potential application of the second-hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -336,8 +335,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high",
-              "Skilled crew for the production of secon-hand membrane production ": "low ",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
+              "Skilled crew for the production of second-hand membranes, production": "low ",
+              "Potential application of the second-hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -352,8 +351,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high ++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[33-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high ++",
-              "Skilled crew for the production of secon-hand membrane production ": "medium",
-              "Potential application of the second hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"            }
+              "Skilled crew for the production of second-hand membranes, production": "medium",
+              "Potential application of the second-hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (installation in the second stage of the process, seawater process to treat the concentrate"            }
           },
           {
             code: {
@@ -368,8 +367,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[33-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +",
-              "Skilled crew for the production of secon-hand membrane production ": "high",
-              "Potential application of the second hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"            }
+              "Skilled crew for the production of second-hand membranes, production": "high",
+              "Potential application of the second-hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (installation in the second stage of the process, seawater process to treat the concentrate"            }
           },
           {
             code: {
@@ -384,8 +383,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high ",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[42-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high ",
-              "Skilled crew for the production of secon-hand membrane production ": "low ",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
+              "Skilled crew for the production of second-hand membranes, production": "low ",
+              "Potential application of the second-hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -400,8 +399,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-              "Skilled crew for the production of secon-hand membrane production ": "Not required",
-              "Potential application of the second hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"            }
+              "Skilled crew for the production of second-hand membranes, production": "Not required",
+              "Potential application of the second-hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (installation in the second stage of the process, seawater process to treat the concentrate"            }
           },
           {
             code: {
@@ -416,8 +415,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-              "Skilled crew for the production of secon-hand membrane production ": "Not required",
-              "Potential application of the second hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"            }
+              "Skilled crew for the production of second-hand membranes, production": "Not required",
+              "Potential application of the second-hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (installation in the second stage of the process, seawater process to treat the concentrate"            }
           },
           {
             code: {
@@ -432,13 +431,13 @@
               "Potential environmental reduction for the production of second-hand membranes": "high",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[42-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high",
-              "Skilled crew for the production of secon-hand membrane production ": "low ",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
+              "Skilled crew for the production of second-hand membranes, production": "low ",
+              "Potential application of the second-hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
               "typeMembrane": "Reverse osmosis sea model design",
-              "permeability": "[1-5]-fold comparing to the design value",
+              "permeability": ">5-fold comparing to the design value",
               "saltRejection": "<15% comparing to the design value",
               "membraneReuse": "Reuse as reverse osmosis membranes",
             },
@@ -448,8 +447,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-              "Skilled crew for the production of secon-hand membrane production ": "Not required",
-              "Potential application of the second hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (instalation in the second stage of the process, seawater process to treat the concentrate"            }
+              "Skilled crew for the production of second-hand membranes, production": "Not required",
+              "Potential application of the second-hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (installation in the second stage of the process, seawater process to treat the concentrate"            }
           },
           {
             code: {
@@ -464,7 +463,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-              "Skilled crew for the production of secon-hand membrane production ": "Not required"            }
+              "Skilled crew for the production of second-hand membranes, production": "Not required",
+              "Potential application of the second-hand membranes": "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (installation in the second stage of the process, seawater process to treat the concentrate"}
           },
           {
             code: {
@@ -479,8 +479,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[42-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high",
-              "Skilled crew for the production of secon-hand membrane production ": "low ",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
+              "Skilled crew for the production of second-hand membranes, production": "low ",
+              "Potential application of the second-hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -495,8 +495,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high ++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[26-55]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high ++",
-              "Skilled crew for the production of secon-hand membrane production ": "medium",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
+              "Skilled crew for the production of second-hand membranes, production": "medium",
+              "Potential application of the second-hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -511,8 +511,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +",
-              "Skilled crew for the production of secon-hand membrane production ": "low ",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
+              "Skilled crew for the production of second-hand membranes, production": "low ",
+              "Potential application of the second-hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -527,8 +527,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high ",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high ",
-              "Skilled crew for the production of secon-hand membrane production ": "low",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
+              "Skilled crew for the production of second-hand membranes, production": "low",
+              "Potential application of the second-hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -543,8 +543,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-              "Skilled crew for the production of secon-hand membrane production ": "Not required",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
+              "Skilled crew for the production of second-hand membranes, production": "Not required",
+              "Potential application of the second-hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -559,8 +559,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-              "Skilled crew for the production of secon-hand membrane production ": "Not required",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
+              "Skilled crew for the production of second-hand membranes, production": "Not required",
+              "Potential application of the second-hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -575,8 +575,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high",
-              "Skilled crew for the production of secon-hand membrane production ": "low",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
+              "Skilled crew for the production of second-hand membranes, production": "low",
+              "Potential application of the second-hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -591,8 +591,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-              "Skilled crew for the production of secon-hand membrane production ": "Not required",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
+              "Skilled crew for the production of second-hand membranes, production": "Not required",
+              "Potential application of the second-hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -607,8 +607,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high +++",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "0",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high +++",
-              "Skilled crew for the production of secon-hand membrane production ": "Not required",
-              "Potential application of the second hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
+              "Skilled crew for the production of second-hand membranes, production": "Not required",
+              "Potential application of the second-hand membranes": "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
           },
           {
             code: {
@@ -623,8 +623,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high",
               "Potential economical cost for the production of second-hand membranes, quantitative €": "[32-63]",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high",
-              "Skilled crew for the production of secon-hand membrane production ": "low",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
+              "Skilled crew for the production of second-hand membranes, production": "low",
+              "Potential application of the second-hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           },
           {
             code: {
@@ -639,8 +639,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high",
               "Potential economical cost for the production of second-hand membranes, quantitative €": ">63",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high",
-              "Skilled crew for the production of secon-hand membrane production ": "high",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water). It requires taking out the fiber glass casing"            }
+              "Skilled crew for the production of second-hand membranes, production": "high",
+              "Potential application of the second-hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water). It requires taking out the fiber glass casing"            }
           },
           {
             code: {
@@ -655,8 +655,8 @@
               "Potential environmental reduction for the production of second-hand membranes": "high",
               "Potential economical cost for the production of second-hand membranes, quantitative €": ">63",
               "Potential economical saving for the production of second-hand membranes, qualitative": "high",
-              "Skilled crew for the production of secon-hand membrane production ": "high",
-              "Potential application of the second hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
+              "Skilled crew for the production of second-hand membranes, production": "high",
+              "Potential application of the second-hand membranes": "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
           }
 
 
