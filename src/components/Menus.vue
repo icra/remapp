@@ -61,7 +61,6 @@
 <script>
   import Multiselect from 'vue-multiselect'
   import CaseStudies from "./CaseStudies";
-  import FactSheets from "./FactSheets";
   import Footer from "./Footer";
   import Header from "./Header";
   import _ from "lodash";
@@ -71,7 +70,6 @@
     components: {
       Header,
       Footer,
-      FactSheets,
       CaseStudies,
       Multiselect
     },
