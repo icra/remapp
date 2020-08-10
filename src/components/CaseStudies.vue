@@ -23,8 +23,8 @@
               b No case studies are available to this specific solution.
               div.membrane_reuse
                 b-row.ml-0
-                  b-col(:style="`background:${solutionCode[0].color}`" sm="2")
-                  b-col(sm="10") {{ solutionCode[0].name }}
+                  b-col(:style="`background:${solutionCode[0].color}`" sm="2" xl="1" )
+                  b-col(sm="10"  xl="11" ) {{ solutionCode[0].name }}
       template(v-else)
         b-row
           b-col
