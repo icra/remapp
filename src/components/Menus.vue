@@ -5,7 +5,7 @@
     div.content
       b-container.p-2.mx-lg-5(fluid="true")
         b-row
-          b-col(sm="12" md="4" xl="3")
+          b-col(sm="12" xl="4")
             b-navbar.pt-0
               .sidebar-header
                 b-row.mb-0.pb-0
@@ -21,7 +21,8 @@
                       v-model="q.value",
                       :options="q.answers",
                       placeholder="Pick a value",
-                      :disabled="is_disabled(q)"
+                      :disabled="is_disabled(q)",
+                      :show-labels="false"
                     ).multiselect
           b-col
             //router-view
@@ -31,11 +32,12 @@
                 b-tab#solutions(title="SOLUTIONS" active).p-3.tabBox
                   b Alternative end-of-life membrane management
                   //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
-                  div.membrane_reuse(v-for="s  in get_available_solutions")
+                  div.membrane_reuse(v-for="s  in get_available_solutions").px-0
                     //div.membrane_reuse(:id="s.code" :key="s.code" :style="`background:${s.color}`")  {{ s.name }}
-                    b-row.ml-0
-                      b-col(:style="`background:${s.color}`" sm="2" xl="1" )
-                      b-col(sm="10"  xl="11" ) {{ s.name }}
+                    div(style="display: grid; grid-template-columns: 1fr 10fr; grid-gap:20px").ml-0
+                      div(:style="`background:${s.color}`" )
+                      div
+                        p.mb-0 {{ s.name }}
                   br
                   b Considerations to reproduce the recommended second-hand membranes
                   template(v-if="result_survey_2.length !== 0")
@@ -156,12 +158,12 @@
           {
             code: "AMR",
             name: "Membranes are suitable for an alternative management to landfill disposal or incineration. " +
-              "Membranes might need to be rehydrated using 50% w/w ethanol during 15 min.",
+              "Membranes might need to be rehydrated using an ethanol solution.",
             color: "#c2d59a"
           },
           {
             code: "IC",
-            name: "Intensive cleaning before considering an alternative management to landfill disposal or incineration",
+            name: "Intensive cleaning before considering an alternative management to landfill disposal or incineration.",
             color: "#0cae51"
           },
           {
@@ -181,8 +183,8 @@
           },
           {
             code: "IRC",
-            name: "Indirect recycling of those membranes placed in the second stage. Potentially, apply intensive " +
-              "cleaning before considering an alternative management for those membranes placed in the first stage.",
+            name: "Indirect recycling of the membranes placed in the second stage. Potentially, apply intensive " +
+              "cleaning before considering an alternative management for the membranes placed in the first stage.",
             color: "#f79447"
           },
           // Survey 2
@@ -1155,6 +1157,7 @@
   .header {
     width: 100%;
     height: fit-content; /* Footer height */
+    //background-color: var(--light-gray-primary);
     background-color: var(--dark-gray-primary);
   }
   .content {
@@ -1171,6 +1174,12 @@
   .multiselect{
     margin-bottom: 0.75rem;
     margin-top: 0.35rem;
+    font-size: small;
+    min-width: 100%;
+    width: auto;
+    border: none;
+    min-height: fit-content;
+    height: auto;
   }
   .clearButt.btn-secondary  {
     color: white;
