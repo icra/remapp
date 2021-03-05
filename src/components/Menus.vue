@@ -22,7 +22,8 @@
                       :options="q.answers",
                       placeholder="Pick a value",
                       :disabled="is_disabled(q)",
-                      :show-labels="false"
+                      :show-labels="false",
+                      open-direction="bottom"
                     ).multiselect
           b-col
             //router-view
@@ -908,6 +909,9 @@
         //Complementary information to the decision-making tree
         if((type == "Reverse osmosis brackish model design" || type == "Reverse osmosis sea model design" || type == "Nanofiltration") && config == "Spiral-wound" && size == "Length: 1m. Diameter: 0.2m") {
           if (weight == "<17kg" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "Other" || fouling == "Don't know")) this.remove_solutions(["NEIC", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
+          else if (weight == "<17kg" && storage == "Dry" && fouling == "Inorganic scaling") this.remove_solutions(["NEIC", "NEIR", "NEIM", "LI", "AM", "AMR", "IC", "IRC"]);
+          else if (weight == "<17kg" && (storage == "Wet" || storage == "Immersed in a water solution") && ext_damage == "Don't know" && fouling == "Inorganic scaling") this.remove_solutions(["NEIC", "NEIR", "NEIM", "LI", "AM", "AMR", "IC", "IRC"]);
+
           else if(weight == "17-25 kg"){
             if ((storage == "Immersed in a water solution" || storage == "Wet") && (ext_damage == "No" || ext_damage == "Don't know") && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if ((position == "Single pass" || position == "Double pass - single stage") && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
@@ -939,7 +943,8 @@
             else if ((position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && storage == "Dry" && storage_duration == "Don't know" && ext_damage == "Don't know" && fouling == "Other") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Lost of membrane integrity" && (position == "Mix" || position == "Don't know") && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Other") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Don't know" && position == "Mix" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Other") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
-
+            else if (cause_replacement == "Lost of membrane integrity" && position == "Don't know" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "No" && fouling == "Other") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
+            else if (fouling == "Inorganic scaling") this.remove_solutions(["NEIC", "NEIR", "NEIM", "LI", "AM", "AMR", "IC", "IRC"]);
 
 
           }
