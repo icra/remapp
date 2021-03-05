@@ -675,12 +675,12 @@
           {
             code: "AMR",
             name: "Membranes are suitable for an alternative management to landfill disposal or incineration. " +
-              "Membranes might need to be rehydrated using 50% w/w ethanol during 15 min.",
+              "Membranes might need to be rehydrated using an ethanol solution.",
             color: "#c2d59a"
           },
           {
             code: "IC",
-            name: "Intensive cleaning before considering an alternative management to landfill disposal or incineration",
+            name: "Intensive cleaning before considering an alternative management to landfill disposal or incineration.",
             color: "#0cae51"
           },
           {
@@ -696,8 +696,8 @@
           {code: "NEIR", name: "Not enough information. Potentially, indirect recycling.", color: "#ffff00"},
           {
             code: "IRC",
-            name: "Indirect recycling of those membranes placed in the second stage. Potentially, apply intensive " +
-              "cleaning before considering an alternative management for those membranes placed in the first stage.",
+            name: "Indirect recycling of the membranes placed in the second stage. Potentially, apply intensive " +
+              "cleaning before considering an alternative management for the membranes placed in the first stage.",
             color: "#f79447"
           },
         ],
@@ -764,14 +764,14 @@
           {code:"IR", name:"Indirect recycling",                                                                                color:"#604b79"},
           {code:"AM", name:"Membranes are suitable for an alternative management to landfill disposal or incineration.",        color:"#9ab959"},
           {code:"AMR", name:"Membranes are suitable for an alternative management to landfill disposal or incineration. " +
-              "Membranes might need to be rehydrated using 50% w/w ethanol during 15 min.",                                     color:"#c2d59a"},
+              "Membranes might need to be rehydrated using an ethanol solution.",                                     color:"#c2d59a"},
           {code:"IC", name:"Intensive cleaning before considering an alternative management to landfill disposal " +
               "or incineration",                                                                                                color:"#0cae51"},
           {code:"NEIM", name:"Not enough information. Potentially, membranes are suitable for alternative management.",         color:"#4dabc5"},
           {code:"NEIC", name:"Not enough information. Potentially, apply intensive cleaning before alternative management.",    color:"#35849b"},
           {code:"NEIR", name:"Not enough information. Potentially, indirect recycling.",                                        color:"#ffff00"},
-          {code:"IRC", name:"Indirect recycling of those membranes placed in the second stage. Potentially, " +
-              "apply intensive cleaning before considering an alternative management for those membranes " +
+          {code:"IRC", name:"Indirect recycling of the membranes placed in the second stage. Potentially, " +
+              "apply intensive cleaning before considering an alternative management for the membranes " +
               "placed in the first stage.",                                                                                     color:"#f79447"},
         ]
       },
@@ -1185,7 +1185,7 @@
     bottom: 0;
     width: 100%;
     height: fit-content; /* Footer height */
-    background-color: var(--dark-gray-primary);
+    //background-color: var(--dark-gray-primary);
   }
   .multiselect{
     margin-bottom: 0.75rem;
