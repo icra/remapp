@@ -131,7 +131,7 @@
             code: "WT",
             name: "Type of water",
             value: null,
-            answers: ["Seawater", "Brackish water", "Wastewater", "Chemical industry", "Food industry"]
+            answers: ["Seawater", "Brackish water", "Wastewater", "Chemical industry", "Food industry", "River water", "Don't know", "Other"]
           },
           // Survey 2
           {
@@ -1030,6 +1030,8 @@
             return "Other";
           } else if (water_type == "Chemical industry") {
             return "Inorganic scaling";
+          } else if (water_type == "River water") {
+            return "Other";
           } else {
             return fouling_value;
           }
