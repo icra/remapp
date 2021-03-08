@@ -1,6 +1,6 @@
 <template lang="pug">
   .headerContent
-    b-container(fluid="true").p-2.mx-lg-5
+    b-container(fluid="true").p-2.mx-lg-5.mx-3
       b-row
         //b-col(align-h="start" style="height: 8vh;")
           b-img.p-2(src="/img/logo_mem.png" fluid style="max-width: 100%; max-height: 100%;")
@@ -88,7 +88,7 @@
       header="REMapp decision-making tool"
       lead="Find your alternative solution for a sustainable end-of-life reverse osmosis membrane management"
       style="background-color: var(--dark-gray-primary)"
-      ).px-lg-5
+      ).px-lg-5.px-4
 
 </template>
 
