@@ -742,12 +742,24 @@
       },
       is_disabled(question) {
         let code = question.code;
+        let get_question = this.get_question_by_code;
+        let type = get_question("T").value;
+        let config = get_question("C").value;
+        let size = get_question("S").value;
+        let weight = get_question("W").value;
+
+
         if (code == "PV" || code == "R") {
           if (this.available_solutions.find(s => s.code === "LI") || this.available_solutions.find(s => s.code === "IR")) {
             return true;
           }
-        }
-        return false;
+        }else if(type == "Ultrafiltration" || type == "Microfiltration" || type == "Other") return code != "T"
+        else if(config == "Other") return code != "C"
+        else if(size == "Other") return code != "S"
+        else if(weight == ">25kg") return code != "W"
+
+
+  return false;
       },
       remove_solutions(codes){
         for(let i=0; i<codes.length; i++){
@@ -929,6 +941,7 @@
             else if (cause_replacement == "Lost of membrane integrity" && (position == "Mix" || position == "Don't know") &&  storage == "Dry" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Don't know" && position == "Mix" && storage == "Dry" && storage_duration == "<1 month" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "No" || fouling == "Don't know")) this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (storage == "Dry" && storage_duration == ">1 month") this.remove_solutions(["NEIC", "NEIR", "NEIM", "LI", "AM", "AMR", "IC", "IRC"]);
+            else if ((position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && storage == "Dry" && storage_duration == "Don't know" && ext_damage == "Don't know" && fouling == "Other") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (position == "Double pass - double stage" && storage == "Dry") this.remove_solutions(["NEIC", "NEIR", "NEIM", "LI", "AM", "AMR", "IC", "IRC"]);
             //Update
             else if ((cause_replacement == "Granted budget for replacement" || cause_replacement == "Operating more than the expected lifespan") && position == "Don't know" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "No" && fouling == "Other") this.remove_solutions(["NEIM", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
@@ -940,7 +953,6 @@
             else if (cause_replacement == "Operating more than the expected lifespan" && (position == "Double pass - double stage" || position == "Mix") && storage == "Don't know" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Other") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Lost of membrane integrity" && (position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && storage == "Don't know" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Other") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if ((position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && storage == "Dry" && storage_duration == "Don't know" && ext_damage == "No" && fouling == "Don't know") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
-            else if ((position == "Double pass - double stage" || position == "Mix" || position == "Don't know") && storage == "Dry" && storage_duration == "Don't know" && ext_damage == "Don't know" && fouling == "Other") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Lost of membrane integrity" && (position == "Mix" || position == "Don't know") && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Other") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Don't know" && position == "Mix" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "Don't know" && fouling == "Other") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
             else if (cause_replacement == "Lost of membrane integrity" && position == "Don't know" && storage == "Dry" && storage_duration == "<1 month" && ext_damage == "No" && fouling == "Other") this.remove_solutions(["NEIM", "NEIC", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
