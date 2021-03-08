@@ -3,7 +3,7 @@
     div.header
       Header
     div.content
-      b-container.p-2.mx-lg-5(fluid="true")
+      b-container.p-2.mx-lg-5.mx-3(fluid="true")
         b-row
           b-col(sm="12" xl="4")
             b-navbar.pt-0
