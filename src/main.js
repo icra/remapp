@@ -11,6 +11,7 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueLodash, { name: 'custom' , lodash: lodash });
 
+
 Vue.config.productionTip = false;
 new Vue({
   render: function (h) { return h(App) },
