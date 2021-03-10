@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.remapToolbox
+  div.remapToolbox(ref="content")
     div.header
       Header
     div.content
@@ -10,13 +10,53 @@
               .sidebar-header
                 b-row.mb-0.pb-0
                   b-col
-                    h4(style="font-weight: var(--bold-text); text-align:left") Survey
+                    p.h4.mb-2(style="font-weight: var(--bold-text); text-align:left display:inline-block") Survey <b-icon id="info" icon="exclamation-circle-fill" variant="dark"></b-icon>
+                      b-tooltip(target="info")  End-of-life membranes
+
+
+
                   b-col(cols="auto" align-h="end")
+                    b-button(@click="download") MAKE PDF
                     b-button.clearButt(@click="clearValues") CLEAR ALL
                 b-dropdown-divider(style="height: 0; margin: 0 0 0.75rem 0; overflow: hidden; border-top: 1px solid var(--light-gray-primary);")
                 div(style="overflow-y: scroll; max-height: 70vh;").pr-2
-                  template(v-for="q in questions" :id="q.code" style="overflow-y: auto")
+                  template(v-for="q in questions1" :id="q.code" style="overflow-y: auto")
                     b {{q.name}}
+                    template(v-if="q.tooltip")
+                      b.asterisk_mark(:id="'tooltip'+q.code")  *
+                      b-tooltip(:target="'tooltip'+q.code")  {{ q.tooltip }}
+
+                    multiselect(
+                      v-model="q.value",
+                      :options="q.answers",
+                      placeholder="Pick a value",
+                      :disabled="is_disabled(q)",
+                      :show-labels="false",
+                      open-direction="bottom"
+                    ).multiselect
+                  hr(style="height: 15px; margin: auto; overflow: hidden; border-top: 1px solid var(--light-gray-primary); width: 70%;")
+
+                  template(v-for="q in questions2" :id="q.code" style="overflow-y: auto")
+                    b {{q.name}}
+                    template(v-if="q.tooltip")
+                      b.asterisk_mark(:id="'tooltip'+q.code")  *
+                      b-tooltip(:target="'tooltip'+q.code")  {{ q.tooltip }}
+
+                    multiselect(
+                      v-model="q.value",
+                      :options="q.answers",
+                      placeholder="Pick a value",
+                      :disabled="is_disabled(q)",
+                      :show-labels="false",
+                      open-direction="bottom"
+                    ).multiselect
+                  hr(style="height: 15px; margin: auto; overflow: hidden; border-top: 1px solid var(--light-gray-primary); width: 70%;")
+                  template(v-for="q in questions3" :id="q.code" style="overflow-y: auto")
+                    b {{q.name}}
+                    template(v-if="q.tooltip")
+                      b.asterisk_mark(:id="'tooltip'+q.code")  *
+                    b-tooltip(:target="'tooltip'+q.code")  {{ q.tooltip }}
+
                     multiselect(
                       v-model="q.value",
                       :options="q.answers",
@@ -68,6 +108,7 @@
   import Header from "./Header";
   import _ from "lodash";
 
+
   export default {
     name: "Menus",
     components: {
@@ -95,7 +136,7 @@
           "Skilled crew for the production of second-hand membranes, production",
           "Potential application of the second-hand membranes"
         ],
-        questions: [
+        questions1: [
           // Survey 1
           {
             code: "T",
@@ -103,18 +144,20 @@
             value: null,
             answers: ["Reverse osmosis brackish model design", "Reverse osmosis sea model design", "Nanofiltration", "Ultrafiltration", "Microfiltration", "Other"]
           },
-          {code: "C", name: "Membrane configuration", value: null, answers: ["Spiral-wound", "Other"]},
-          {code: "S", name: "Membrane size", value: null, answers: ["Length: 1m. Diameter: 0.2m", "Other"]},
           {code: "W", name: "Membrane weight", value: null, answers: ["<17kg", "17-25 kg", ">25kg", "Don't know"]},
           {code: "ED", name: "External damage", value: null, answers: ["No", "Yes", "Don't know"]},
-          {code: "F", name: "Fouling type", value: null, answers: ["Inorganic scaling", "Other", "Don't know"]},
           {
             code: "ST",
             name: "Membrane storage",
             value: null,
-            answers: ["Wet", "Immersed in a water solution", "Dry", "Don't know"]
+            answers: ["Wet", "Immersed in a water solution", "Dry", "Don't know"],
+            tooltip: "How did you store the end-of-life membranes after their replacement?"
           },
-          {code: "D", name: "Storage duration", value: null, answers: ["<1 month", ">1 month", "Don't know"]},
+          {code: "D", name: "Storage duration", value: null, answers: ["<1 month", ">1 month", "Don't know"], tooltip: "For how long did you store the membranes after their replacement?"},
+        ],
+        questions2: [
+          // Survey 1
+          {code: "F", name: "Fouling type", value: null, answers: ["Inorganic scaling", "Other", "Don't know"], tooltip: "Insert “Inorganic – Scaling” if you think the membranes have salt precipitation. For organic, biofouling, colloidal, or clay fouling insert “Other”"},
           {
             code: "RP",
             name: "Cause of replacement",
@@ -125,26 +168,33 @@
             code: "P",
             name: "Membrane position",
             value: null,
-            answers: ["Single pass", "Double pass - single stage", "Double pass - double stage", "Mix", "Don't know"]
+            answers: ["Single pass", "Double pass - single stage", "Double pass - double stage", "Mix", "Don't know"],
+            tooltip: "In which rack were the membranes placed?"
           },
           {
             code: "WT",
             name: "Type of water",
             value: null,
-            answers: ["Seawater", "Brackish water", "Wastewater", "Chemical industry", "Food industry", "River water", "Don't know", "Other"]
+            answers: ["Seawater", "Brackish water", "Wastewater", "Chemical industry", "Food industry", "River water", "Don't know", "Other"],
+            tooltip: "Feed water to be treated by the membranes"
           },
+        ],
+        questions3: [
           // Survey 2
           {
             code: "R",
-            name: "Salt rejection",
+            name: "Variation of salt rejection",
             value: null,
-            answers: ["<15% comparing to the design value", ">10% of NaCl and >30% of MgSO4", "<10% of NaCl and <30% of MgSO4"]
+            answers: ["<15%", ">10% of NaCl and >30% of MgSO4", "<10% of NaCl and <30% of MgSO4"],
+            tooltip: "Comparing to the design value"
           },
           {
             code: "PV",
             name: "Variation of Permeability",
             value: null,
-            answers: ["<1-fold comparing to the design value", "[1-5]-fold comparing to the design value", ">5-fold comparing to the design value"]
+            answers: ["<1-fold", "[1-5]-fold", ">5-fold"],
+            tooltip: "Comparing to the design value"
+
           },
         ],
         membrane_reuse_options: [
@@ -662,7 +712,6 @@
 
 
 
-
         ],
         available_solutions: [
           // Survey 1
@@ -705,14 +754,88 @@
       }
     },
     methods: {
+      download() {
+
+        //Survey
+        let questions = this.questions1.concat(this.questions2).concat(this.questions3)
+        let items= [['Survey Option', 'User Selection']]
+        questions.forEach(function (q) {
+          items.push([q.name, q.value ])
+        })
+
+        //Alternative end-of-life membrane management
+        let alternatives = []
+        this.available_solutions.forEach(function (s) {
+          alternatives.push(s.name)
+        })
+
+        let pdfMake = require('pdfmake/build/pdfmake.js')
+        if (pdfMake.vfs == undefined){
+          let pdfFonts = require('pdfmake/build/vfs_fonts.js')
+          pdfMake.vfs = pdfFonts.pdfMake.vfs;
+        }
+        let dd = {
+              content: [
+                {text: 'Report generated', style: 'header'},
+                'Bla bla.',
+                {text: 'Survey', style: 'subheader'},
+                {
+                  style: 'surveyTable',
+                  table: {
+                    body: items
+                  }
+                },
+                {text: 'Alternative end-of-life membrane management', style: 'subheader'},
+                {
+                  ul: alternatives
+                },
+              ],
+              styles: {
+                header: {
+                  fontSize: 18,
+                  bold: true,
+                  margin: [0, 0, 0, 10]
+                },
+                subheader: {
+                  fontSize: 16,
+                  bold: true,
+                  margin: [0, 10, 0, 5]
+                },
+                surveyTable: {
+                  margin: [0, 5, 0, 15]
+                },
+                tableHeader: {
+                  bold: true,
+                  fontSize: 13,
+                  color: 'black'
+                }
+              },
+              defaultStyle: {
+                // alignment: 'justify'
+              }
+        }
+
+
+        pdfMake.createPdf(dd).download('optionalName.pdf')
+
+
+
+
+      },
       get_question_by_code(code) {
-        return this.questions.find(q => q.code == code);
+        let questions = this.questions1.concat(this.questions2).concat(this.questions3)
+        return questions.find(q => q.code == code);
       },
       clearValues() {
-        this.questions.forEach(function (item) {
+        this.questions1.forEach(function (item) {
           item.value = null;
         });
-        console.log("all values cleared: ", this.questions);
+        this.questions2.forEach(function (item) {
+          item.value = null;
+        });
+        this.questions3.forEach(function (item) {
+          item.value = null;
+        });
       },
       //frontend
       get_membrane_reuse_color() {
@@ -744,8 +867,6 @@
         let code = question.code;
         let get_question = this.get_question_by_code;
         let type = get_question("T").value;
-        let config = get_question("C").value;
-        let size = get_question("S").value;
         let weight = get_question("W").value;
 
 
@@ -754,8 +875,6 @@
             return true;
           }
         }else if(type == "Ultrafiltration" || type == "Microfiltration" || type == "Other") return code != "T"
-        else if(config == "Other") return code != "C"
-        else if(size == "Other") return code != "S"
         else if(weight == ">25kg") return code != "W"
 
 
@@ -792,8 +911,6 @@
         this.init_available_solutions();
         let get_question = this.get_question_by_code;
         let type = get_question("T").value;
-        let config = get_question("C").value;
-        let size = get_question("S").value;
         let weight = get_question("W").value;
         let ext_damage = get_question("ED").value;
         let fouling = this.get_fouling_type();
@@ -816,110 +933,95 @@
           return;
         }
         else if(type == "Reverse osmosis brackish model design" || type == "Reverse osmosis sea model design" || type == "Nanofiltration"){
-          //Membrane configuration
-          if(config == "Other"){
+
+          //Membrane weight
+          if (weight == ">25kg") {
             this.remove_solutions(["IR", "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
             return;
-          }
-          else if(config == "Spiral-wound"){
-            //Membrane size
-            if(size == "Other"){
-              this.remove_solutions(["IR", "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
+          } else if (weight == "<17kg" || weight == "17-25 kg") {
+            this.remove_solutions(["LI"]);
+            //External damage
+            if (ext_damage == "Yes") {
+              this.remove_solutions(["AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
               return;
-            }
-            else if(size == "Length: 1m. Diameter: 0.2m"){
-              //Membrane weight
-              if(weight == ">25kg"){
-                this.remove_solutions(["IR", "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
-                return;
-              }
-              else if(weight == "<17kg" || weight == "17-25 kg"){
-                this.remove_solutions([ "LI"]);
-                //External damage
-                if(ext_damage == "Yes"){
-                  this.remove_solutions([ "AM", "AMR", "IC", "NEIM", "NEIC", "NEIR", "IRC"]);
+            } else if (ext_damage == "No") {
+              //Fouling
+              if (fouling == "Inorganic scaling") {
+                this.remove_solutions(["AM", "AMR", "IRC"]);
+                //Membrane storage
+                if (storage == "Immersed in a water solution" || storage == "Wet") {
+                  //Weight
+                  if (weight == "17-25 kg") {
+                    this.remove_solutions(["IC", "NEIM", "NEIC", "NEIR"]);
+                    return;
+                  } else if (weight == "<17kg") {
+                    this.remove_solutions(["IR", "NEIM", "NEIC", "NEIR"]);
+                    return;
+                  }
+                } else if (storage == "Dry") {
+                  this.remove_solutions(["IC", "NEIM", "NEIC", "NEIR"]);
                   return;
-                }else if (ext_damage == "No") {
-                  //Fouling
-                  if (fouling == "Inorganic scaling") {
-                    this.remove_solutions(["AM", "AMR", "IRC"]);
-                    //Membrane storage
-                    if (storage == "Immersed in a water solution" || storage == "Wet") {
-                      //Weight
-                      if (weight == "17-25 kg"){
-                        this.remove_solutions(["IC", "NEIM", "NEIC", "NEIR"]);
+                }
+              } else if (fouling == "Other") {
+                //Membrane storage
+                if (storage == "Immersed in a water solution" || storage == "Wet") {
+                  this.remove_solutions(["IR", "AMR", "IRC"]);
+                  //Weight
+                  if (weight == "17-25 kg") {
+                    this.remove_solutions(["AM", "NEIM", "NEIC", "NEIR"]);
+                    return;
+                  } else if (weight == "<17kg") {
+                    this.remove_solutions(["IC", "NEIM", "NEIC", "NEIR"]);
+                    return;
+                  }
+                } else if (storage == "Dry") {
+                  //Duration of storage after the replacement
+                  this.remove_solutions(["AM"]);
+                  if (storage_duration == "<1 month") {
+                    this.remove_solutions(["AMR"]);
+                    //Weight
+                    if (weight == "17-25 kg") {
+                      if (position == "Single pass" || position == "Double pass - single stage") {
+                        //*1a
+                        this.remove_solutions(["NEIM", "NEIC", "NEIR", "IRC", "IR"]);
+                        return;
+                      } else if (position == "Mix" && (cause_replacement == "Granted budget for replacement" || cause_replacement == "Don't know")) {
+                        //*1b
+                        this.remove_solutions(["NEIM", "NEIC", "NEIR", "IRC", "IR"]);
+                        return;
+                      } else if (position == "Mix" && (cause_replacement == "Operating more than the expected lifespan" || cause_replacement == "Lost of membrane integrity")) {
+                        //*2
+                        this.remove_solutions(["NEIM", "NEIC", "NEIR", "IC", "IR"]);
+                        return;
+                      } else if (position == "Double pass - double stage") {
+                        //*3
+                        this.remove_solutions(["NEIM", "NEIC", "NEIR", "IC", "IRC"]);
                         return;
                       }
-                      else if (weight == "<17kg"){
-                        this.remove_solutions(["IR", "NEIM", "NEIC", "NEIR"]);
-                        return;
-                      }
-                    } else if (storage == "Dry"){
-                      this.remove_solutions(["IC", "NEIM", "NEIC", "NEIR"]);
+                    } else if (weight == "<17kg") {
+                      this.remove_solutions(["NEIM", "NEIC", "NEIR", "IRC", "IR"]);
                       return;
                     }
-                  } else if (fouling == "Other") {
-                    //Membrane storage
-                    if (storage == "Immersed in a water solution" || storage == "Wet") {
-                      this.remove_solutions(["IR", "AMR", "IRC"]);
-                      //Weight
-                      if (weight == "17-25 kg"){
-                        this.remove_solutions(["AM", "NEIM", "NEIC", "NEIR"]);
-                        return;
-                      }
-                      else if (weight == "<17kg"){
-                        this.remove_solutions(["IC", "NEIM", "NEIC", "NEIR"]);
-                        return;
-                      }
-                    } else if (storage == "Dry") {
-                      //Duration of storage after the replacement
-                      this.remove_solutions(["AM"]);
-                      if (storage_duration == "<1 month") {
-                        this.remove_solutions(["AMR"]);
-                        //Weight
-                        if (weight == "17-25 kg") {
-                          if (position == "Single pass" || position == "Double pass - single stage") {
-                            //*1a
-                            this.remove_solutions(["NEIM", "NEIC", "NEIR", "IRC", "IR"]);
-                            return;
-                          } else if(position == "Mix" && (cause_replacement == "Granted budget for replacement" || cause_replacement == "Don't know")){
-                            //*1b
-                            this.remove_solutions(["NEIM", "NEIC", "NEIR", "IRC", "IR"]);
-                            return;
-                          } else if (position == "Mix" && (cause_replacement == "Operating more than the expected lifespan" || cause_replacement == "Lost of membrane integrity")) {
-                            //*2
-                            this.remove_solutions(["NEIM", "NEIC", "NEIR", "IC", "IR"]);
-                            return;
-                          } else if (position == "Double pass - double stage") {
-                            //*3
-                            this.remove_solutions(["NEIM", "NEIC", "NEIR", "IC", "IRC"]);
-                            return;
-                          }
-                        } else if (weight == "<17kg"){
-                          this.remove_solutions(["NEIM", "NEIC", "NEIR", "IRC", "IR"]);
-                          return;
-                        }
-                      } else if (storage_duration == ">1 month") {
-                        this.remove_solutions(["IC", "AM", "IRC"]);
-                        //Weight
-                        if (weight == "17-25 kg"){
-                          this.remove_solutions(["NEIM", "NEIC", "NEIR", "AMR"]);
-                          return;
-                        }
-                        else if (weight == "<17kg"){
-                          this.remove_solutions(["NEIM", "NEIC", "NEIR", "IR"]);
-                          return;
-                        }
-                      }
+                  } else if (storage_duration == ">1 month") {
+                    this.remove_solutions(["IC", "AM", "IRC"]);
+                    //Weight
+                    if (weight == "17-25 kg") {
+                      this.remove_solutions(["NEIM", "NEIC", "NEIR", "AMR"]);
+                      return;
+                    } else if (weight == "<17kg") {
+                      this.remove_solutions(["NEIM", "NEIC", "NEIR", "IR"]);
+                      return;
                     }
                   }
                 }
               }
             }
           }
+
+
         }
         //Complementary information to the decision-making tree
-        if((type == "Reverse osmosis brackish model design" || type == "Reverse osmosis sea model design" || type == "Nanofiltration") && config == "Spiral-wound" && size == "Length: 1m. Diameter: 0.2m") {
+        if((type == "Reverse osmosis brackish model design" || type == "Reverse osmosis sea model design" || type == "Nanofiltration")) {
           if (weight == "<17kg" && (ext_damage == "No" || ext_damage == "Don't know") && (fouling == "Other" || fouling == "Don't know")) this.remove_solutions(["NEIC", "NEIR", "IR", "LI", "AM", "AMR", "IC", "IRC"]);
           else if (weight == "<17kg" && storage == "Dry" && fouling == "Inorganic scaling") this.remove_solutions(["NEIC", "NEIR", "NEIM", "LI", "AM", "AMR", "IC", "IRC"]);
           else if (weight == "<17kg" && (storage == "Wet" || storage == "Immersed in a water solution") && ext_damage == "Don't know" && fouling == "Inorganic scaling") this.remove_solutions(["NEIC", "NEIR", "NEIM", "LI", "AM", "AMR", "IC", "IRC"]);
