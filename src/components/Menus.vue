@@ -80,10 +80,10 @@
                       div
                         p.mb-0 {{ s.name }}
 
-                  template(v-if="result_survey_2.length !== 0")
-                    div.membrane_reuse(v-for="s in result_survey_2")
+                  template(v-if="result_survey_2 !== null")
+                    div.membrane_reuse
                       b-col.pt-2.px-0(style="height: 38px; background: var(--gray-for-tables)" class="text-center justify-content-center")
-                        b {{ s.code.membrane_reuse }}
+                        b {{ this.result_survey_2.input.membrane_reuse }}
                       b-col.px-0
                         br
                         b Recommended process to produce second-hand membranes
@@ -92,7 +92,7 @@
                           small
                           outlined
                           :fields="table_fields"
-                          :items="[s.survey2Result]"
+                          :items="[result_survey_2.survey2Result]"
                         )
                         p(style="font-size: small") <b>* Exposure dose (ppm h): </b> membrane exposure to a free chlorine solution with a certain concentration (ppm) during a specific time (h).
                   template(v-else)
@@ -106,9 +106,9 @@
                     v-bind:membrane_type="this.get_question_by_code('T').value"
                     :salt_rejection="this.get_question_by_code('R').value"
                     :permeability="this.get_question_by_code('PV').value"
+                    :case-studies="this.caseStudies_info"
+                    v-bind:image_ids="this.result_survey_2"
                     )
-                //b-tab#factSheets(title="FACT SHEETS").p-3.tabBox
-                  FactSheets
     footer.footer
       Footer
 
@@ -764,8 +764,6 @@
         ],
         membraneReuse_info: [],
         caseStudies_info: [],
-
-
       }
     },
     created: function() {
@@ -775,7 +773,6 @@
 
       oReq.open("GET", url, true);
       oReq.send();
-      console.log("oreq", oReq);
       oReq.responseType = "arraybuffer";
       oReq.onload = function () {
 
@@ -793,23 +790,27 @@
         let worksheet_2 = workbook.Sheets[second_sheet_name];     //get 2nd worksheet
         let membraneReuse_data = XLSX.utils.sheet_to_json(worksheet_1, {raw: true});  //1st sheet data
         let caseStudies_data = XLSX.utils.sheet_to_json(worksheet_2, {raw: true});    //2nd sheet data
-        console.log("membrane_reuse:", membraneReuse_data);
-        console.log("case_studies:", caseStudies_data);
 
         _this.parse_membraneReuse_data(membraneReuse_data);
         _this.parse_caseStudies_data(caseStudies_data);
 
-        //_this.caseStudies_info = caseStudies_data;
       }
     },
     methods: {
       parse_membraneReuse_data(data){
         let _this = this;
         data.forEach(function (row){
+          let caseNumbers;
+          if(typeof row['image_id'] === "string")
+            caseNumbers = Array.from(row['image_id'].split(','),Number);
+          else if(typeof row['image_id'] === "number")
+            caseNumbers = [row['image_id']];
+          else
+            caseNumbers = []
 
           /* add object to "membrane reuse options" as possible output after survey 2 is completed */
           const aux = {
-            code: {
+            input: {
               membrane_type: row['membrane_type'],
               permeability: row['permeability'],
               salt_rejection: row['salt_rejection'],
@@ -823,12 +824,13 @@
               economical_saving: row['economical_saving'],
               skilled_crew: row['skilled_crew'],
               potential_application: row['potential_application']
-            }
+            },
+            caseNumbers: caseNumbers
           }
           //find if it already exists the object before adding to the array or "membrane reuse options".
           let idx = _this.membraneReuse_info.findIndex(o =>
-              (o.code.membrane_type === aux.code.membrane_type && o.code.permeability === aux.code.permeability
-              && o.code.salt_rejection === aux.code.salt_rejection && o.code.membrane_reuse === aux.code.membrane_reuse));
+              (o.input.membrane_type === aux.input.membrane_type && o.input.permeability === aux.input.permeability
+              && o.input.salt_rejection === aux.input.salt_rejection && o.input.membrane_reuse === aux.input.membrane_reuse));
           if(idx === -1) _this.membraneReuse_info.push(aux);
 
           /* add object to "case studies" props to show on "Case Studies" tab after survey 2 is completed */
@@ -916,9 +918,9 @@
 
         //Recommended process to produce second-hand membranes
         dd.content.push({text: 'Recommended process to produce second-hand membranes', style: 'subheader'})
-        if(this.result_survey_2.length == 1){
+        if(this.result_survey_2 !== null){
           let recommendedProcess = []
-          let o = this.result_survey_2[0].survey2Result
+          let o = this.result_survey_2.survey2Result
 
           Object.keys(o).forEach(function (k){
             recommendedProcess.push([{text:_this.table_fields.find(q => q.key == k).label ,bold: true}, o[k]])
@@ -997,7 +999,7 @@
       },
       remove_solutions(codes){
         for(let i=0; i<codes.length; i++){
-          console.log("deleting "+codes[i]);
+          //console.log("deleting "+codes[i]);
           let index = this.available_solutions.findIndex(s=>s.code === codes[i]);
           if(index >= 0){
             this.available_solutions.splice(index, 1);
@@ -1257,7 +1259,7 @@
       },
       adapt_survey_2_result(solution){
         //let ret = solution.survey2Result;
-        let aux = {"membrane_reuse": solution.code.membrane_reuse}
+        let aux = {"membrane_reuse": solution.input.membrane_reuse}
         return Object.assign(aux, solution.survey2Result);
         //return solution.survey2Result;
       }
@@ -1276,6 +1278,7 @@
         let perm = get_question("PV").value;
         let rejection = get_question("R").value;
 
+        let ret;
         if (survey2Output) {
           auxObject = {
             membrane_type: membrane,
@@ -1283,39 +1286,33 @@
             salt_rejection: rejection,
             membrane_reuse: survey2Output.name,
           };
+          ret = this.membraneReuse_info.find(i => _.isEqual(i.input, auxObject));
         }
         //Indirect Recycling
         else if(this.available_solutions.length === 1 && this.available_solutions[0].code === "IR" && (membrane === "Reverse osmosis brackish model design" || membrane === "Reverse osmosis sea model design")){
-          auxObject = {
-            membrane_type: membrane,
-            permeability: null,
-            salt_rejection: null,
-            membrane_reuse: "Indirect recycling",
-          };
-        }else{
-          return [];
+          ret = this.membraneReuse_info.find(i => i.input.membrane_type === membrane && i.input.membrane_reuse === "Indirect recycling");
+        }
+        else{
+          return null;
         }
 
-        let ret = this.membraneReuse_info.find(i => _.isEqual(i.code, auxObject));
-        console.log(ret)
         if(!ret)
-          return [];
+          return null;
         else
-          return [ret];
+          return ret;
 
       },
       get_solutions_for_case_studies() {
         let solutions = [];
         let aux = this.get_management_survey2();
         let options = this.membrane_reuse_options;
-        console.log("solutions: ",this.available_solutions);
-        console.log("aux: ", aux);
+        //console.log("solutions: ",this.available_solutions);
+        //console.log("aux: ", aux);
         this.available_solutions.forEach(function (sol) {
           let code = sol.code;
           if((code === "AM" || code === "AMR" || code === "IC")){
             if(aux !== ""){
               let survey2Output = options.find(q=>q.code == aux);
-              console.log(survey2Output);
               solutions.push(survey2Output);
             }
           } else
