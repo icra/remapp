@@ -209,7 +209,7 @@
           {code: "RegNF", name: "Regenerate to reuse as nanofiltration membranes",  color: "#ccff33"},
           {code: "RecNF", name: "Recycling into nanofiltration-like membranes",     color: "#33cc33"},
           {code: "RecUF", name: "Recycling into ultrafiltration-like membranes",    color: "#77933c"},
-          {
+          /*{
             code: {
               membrane_type: "Reverse osmosis brackish model design",
               permeability: "<1-fold comparing to the design value",
@@ -672,7 +672,7 @@
               economical_saving: "high",
               skilled_crew: "high",
               potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
-          }
+          }*/
         ],
         available_solutions: [
           // Survey 1
@@ -712,11 +712,14 @@
             color: "#f79447"
           },
         ],
-        excelData: []
+        membraneReuse_info: [],
+        caseStudies_info: [],
+
+
       }
     },
     created: function() {
-      let url = "/case_studies.xlsx"
+      let url = "/case_studies_new.xlsx"
       let _this = this;
       let oReq = new XMLHttpRequest();
       console.log("hola")
@@ -735,19 +738,28 @@
           arr[i] = String.fromCharCode(data[i]);
         let str = arr.join("");
 
-        let workbook = XLSX.read(str, {type: "binary"}); //call XLSX
+        let workbook = XLSX.read(str, {type: "binary"});    //call XLSX
         let first_sheet_name = workbook.SheetNames[0];
-        let worksheet = workbook.Sheets[first_sheet_name];    //get worksheet
-        let excelData = XLSX.utils.sheet_to_json(worksheet, {raw: true});
-        console.log("excel:", excelData);
-        _this.parse_excelData(excelData);
-        //_this.excelData = excelData;
+        let second_sheet_name = workbook.SheetNames[1];
+        let worksheet_1 = workbook.Sheets[first_sheet_name];      //get 1st worksheet
+        let worksheet_2 = workbook.Sheets[second_sheet_name];     //get 2nd worksheet
+        let membraneReuse_data = XLSX.utils.sheet_to_json(worksheet_1, {raw: true});  //1st sheet data
+        let caseStudies_data = XLSX.utils.sheet_to_json(worksheet_2, {raw: true});    //2nd sheet data
+        console.log("membrane_reuse:", membraneReuse_data);
+        console.log("case_studies:", caseStudies_data);
+
+        _this.parse_membraneReuse_data(membraneReuse_data);
+        _this.parse_caseStudies_data(caseStudies_data);
+
+        //_this.caseStudies_info = caseStudies_data;
       }
     },
     methods: {
-      parse_excelData(data){
+      parse_membraneReuse_data(data){
         let _this = this;
         data.forEach(function (row){
+
+          /* add object to "membrane reuse options" as possible output after survey 2 is completed */
           const aux = {
             code: {
               membrane_type: row['membrane_type'],
@@ -765,12 +777,35 @@
               potential_application: row['potential_application']
             }
           }
-          let idx = _this.excelData.findIndex(o =>
+          //find if it already exists the object before adding to the array or "membrane reuse options".
+          let idx = _this.membraneReuse_info.findIndex(o =>
               (o.code.membrane_type === aux.code.membrane_type && o.code.permeability === aux.code.permeability
               && o.code.salt_rejection === aux.code.salt_rejection && o.code.membrane_reuse === aux.code.membrane_reuse));
-          if(idx === -1) _this.excelData.push(aux);
+          if(idx === -1) _this.membraneReuse_info.push(aux);
+
+          /* add object to "case studies" props to show on "Case Studies" tab after survey 2 is completed */
+          /*const aux2 = {
+            image_id: row['image_id'],
+            specific_application: row['specific_application'],
+            company_name: row['company_name'],
+            project_name: row['project_name'],
+            entity: row['entity'],
+            website: row['website'],
+            typeEOF_membrane: row['typeEOF_membrane'],
+            research_activity: row['research_activity'],
+            implementation: row['implementation'],
+            investigation: row['investigation'],
+            results: row['results'],
+            mailing_address: row['mailing_address'],
+            contacts: row['contacts']
+          }
+          _this.caseStudies_info.push(aux2);*/
 
         });
+      },
+      parse_caseStudies_data(data){
+        let _this = this;
+        _this.caseStudies_info = data;
       },
       get_question_by_code(code) {
         return this.questions.find(q => q.code == code);
@@ -1146,7 +1181,7 @@
           return [];
         }
 
-        let ret = this.membrane_reuse_options.find(i => _.isEqual(i.code, auxObject));
+        let ret = this.membraneReuse_info.find(i => _.isEqual(i.code, auxObject));
         console.log(ret)
         if(!ret)
           return [];

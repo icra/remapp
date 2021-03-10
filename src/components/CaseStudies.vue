@@ -348,9 +348,9 @@
           {code: "RecNF", caseNumbers: [1,2,3]},
           {code: "RecUF", caseNumbers: [1,2,3]},*/
         ],
-        info: [
+        caseStudies_info: [
           {
-            code: 1,
+            image_id: 1,
             specific_application: "Wastewater treatment",
             company_name: "Aqualia",
             project_name: "Life Remembrane - Consortium",
@@ -365,7 +365,7 @@
             contacts: "mviallon@leitat.org"
           },
           {
-            code: 2,
+            image_id: 2,
             specific_application: "Not focus on application but on preparing RO membranes to be reused",
             company_name: "WaterSurplus",
             project_name: "-",
@@ -380,7 +380,7 @@
             contacts: "sales@watersurplus.com"
           },
           {
-            code: 3,
+            image_id: 3,
             specific_application: "Not focus on application but on preparing RO membranes to be reused",
             company_name: "Avanale water solution",
             project_name: "-",
@@ -395,7 +395,7 @@
             contacts: "phil@avanale.com.au"
           },
           {
-            code: 4,
+            image_id: 4,
             specific_application: "Not focus on application but on preparing RO  membranes to be reused",
             company_name: "Membrane Services",
             project_name: "-",
@@ -410,7 +410,7 @@
             contacts: "http://membraneservices.com/Contact_Us.html"
           },
           {
-            code: 5,
+            image_id: 5,
             specific_application: "Not focus on application but on preparing RO membranes to be reused",
             company_name: "Sichuan University",
             project_name: "-",
@@ -425,7 +425,7 @@
             contacts: "li-yongsheng@scu.edu.cn lysgxf2005@yahoo.com.cn"
           },
           {
-            code: 6,
+            image_id: 6,
             specific_application: "Industrial wastewater",
             company_name: "Eurecat",
             project_name: "-",
@@ -440,7 +440,7 @@
             contacts: "xavier.martinez@eurecat.org"
           },
           {
-            code: 7,
+            image_id: 7,
             specific_application: "Landfill leachate water treatment",
             company_name: "University of Girona (Spain) and University of New South Wales (Australia)",
             project_name: "TECNIOSPRING+ Mem2.0 - Consortium",
@@ -455,7 +455,7 @@
             contacts: " joaquim.comas@udg.edu "
           },
           {
-            code: 8,
+            image_id: 8,
             specific_application: "Brackish water treatment for irrigation",
             company_name: "IMDEA Agua",
             project_name: "Life-Transfomem - Consortium",
@@ -470,7 +470,7 @@
             contacts: "membranas.agua@imdea.org"
           },
           {
-            code: 9,
+            image_id: 9,
             specific_application: "Life cycle and economical assessment of the recycling process ",
             company_name: "IMDEA Agua",
             project_name: "Life-Transfomem",
@@ -485,7 +485,7 @@
             contacts: "membranas.agua@imdea.org"
           },
           {
-            code: 10,
+            image_id: 10,
             specific_application: "Synthetic river water",
             company_name: "University of Girona (Spain) and University of New South Wales (Australia)",
             project_name: "TECNIOSPRING+ Mem2.0 - Consortium",
@@ -500,7 +500,7 @@
             contacts: " joaquim.comas@udg.edu "
           },
           {
-            code: 11,
+            image_id: 11,
             specific_application: "Not focus on application but on producing NF-like membranes to be reused",
             company_name: "Federal University of Itajubá",
             project_name: "-",
@@ -515,7 +515,7 @@
             contacts: "ecoutinho@unifei.edu.br"
           },
           {
-            code: 12,
+            image_id: 12,
             specific_application: "Not focus on application but on producing NF-like membranes to be reused",
             company_name: "Universidade Federal do Rio Grande do Sul",
             project_name: "-",
@@ -530,7 +530,7 @@
             contacts: "isabel@enq.ufrgs.br"
           },
           {
-            code: 13,
+            image_id: 13,
             specific_application: "Wastewater treatment",
             company_name: "MEDRC",
             project_name: "-",
@@ -545,7 +545,7 @@
             contacts: "elkharraz@medrc.org"
           },
           {
-            code: 14,
+            image_id: 14,
             specific_application: "Not focus on application but on producing NF-like membranes to be reused",
             company_name: "Universidade Federal do Rio Grande do Sul",
             project_name: "-",
@@ -560,7 +560,7 @@
             contacts: "alan.ambrosi@gmail.com"
           },
           {
-            code: 15,
+            image_id: 15,
             specific_application: "Wastewater treatment",
             company_name: "Universidad de Las Palmas de Gran Canaria (ULPGC)",
             project_name: "-",
@@ -575,7 +575,7 @@
             contacts: "jveza@dip.ulpgc.es"
           },
           {
-            code: 16,
+            image_id: 16,
             specific_application: "Not focus on application but on producing UF-like membranes to be reused",
             company_name: "UNSW,UNESCO",
             project_name: "-",
@@ -590,7 +590,7 @@
             contacts: "p.le-clech@unsw.edu.au"
           },
           {
-            code: 17,
+            image_id: 17,
             specific_application: "Life cycle assessment of the recycling process ",
             company_name: "UNSW,UNESCO",
             project_name: "-",
@@ -605,7 +605,7 @@
             contacts: "p.le-clech@unsw.edu.au"
           },
           {
-            code: 18,
+            image_id: 18,
             specific_application: "Sea water pretreatment ",
             company_name: "SACYR and IMDEA Agua",
             project_name: "Life-Transfomem - Consortium",
@@ -620,7 +620,7 @@
             contacts: "membranas.agua@imdea.org"
           },
           {
-            code: 19,
+            image_id: 19,
             specific_application: "Wastewater treatment",
             company_name: "SACYR and IMDEA Agua",
             project_name: "Life-Transfomem - Consortium",
@@ -635,7 +635,7 @@
             contacts: "membranas.agua@imdea.org"
           },
           {
-            code: 20,
+            image_id: 20,
             specific_application: "Economical assesment of the recycling process",
             company_name: "Federal University of Minas Gerais",
             project_name: "-",
@@ -650,7 +650,7 @@
             contacts: "ecoutinho@desa.ufmg.br"
           },
           {
-            code: 21,
+            image_id: 21,
             specific_application: "Wastewater treatment",
             company_name: "Eurecat",
             project_name: "H2020 Nextgen - Consortium",
@@ -665,7 +665,7 @@
             contacts: "xavier.martinez@eurecat.org"
           },
           {
-            code: 22,
+            image_id: 22,
             specific_application: "Urban wastewater",
             company_name: "Eurecat",
             project_name: "-",
@@ -680,7 +680,7 @@
             contacts: "xavier.martinez@eurecat.org"
           },
           {
-            code: 23,
+            image_id: 23,
             specific_application: "Not focus on application but on collecting end-of-life RO membranes to be reused",
             company_name: "AquaTip",
             project_name: "-",
@@ -695,7 +695,7 @@
             contacts: "director@aquatip.com.au"
           },
           {
-            code: 24,
+            image_id: 24,
             specific_application: "Wastewater treatment",
             company_name: "Centre d’Étude et de Recherche de Djibouti (CERD)",
             project_name: "-",
@@ -710,7 +710,7 @@
             contacts: "awaleh@gmail.com"
           },
           {
-            code: 25,
+            image_id: 25,
             specific_application: "Synthetic water",
             company_name: "Advanced Water Management Centre (The University of Queensland)",
             project_name: "-",
@@ -725,7 +725,7 @@
             contacts: "m.pype@awmc.uq.edu.au"
           },
           {
-            code: 26,
+            image_id: 26,
             specific_application: "Brackish water",
             company_name: "Université de Nantes",
             project_name: "-",
@@ -740,7 +740,7 @@
             contacts: "maxime.pontie@univ-angers.fr"
           },
           {
-            code: 27,
+            image_id: 27,
             specific_application: "Industrial wastewater",
             company_name: "H2020 - Zero-Brine - Consortium",
             project_name: "-",
@@ -755,7 +755,7 @@
             contacts: "info@revolve.media"
           },
           {
-            code: 28,
+            image_id: 28,
             specific_application: "Landfill leachate water treatment",
             company_name: "CTM",
             project_name: "Life Releach - Consortium",
@@ -770,7 +770,7 @@
             contacts: "xavier.martinez@eurecat.org"
           },
           {
-            code: 29,
+            image_id: 29,
             specific_application: "Not focus on application but on producing NF-like membranes to be reused",
             company_name: "Lappeenranta University of Technology",
             project_name: "-",
@@ -785,7 +785,7 @@
             contacts: "arto.pihlajamaki@lut.fi"
           },
           {
-            code: 30,
+            image_id: 30,
             specific_application: "River water&#10;treatment application",
             company_name: "Federal University of Minas Gerais",
             project_name: "-",
@@ -800,7 +800,7 @@
             contacts: "ecoutinho@desa.ufmg.br"
           },
           {
-            code: 31,
+            image_id: 31,
             specific_application: "Synthetic river water",
             company_name: "University of Girona (Spain) and University of New South Wales (Australia)",
             project_name: "TECNIOSPRING+ Mem2.0 - Consortium",
@@ -815,7 +815,7 @@
             contacts: " joaquim.comas@udg.edu "
           },
           {
-            code: 32,
+            image_id: 32,
             specific_application: "Recycling of membrane components",
             company_name: "IMDEA Agua",
             project_name: "INREMEM - Consortium",
@@ -830,7 +830,7 @@
             contacts: "membranas.agua@imdea.org"
           },
           {
-            code: 33,
+            image_id: 33,
             specific_application: "Recycling of membrane components",
             company_name: "IMDEA Agua",
             project_name: "INREMEM - Consortium",
@@ -845,7 +845,7 @@
             contacts: "membranas.agua@imdea.org"
           },
           {
-            code: 34,
+            image_id: 34,
             specific_application: "Recycling of membrane components",
             company_name: "IMDEA Agua",
             project_name: "INREMEM - Consortium",
@@ -860,7 +860,7 @@
             contacts: "membranas.agua@imdea.org"
           },
           {
-            code: 35,
+            image_id: 35,
             specific_application: "Recycling of membrane components",
             company_name: "FACSA",
             project_name: "H2020 - Remeb - Consortium",
@@ -875,7 +875,7 @@
             contacts: "ezuriaga@facsa.com"
           },
           {
-            code: 36,
+            image_id: 36,
             specific_application: "Recycling of membrane components",
             company_name: "MEMRE",
             project_name: "MemRe GmbH Co.",
@@ -890,7 +890,7 @@
             contacts: "kontakt@memre.de"
           },
           {
-            code: 37,
+            image_id: 37,
             specific_application: "Recycling of membrane components",
             company_name: "Université de Nantes",
             project_name: "-",
@@ -905,7 +905,7 @@
             contacts: "maxime.pontie@univ-angers.fr"
           },
           {
-            code: 38,
+            image_id: 38,
             specific_application: "Recycling of membrane components",
             company_name: "Angers University, GEIHP",
             project_name: "Angers University, GEIHP",
@@ -920,7 +920,7 @@
             contacts: "maxime.pontie@univ-angers.fr"
           },
           {
-            code: 39,
+            image_id: 39,
             specific_application: "Recycling of membrane components",
             company_name: "University Complutense of Madrid",
             project_name: "-",
@@ -991,7 +991,7 @@
       },
       get_image_info(num){
         let aux = JSON.stringify(num.c);
-        let imageInfo = this.info.find(i => i.code == aux);
+        let imageInfo = this.caseStudies_info.find(i => i.image_id == aux);
         return imageInfo;
       }
     },
@@ -1018,7 +1018,7 @@
                 return false;
             }
             let ret;
-            if(sol.code !== "IR")
+            if(sol.image_id !== "IR")
               ret = imagesList.find(i => _.isEqual(i.inputs, auxObject));
             else
               ret = imagesList.find(i => _.isEqualWith(i.inputs, auxObject, compare_membrane_reuse));
