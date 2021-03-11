@@ -108,6 +108,7 @@
                     :permeability="this.get_question_by_code('PV').value"
                     :case-studies="this.caseStudies_info"
                     v-bind:image_ids="this.result_survey_2"
+                    :table_fields="this.case_studies_table_fields"
                     )
     footer.footer
       Footer
@@ -149,6 +150,24 @@
           {key: 'economical_saving',      label: "Potential Economical Saving compared to producing new membranes"},
           {key: 'skilled_crew',           label: "Skilled Crew"},
           {key: 'potential_application',  label: "Potential Application"}
+        ],
+        case_studies_table_fields: [
+          {
+            key: "specific_application",
+            isRowHeader: true,
+            label: "Specific application of second-hand membranes",
+          },
+          {key: 'company_name', label: "Company name"},
+          {key: 'project_name', label: "Name of the project"},
+          {key: 'entity', label: "Entity"},
+          {key: 'website', label: "Website"},
+          {key: 'typeEOF_membrane', label: "Type of end-of-life membranes"},
+          {key: 'research_activity', label: "Research  - Business activity"},
+          {key: 'implementation', label: "Scale of implementation"},
+          {key: 'investigation', label: "Main Investigation"},
+          {key: 'results', label: "Main results / products"},
+          {key: 'mailing_address', label: "Mailing address of the supervising organization"},
+          {key: 'contacts', label: "Contacts"}
         ],
         questions1: [
           // Survey 1
@@ -197,14 +216,14 @@
           // Survey 2
           {
             code: "R",
-            name: "Variation of salt rejection",
+            name: "Salt rejection",
             value: null,
             answers: ["<15%", ">10% of NaCl and >30% of MgSO4", "<10% of NaCl and <30% of MgSO4"],
             tooltip: "Comparing to the design value"
           },
           {
             code: "PV",
-            name: "Variation of Permeability",
+            name: "Variation of permeability or flux or water production",
             value: null,
             answers: ["<1-fold", "[1-5]-fold", ">5-fold"],
             tooltip: "Comparing to the design value"
@@ -922,9 +941,11 @@
           let recommendedProcess = []
           let o = this.result_survey_2.survey2Result
 
-          Object.keys(o).forEach(function (k){
-            recommendedProcess.push([{text:_this.table_fields.find(q => q.key == k).label ,bold: true}, o[k]])
+          this.table_fields.forEach(function (e){
+            recommendedProcess.push([{text:e.label ,bold: true}, o[e.key]])
           })
+
+
           dd.content.push({
             style: 'surveyTable',
             table: {
@@ -935,7 +956,27 @@
           dd.content.push("No recommendations available")
         }
 
+        //Case Studies
+        this.result_survey_2.caseNumbers.forEach(function (c){
 
+          let caseStudyPDF = []
+          let caseStudy = _this.caseStudies_info.find(i => i.image_id == c)
+          //console.log(caseStudy)
+          _this.case_studies_table_fields.forEach(function (e){
+            let title = {text:e.label ,bold: true}
+            let val = caseStudy[e.key]
+            if (val == undefined) val = ""
+            caseStudyPDF.push([title, val])
+          })
+          console.log(caseStudyPDF)
+          dd.content.push({
+            style: 'surveyTable',
+            table: {
+              body: caseStudyPDF
+            }
+          })
+
+        })
 
         pdfMake.createPdf(dd).download('optionalName.pdf')
       },

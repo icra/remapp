@@ -37,31 +37,13 @@
 
   export default {
     name: "CaseStudies",
-    props: ['solution_code', 'membrane_type', 'salt_rejection', 'permeability', 'caseStudies', 'image_ids'],
+    props: ['solution_code', 'membrane_type', 'salt_rejection', 'permeability', 'caseStudies', 'image_ids', 'table_fields'],
     data: function () {
       return {
         file: null,
         mainPath: "/caseStudies/",
         //cases_to_show: this.image_ids,
         //caseStudies_info: this.caseStudies,
-        table_fields: [
-          {
-            key: "specific_application",
-            isRowHeader: true,
-            label: "Specific application of second-hand membranes",
-          },
-          {key: 'company_name', label: "Company name"},
-          {key: 'project_name', label: "Name of the project"},
-          {key: 'entity', label: "Entity"},
-          {key: 'website', label: "Website"},
-          {key: 'typeEOF_membrane', label: "Type of end-of-life membranes"},
-          {key: 'research_activity', label: "Research  - Business activity"},
-          {key: 'implementation', label: "Scale of implementation"},
-          {key: 'investigation', label: "Main Investigation"},
-          {key: 'results', label: "Main results / products"},
-          {key: 'mailing_address', label: "Mailing address of the supervising organization"},
-          {key: 'contacts', label: "Contacts"}
-        ]
       }
     },
     methods: {
