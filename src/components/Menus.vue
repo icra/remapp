@@ -82,8 +82,23 @@
 
                   template(v-if="result_survey_2 !== null")
                     div.membrane_reuse
-                      b-col.pt-2.px-0(style="height: 38px; background: var(--gray-for-tables)" class="text-center justify-content-center")
-                        b {{ this.result_survey_2.input.membrane_reuse }}
+
+                      template(v-if="result_survey_2.input.membrane_reuse === 'Indirect recycling'")
+                        b-col.py-2.px-0(style="background: var(--gray-for-tables)" class="text-center justify-content-center")
+                          b {{ this.result_survey_2.input.membrane_reuse }}
+
+                      template(v-else)
+                        div
+                          b-row(style="height:fit-content; " align-v="center")
+                            b-col(cols="auto" style="height: 45px").mx-3.p-0
+                              icon-base(class="solid-border" :icon-color="this.get_solutions_for_case_studies[0].color" width="40" weight="40" )
+                                template(v-if="this.get_solutions_for_case_studies[0].code === 'RecNF' || this.get_solutions_for_case_studies[0].code === 'RecUF'")
+                                  recycle-icon
+                                template(v-else)
+                                  reuse-icon
+                            b-col.py-2.px-0(style="background: var(--gray-for-tables)" class="text-center justify-content-center")
+                              b {{ this.result_survey_2.input.membrane_reuse }}
+
                       b-col.px-0
                         br
                         b Recommended process to produce second-hand membranes
@@ -121,11 +136,17 @@
   import Header from "./Header";
   import _ from "lodash";
   import XLSX from 'xlsx';
+  import IconBase from "./IconBase";
+  import RecycleIcon from "./icons/RecycleIcon";
+  import ReuseIcon from "./icons/ReuseIcon";
 
 
   export default {
     name: "Menus",
     components: {
+      ReuseIcon,
+      RecycleIcon,
+      IconBase,
       Header,
       Footer,
       CaseStudies,
@@ -141,8 +162,8 @@
             class: "tHeader",
             //thStyle: {background: '#3eef33'},
             //variant: "danger"
-          },*/
-          {key: 'chlorine_quantitative',  label: "Free Chlorine Exposure Dose (quantitative, ppm h)"},
+          },
+          {key: 'chlorine_quantitative',  label: "Free Chlorine Exposure Dose (quantitative, ppm h)"},*/
           {key: 'chlorine_qualitative',   label: "Free Chlorine Exposure Dose (qualitative)"},
           {key: 'env_reduction',          label: "Potential Environmental Reduction compared to producing new membranes"},
           {key: 'env_cost',               label: "Potential Economical Cost (€ / membrane)"},
@@ -259,470 +280,6 @@
           {code: "RegNF", name: "Regenerate to reuse as nanofiltration membranes",  color: "#ccff33"},
           {code: "RecNF", name: "Recycling into nanofiltration-like membranes",     color: "#33cc33"},
           {code: "RecUF", name: "Recycling into ultrafiltration-like membranes",    color: "#77933c"},
-          /*{
-            code: {
-              membrane_type: "Reverse osmosis brackish model design",
-              permeability: "<1-fold",
-              salt_rejection: "<15%",
-              membrane_reuse: "Regenerate to reuse as reverse osmosis membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "< 2,500 ppm h ",
-              chlorine_qualitative: "low",
-              env_reduction: "high ++",
-              env_cost: "[26-55]",
-              economical_saving: "high ++",
-              skilled_crew: "medium",
-              potential_application: "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis brackish model design",
-              permeability: "<1-fold",
-              salt_rejection: ">10% of NaCl and >30% of MgSO4",
-              membrane_reuse: "Recycling into nanofiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[2,500-25,000] ppm h",
-              chlorine_qualitative: "medium ",
-              env_reduction: "high +",
-              env_cost: "[26-55]",
-              economical_saving: "high +",
-              skilled_crew: "high",
-              potential_application: "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis brackish model design",
-              permeability: "<1-fold",
-              salt_rejection: "<10% of NaCl and <30% of MgSO4",
-              membrane_reuse: "Recycling into ultrafiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[15,000-100,000] ppm h",
-              chlorine_qualitative: "high",
-              env_reduction: "high ",
-              env_cost: "[32-63]",
-              economical_saving: "high ",
-              skilled_crew: "low ",
-              potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis brackish model design",
-              permeability: "[1-5]-fold",
-              salt_rejection: "<15%",
-              membrane_reuse: "Reuse as reverse osmosis membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "0",
-              chlorine_qualitative: "0",
-              env_reduction: "high +++",
-              env_cost: "0",
-              economical_saving: "high +++",
-              skilled_crew: "Not required",
-              potential_application: "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis brackish model design",
-              permeability: "[1-5]-fold",
-              salt_rejection: ">10% of NaCl and >30% of MgSO4",
-              membrane_reuse: "Reuse as nanofiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "0",
-              chlorine_qualitative: "0",
-              env_reduction: "high +++",
-              env_cost: "0",
-              economical_saving: "high +++",
-              skilled_crew: "Not required",
-              potential_application: "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis brackish model design",
-              permeability: "[1-5]-fold",
-              salt_rejection: "<10% of NaCl and <30% of MgSO4",
-              membrane_reuse: "Recycling into ultrafiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[10,000-60,000] ppm h",
-              chlorine_qualitative: "high",
-              env_reduction: "high",
-              env_cost: "[32-63]",
-              economical_saving: "high",
-              skilled_crew: "low ",
-              potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis brackish model design",
-              permeability: ">5-fold",
-              salt_rejection: "<15%",
-              membrane_reuse: "Reuse as reverse osmosis membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "0",
-              chlorine_qualitative: "0",
-              env_reduction: "high +++",
-              env_cost: "0",
-              economical_saving: "high +++",
-              skilled_crew: "Not required",
-              potential_application: "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis brackish model design",
-              permeability: ">5-fold",
-              salt_rejection: ">10% of NaCl and >30% of MgSO4",
-              membrane_reuse: "Reuse as nanofiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "0",
-              chlorine_qualitative: "0",
-              env_reduction: "high +++",
-              env_cost: "0",
-              economical_saving: "high +++",
-              skilled_crew: "Not required",
-              potential_application: "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis brackish model design",
-              permeability: ">5-fold",
-              salt_rejection: "<10% of NaCl and <30% of MgSO4",
-              membrane_reuse: "Recycling into ultrafiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[10,000-60,000] ppm h",
-              chlorine_qualitative: "high",
-              env_reduction: "high",
-              env_cost: "[32-63]",
-              economical_saving: "high",
-              skilled_crew: "low ",
-              potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis sea model design",
-              permeability: "<1-fold",
-              salt_rejection: "<15%",
-              membrane_reuse: "Regenerate to reuse as reverse osmosis membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "< 4,000 ppm h ",
-              chlorine_qualitative: "low",
-              env_reduction: "high ++",
-              env_cost: "[33-63]",
-              economical_saving: "high ++",
-              skilled_crew: "medium",
-              potential_application: "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (installation in the second stage of the process, seawater process to treat the concentrate"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis sea model design",
-              permeability: "<1-fold",
-              salt_rejection: ">10% of NaCl and >30% of MgSO4",
-              membrane_reuse: "Recycling into nanofiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[4,000-150,000] ppm h",
-              chlorine_qualitative: "medium ",
-              env_reduction: "high +",
-              env_cost: "[33-63]",
-              economical_saving: "high +",
-              skilled_crew: "high",
-              potential_application: "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (installation in the second stage of the process, seawater process to treat the concentrate"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis sea model design",
-              permeability: "<1-fold",
-              salt_rejection: "<10% of NaCl and <30% of MgSO4",
-              membrane_reuse: "Recycling into ultrafiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[30,000-400,000] ppm h",
-              chlorine_qualitative: "high",
-              env_reduction: "high ",
-              env_cost: "[42-63]",
-              economical_saving: "high ",
-              skilled_crew: "low ",
-              potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis sea model design",
-              permeability: "[1-5]-fold",
-              salt_rejection: "<15%",
-              membrane_reuse: "Reuse as reverse osmosis membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "0",
-              chlorine_qualitative: "0",
-              env_reduction: "high +++",
-              env_cost: "0",
-              economical_saving: "high +++",
-              skilled_crew: "Not required",
-              potential_application: "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (installation in the second stage of the process, seawater process to treat the concentrate"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis sea model design",
-              permeability: "[1-5]-fold",
-              salt_rejection: ">10% of NaCl and >30% of MgSO4",
-              membrane_reuse: "Reuse as nanofiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "0",
-              chlorine_qualitative: "0",
-              env_reduction: "high +++",
-              env_cost: "0",
-              economical_saving: "high +++",
-              skilled_crew: "Not required",
-              potential_application: "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (installation in the second stage of the process, seawater process to treat the concentrate"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis sea model design",
-              permeability: "[1-5]-fold",
-              salt_rejection: "<10% of NaCl and <30% of MgSO4",
-              membrane_reuse: "Recycling into ultrafiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[20,000-200,000] ppm h",
-              chlorine_qualitative: "high",
-              env_reduction: "high",
-              env_cost: "[42-63]",
-              economical_saving: "high",
-              skilled_crew: "low ",
-              potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis sea model design",
-              permeability: ">5-fold",
-              salt_rejection: "<15%",
-              membrane_reuse: "Reuse as reverse osmosis membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "0",
-              chlorine_qualitative: "0",
-              env_reduction: "high +++",
-              env_cost: "0",
-              economical_saving: "high +++",
-              skilled_crew: "Not required",
-              potential_application: "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (installation in the second stage of the process, seawater process to treat the concentrate"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis sea model design",
-              permeability: ">5-fold",
-              salt_rejection: ">10% of NaCl and >30% of MgSO4",
-              membrane_reuse: "Reuse as nanofiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "0",
-              chlorine_qualitative: "0",
-              env_reduction: "high +++",
-              env_cost: "0",
-              economical_saving: "high +++",
-              skilled_crew: "Not required",
-              potential_application: "Landfill leachate treatment, Wastewater treatment for water reuse, miner, swine treatment, brackish water desalination for irrigation or other uses excepting drinking water (installation in the second stage of the process, seawater process to treat the concentrate"}
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis sea model design",
-              permeability: ">5-fold",
-              salt_rejection: "<10% of NaCl and <30% of MgSO4",
-              membrane_reuse: "Recycling into ultrafiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[20,000-200,000] ppm h",
-              chlorine_qualitative: "high",
-              env_reduction: "high",
-              env_cost: "[42-63]",
-              economical_saving: "high",
-              skilled_crew: "low ",
-              potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
-          },
-          {
-            code: {
-              membrane_type: "Nanofiltration",
-              permeability: "<1-fold",
-              salt_rejection: "<15%",
-              membrane_reuse: "Regenerate to reuse as nanofiltration membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "< 2,500 ppm h ",
-              chlorine_qualitative: "low",
-              env_reduction: "high ++",
-              env_cost: "[26-55]",
-              economical_saving: "high ++",
-              skilled_crew: "medium",
-              potential_application: "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
-          },
-          {
-            code: {
-              membrane_type: "Nanofiltration",
-              permeability: "<1-fold",
-              salt_rejection: ">10% of NaCl and >30% of MgSO4",
-              membrane_reuse: "Recycling into ultrafiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[2,500-25,000] ppm h",
-              chlorine_qualitative: "medium ",
-              env_reduction: "high +",
-              env_cost: "[32-63]",
-              economical_saving: "high +",
-              skilled_crew: "low ",
-              potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
-          },
-          {
-            code: {
-              membrane_type: "Nanofiltration",
-              permeability: "<1-fold",
-              salt_rejection: "<10% of NaCl and <30% of MgSO4",
-              membrane_reuse: "Recycling into ultrafiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[15,000-100,000] ppm h",
-              chlorine_qualitative: "high",
-              env_reduction: "high ",
-              env_cost: "[32-63]",
-              economical_saving: "high ",
-              skilled_crew: "low",
-              potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
-          },
-          {
-            code: {
-              membrane_type: "Nanofiltration",
-              permeability: "[1-5]-fold",
-              salt_rejection: "<15%",
-              membrane_reuse: "Reuse as nanofiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "0",
-              chlorine_qualitative: "0",
-              env_reduction: "high +++",
-              env_cost: "0",
-              economical_saving: "high +++",
-              skilled_crew: "Not required",
-              potential_application: "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
-          },
-          {
-            code: {
-              membrane_type: "Nanofiltration",
-              permeability: "[1-5]-fold",
-              salt_rejection: ">10% of NaCl and >30% of MgSO4",
-              membrane_reuse: "Reuse as nanofiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "0",
-              chlorine_qualitative: "0",
-              env_reduction: "high +++",
-              env_cost: "0",
-              economical_saving: "high +++",
-              skilled_crew: "Not required",
-              potential_application: "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
-          },
-          {
-            code: {
-              membrane_type: "Nanofiltration",
-              permeability: "[1-5]-fold",
-              salt_rejection: "<10% of NaCl and <30% of MgSO4",
-              membrane_reuse: "Recycling into ultrafiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[10,000-60,000] ppm h",
-              chlorine_qualitative: "high",
-              env_reduction: "high",
-              env_cost: "[32-63]",
-              economical_saving: "high",
-              skilled_crew: "low",
-              potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
-          },
-          {
-            code: {
-              membrane_type: "Nanofiltration",
-              permeability: ">5-fold",
-              salt_rejection: "<15%",
-              membrane_reuse: "Reuse as nanofiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "0",
-              chlorine_qualitative: "0",
-              env_reduction: "high +++",
-              env_cost: "0",
-              economical_saving: "high +++",
-              skilled_crew: "Not required",
-              potential_application: "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
-          },
-          {
-            code: {
-              membrane_type: "Nanofiltration",
-              permeability: ">5-fold",
-              salt_rejection: ">10% of NaCl and >30% of MgSO4",
-              membrane_reuse: "Reuse as nanofiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "0",
-              chlorine_qualitative: "0",
-              env_reduction: "high +++",
-              env_cost: "0",
-              economical_saving: "high +++",
-              skilled_crew: "Not required",
-              potential_application: "Wastewater treatment; Brackish water desalination for irrigation or other uses excepting drinking water; Seawater process to treat the concentrate; Industrial wastewater; Fresh water for isolated areas"            }
-          },
-          {
-            code: {
-              membrane_type: "Nanofiltration",
-              permeability: ">5-fold",
-              salt_rejection: "<10% of NaCl and <30% of MgSO4",
-              membrane_reuse: "Recycling into ultrafiltration-like membranes",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[10,000-60,000] ppm h",
-              chlorine_qualitative: "high",
-              env_reduction: "high",
-              env_cost: "[32-63]",
-              economical_saving: "high",
-              skilled_crew: "low",
-              potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis brackish model design",
-              permeability: null,
-              salt_rejection: null,
-              membrane_reuse: "Indirect recycling",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[10,000-200,000] ppm h",
-              chlorine_qualitative: "high",
-              env_reduction: "high",
-              env_cost: ">63",
-              economical_saving: "high",
-              skilled_crew: "high",
-              potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water). It requires taking out the fiber glass casing"            }
-          },
-          {
-            code: {
-              membrane_type: "Reverse osmosis sea model design",
-              permeability: null,
-              salt_rejection: null,
-              membrane_reuse: "Indirect recycling",
-            },
-            survey2Result: {
-              chlorine_quantitative: "[10,000-200,000] ppm h",
-              chlorine_qualitative: "high",
-              env_reduction: "high",
-              env_cost: ">63",
-              economical_saving: "high",
-              skilled_crew: "high",
-              potential_application: "Wastewater treatment, pre-treatment for desalination processes, gravity-driven water treatment (grey, urban water and drinking water)"            }
-          }*/
         ],
         available_solutions: [
           // Survey 1
@@ -832,24 +389,6 @@
               (o.input.membrane_type === aux.input.membrane_type && o.input.permeability === aux.input.permeability
               && o.input.salt_rejection === aux.input.salt_rejection && o.input.membrane_reuse === aux.input.membrane_reuse));
           if(idx === -1) _this.membraneReuse_info.push(aux);
-
-          /* add object to "case studies" props to show on "Case Studies" tab after survey 2 is completed */
-          /*const aux2 = {
-            image_id: row['image_id'],
-            specific_application: row['specific_application'],
-            company_name: row['company_name'],
-            project_name: row['project_name'],
-            entity: row['entity'],
-            website: row['website'],
-            typeEOF_membrane: row['typeEOF_membrane'],
-            research_activity: row['research_activity'],
-            implementation: row['implementation'],
-            investigation: row['investigation'],
-            results: row['results'],
-            mailing_address: row['mailing_address'],
-            contacts: row['contacts']
-          }
-          _this.caseStudies_info.push(aux2);*/
 
         });
       },
@@ -1321,7 +860,7 @@
         solutions = [ ...new Set(solutions) ]; //removes duplicate solutions.
         return solutions;
 
-      }
+      },
     },
 
   }

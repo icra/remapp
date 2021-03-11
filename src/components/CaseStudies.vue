@@ -2,6 +2,10 @@
   .caseStudies
     b-container(fluid="true")
       template(v-if='solution_code.length === 1')
+        div.membrane_reuse
+          b-row.ml-0
+            b-col(:style="`background:${solution_code[0].color}`" sm="2" xl="1" )
+            b-col(sm="10"  xl="11" ) {{ solution_code[0].name }}
         template(v-if="image_ids !== null")
           b-row(v-for="c in image_ids.caseNumbers" :key="c" )
             b-col(sm="10" xl="5" offset-sm="1" offset-xl="0" align-self="center")
