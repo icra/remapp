@@ -39,12 +39,47 @@
 
             br
             h4 Glossary
-            div(v-for="g in this.glossary")
-              div(style="display: grid; grid-template-columns: 1fr 10fr; grid-gap:20px").ml-0
-                div(:style="`background:${g.color}`")
-                div
-                  p.mb-0 <b><i>'{{g.title}}'</i></b> {{ g.description }}
-              br
+            div
+              div(v-for="g in this.glossary")
+                b-row(style="height:fit-content; " align-v="center")
+                  template(v-if="g.title === 'Direct recycling' || g.title === 'Indirect recycling'")
+                    b-col.pl-5
+                      ul
+                        li <b><i>'{{g.title}}'</i></b> {{ g.description }}
+
+                  template(v-else)
+                    b-col(cols="auto").mx-3.p-0
+                      icon-base(class="solid-border" width="40" weight="40" )
+                        template(v-if="g.title === 'Recycling'")
+                          recycle-icon
+                        template(v-else-if="g.title === 'Re-use'")
+                          reuse-icon
+                        template(v-else-if="g.title === 'Incineration and landfill disposal'")
+                          disposal-icon
+                    b-col.py-2.px-0
+                      p.mb-0 <b><i>'{{g.title}}'</i></b> {{ g.description }}
+
+                  //b-col(cols="auto").mx-3.p-0
+                    icon-base(class="solid-border" width="40" weight="40" )
+                      template(v-if="g.title === 'Recycling'")
+                        recycle-icon
+                      template(v-else-if="g.title === 'Re-use'")
+                        reuse-icon
+                      template(v-else-if="g.title === 'Incineration and landfill disposal'")
+                        disposal-icon
+                  //b-col.py-2.px-0
+                    template(v-if="g.title === 'Direct recycling' || g.title === 'Indirect recycling'")
+                      ul
+                        li.mb-0.p-0 <b><i>'{{g.title}}'</i></b> {{ g.description }}
+                    template(v-else)
+                      p.mb-0 <b><i>'{{g.title}}'</i></b> {{ g.description }}
+
+              //div(v-for="g in this.glossary")
+                div(style="display: grid; grid-template-columns: 1fr 10fr; grid-gap:20px").ml-0
+                  div(:style="`background:${g.color}`")
+                  div
+                    p.mb-0 <b><i>'{{g.title}}'</i></b> {{ g.description }}
+                br
 
             br
             h4 How the tool works
@@ -93,8 +128,19 @@
 </template>
 
 <script>
+  import IconBase from "./IconBase";
+  import RecycleIcon from "./icons/RecycleIcon";
+  import ReuseIcon from "./icons/ReuseIcon";
+  import DisposalIcon from "@/components/icons/DisposalIcon";
+
   export default {
     name: "Header",
+    components: {
+      ReuseIcon,
+      RecycleIcon,
+      IconBase,
+      DisposalIcon
+    },
     data() {
       return {
         glossary: [
