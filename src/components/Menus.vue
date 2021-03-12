@@ -142,6 +142,7 @@
   import ReuseIcon from "./icons/ReuseIcon";
 
 
+
   export default {
     name: "Menus",
     components: {
@@ -496,26 +497,62 @@
         }
 
         //Case Studies
-        this.result_survey_2.caseNumbers.forEach(function (c){
+        dd.content.push({text: 'Case studies', style: 'subheader'})
+        if (this.result_survey_2 != null){
+          this.result_survey_2.caseNumbers.forEach(function (c){
 
-          let caseStudyPDF = []
-          let caseStudy = _this.caseStudies_info.find(i => i.image_id == c)
-          //console.log(caseStudy)
-          _this.case_studies_table_fields.forEach(function (e){
-            let title = {text:e.label ,bold: true}
-            let val = caseStudy[e.key]
-            if (val == undefined) val = ""
-            caseStudyPDF.push([title, val])
-          })
-          console.log(caseStudyPDF)
-          dd.content.push({
-            style: 'surveyTable',
-            table: {
-              body: caseStudyPDF
-            }
+            let caseStudyPDF = []
+            let caseStudy = _this.caseStudies_info.find(i => i.image_id == c)
+            //console.log(caseStudy)
+            _this.case_studies_table_fields.forEach(function (e){
+              let title = {text:e.label ,bold: true}
+              let val = caseStudy[e.key]
+              if (val == undefined) val = ""
+              caseStudyPDF.push([title, val])
+            })
+            //console.log(caseStudy)
+            dd.content.push({
+              style: 'surveyTable',
+              table: {
+                body: caseStudyPDF
+              }
+            })
+
+            let image = "caseStudies/"+caseStudy.image_id + ".JPG"
+            let b64 = ""
+            // To bypass errors (“Tainted canvases may not be exported” or “SecurityError: The operation is insecure”)
+            // The browser must load the image via non-authenticated request and following CORS headers
+            let img = new Image();
+            img.crossOrigin = 'Anonymous';
+
+            // The magic begins after the image is successfully loaded
+            img.onload = function () {
+              let canvas = document.createElement('canvas'),
+                  ctx = canvas.getContext('2d');
+
+              canvas.height = img.naturalHeight;
+              canvas.width = img.naturalWidth;
+              ctx.drawImage(img, 0, 0);
+
+              // Unfortunately, we cannot keep the original image type, so all images will be converted to PNG
+              // For this reason, we cannot get the original Base64 string
+              let uri = canvas.toDataURL('image/png')
+              b64 = uri.replace("data:image/png;base64,", "data:image/png;base64,/");
+              console.log(b64)
+
+              dd.content.push({
+                image: b64,
+                width: 150
+              })
+            };
+
           })
 
-        })
+        }else{
+          dd.content.push("No case studies available")
+        }
+
+
 
         pdfMake.createPdf(dd).download('optionalName.pdf')
       },
