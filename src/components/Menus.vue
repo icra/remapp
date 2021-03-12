@@ -447,6 +447,7 @@
             {
               style: 'surveyTable',
               table: {
+                widths: ['*', 200],
                 body: items
               }
             },
@@ -519,32 +520,24 @@
             })
 
             let image = "caseStudies/"+caseStudy.image_id + ".JPG"
-            let b64 = ""
-            // To bypass errors (“Tainted canvases may not be exported” or “SecurityError: The operation is insecure”)
-            // The browser must load the image via non-authenticated request and following CORS headers
             let img = new Image();
-            img.crossOrigin = 'Anonymous';
+            img.src = image
+            let canvas, ctx, dataURL;
+            canvas = document.createElement("canvas");
+            ctx = canvas.getContext("2d");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            dataURL = canvas.toDataURL("image/png");
+            //b64 = dataURL.replace("data:image/png;base64,", "data:image/png;base64,/");
 
-            // The magic begins after the image is successfully loaded
-            img.onload = function () {
-              let canvas = document.createElement('canvas'),
-                  ctx = canvas.getContext('2d');
+            //b64 = uri.replace("data:image/png;base64,", "data:image/png;base64,/");
+            console.log(dataURL)
 
-              canvas.height = img.naturalHeight;
-              canvas.width = img.naturalWidth;
-              ctx.drawImage(img, 0, 0);
-
-              // Unfortunately, we cannot keep the original image type, so all images will be converted to PNG
-              // For this reason, we cannot get the original Base64 string
-              let uri = canvas.toDataURL('image/png')
-              b64 = uri.replace("data:image/png;base64,", "data:image/png;base64,/");
-              console.log(b64)
-
-              dd.content.push({
-                image: b64,
-                width: 150
-              })
-            };
+            dd.content.push({
+              image: dataURL,
+              width: 500
+            })
 
           })
 
