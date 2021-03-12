@@ -1,7 +1,7 @@
 <template lang="pug">
   div.remapToolbox(ref="content")
     div.header
-      Header
+      Header(:data_version="this.excel_version")
     div.content
       b-container.p-2.mx-lg-5.mx-3(fluid="true")
         b-row
@@ -9,12 +9,12 @@
             b-navbar.pt-0
               .sidebar-header
                 b-row.mb-0.pb-0
-                  b-col
+                  b-col()
                     p.h4.mb-2(style="font-weight: var(--bold-text); text-align:left display:inline-block") Survey <b-icon id="info" icon="exclamation-circle-fill" variant="dark"></b-icon>
                       b-tooltip(target="info")  End-of-life membranes
 
                   b-col(cols="auto" align-h="end")
-                    b-button(@click="download") MAKE PDF
+                    b-button.clearButt(@click="download") MAKE PDF
                     b-button.clearButt(@click="clearValues") CLEAR ALL
                 b-dropdown-divider(style="height: 0; margin: 0 0 0.75rem 0; overflow: hidden; border-top: 1px solid var(--light-gray-primary);")
                 div(style="overflow-y: scroll; max-height: 70vh;").pr-2
@@ -152,17 +152,12 @@
     },
     data() {
       return {
-        excel_version: null,
+        excel_version: {
+          version_number: null,
+          created: null,
+          last_modified: null
+        },
         table_fields: [
-          /*{
-            key: "membrane_reuse",
-            isRowHeader: true,
-            label: "Membrane reuse",
-            class: "tHeader",
-            //thStyle: {background: '#3eef33'},
-            //variant: "danger"
-          },
-          {key: 'chlorine_quantitative',  label: "Free Chlorine Exposure Dose (quantitative, ppm h)"},*/
           {key: 'chlorine_qualitative',   label: "Free Chlorine Exposure Dose (qualitative)"},
           {key: 'env_reduction',          label: "Potential Environmental Reduction compared to producing new membranes"},
           {key: 'env_cost',               label: "Potential Economical Cost (€ / membrane)"},
@@ -349,11 +344,6 @@
       oReq.send();
       oReq.responseType = "arraybuffer";
       oReq.onload = function () {
-        let lastModified = oReq.getResponseHeader("date");
-        console.log("date:", oReq.getAllResponseHeaders());
-        console.log("date:", lastModified, "type:", typeof lastModified);
-        //console.log("File data last modified", mtime);
-        //console.log("File status last modified:", ctime);
         let arrayBuffer = oReq.response;
         let data = new Uint8Array(arrayBuffer); //convert data to binary string
         let arr = new Array();
@@ -364,13 +354,18 @@
         let workbook = XLSX.read(str, {type: "binary"});    //call XLSX
         let first_sheet_name = workbook.SheetNames[0];
         let second_sheet_name = workbook.SheetNames[1];
+        let third_sheet_name = workbook.SheetNames[2];
         let worksheet_1 = workbook.Sheets[first_sheet_name];      //get 1st worksheet
         let worksheet_2 = workbook.Sheets[second_sheet_name];     //get 2nd worksheet
+        let worksheet_3 = workbook.Sheets[third_sheet_name];      //get 3rd worksheet
         let membraneReuse_data = XLSX.utils.sheet_to_json(worksheet_1, {raw: true});  //1st sheet data
         let caseStudies_data = XLSX.utils.sheet_to_json(worksheet_2, {raw: true});    //2nd sheet data
+        let version_data = XLSX.utils.sheet_to_json(worksheet_3, {raw: true});    //2nd sheet data
 
         _this.parse_membraneReuse_data(membraneReuse_data);
         _this.parse_caseStudies_data(caseStudies_data);
+        _this.excel_version = version_data[0];
+        console.log("tipus", typeof version_data[0]['created']);
 
       }
     },
@@ -533,7 +528,7 @@
             //b64 = dataURL.replace("data:image/png;base64,", "data:image/png;base64,/");
 
             //b64 = uri.replace("data:image/png;base64,", "data:image/png;base64,/");
-            console.log(dataURL)
+            //console.log(dataURL)
 
             dd.content.push({
               image: dataURL,

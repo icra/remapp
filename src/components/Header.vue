@@ -59,28 +59,6 @@
                     b-col.py-2.px-0
                       p.mb-0 <b><i>'{{g.title}}'</i></b> {{ g.description }}
 
-                  //b-col(cols="auto").mx-3.p-0
-                    icon-base(class="solid-border" width="40" weight="40" )
-                      template(v-if="g.title === 'Recycling'")
-                        recycle-icon
-                      template(v-else-if="g.title === 'Re-use'")
-                        reuse-icon
-                      template(v-else-if="g.title === 'Incineration and landfill disposal'")
-                        disposal-icon
-                  //b-col.py-2.px-0
-                    template(v-if="g.title === 'Direct recycling' || g.title === 'Indirect recycling'")
-                      ul
-                        li.mb-0.p-0 <b><i>'{{g.title}}'</i></b> {{ g.description }}
-                    template(v-else)
-                      p.mb-0 <b><i>'{{g.title}}'</i></b> {{ g.description }}
-
-              //div(v-for="g in this.glossary")
-                div(style="display: grid; grid-template-columns: 1fr 10fr; grid-gap:20px").ml-0
-                  div(:style="`background:${g.color}`")
-                  div
-                    p.mb-0 <b><i>'{{g.title}}'</i></b> {{ g.description }}
-                br
-
             br
             h4 How the tool works
             p The REMapp tool is comprised of a number of user interaction steps and background calculations based on user inputs.
@@ -118,6 +96,13 @@
             h4 Acknowledgements
             p The authors acknowledge the financial support of the European Union’s Horizon 2020 research and innovation programme under the Marie Skłodowska-Curie grant agreement nº 712949 (TECNIOspring PLUS) and to the Agency for Business Competitiveness of the Government of Catalonia for the grant TECSPR17-1-0019 Mem2.0 project.
 
+            br
+            h4 Tool version
+            p This tool was first released on August 2020. This is version nº {{data_version.version_number}}, last modified on {{ data_version.last_modified }}.
+            //ul
+              li <b>Version number: </b> {{ data_version.version_number}}
+              li <b>First released  : </b> {{ data_version.created }}
+              li <b>Last modified   : </b> {{ data_version.last_modified }}
 
     b-jumbotron(
       header="REMapp decision-making tool"
@@ -135,6 +120,7 @@
 
   export default {
     name: "Header",
+    props:['data_version'],
     components: {
       ReuseIcon,
       RecycleIcon,
