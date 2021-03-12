@@ -13,8 +13,6 @@
                     p.h4.mb-2(style="font-weight: var(--bold-text); text-align:left display:inline-block") Survey <b-icon id="info" icon="exclamation-circle-fill" variant="dark"></b-icon>
                       b-tooltip(target="info")  End-of-life membranes
 
-
-
                   b-col(cols="auto" align-h="end")
                     b-button(@click="download") MAKE PDF
                     b-button.clearButt(@click="clearValues") CLEAR ALL
@@ -67,14 +65,12 @@
                     ).multiselect
           b-col
             //router-view
-            <!--survey 1 outputs-->
+            <!--survey 2 outputs-->
             div
               b-tabs(content-class="" fill)
                 b-tab#solutions(title="SOLUTIONS" active).p-3.tabBox
                   b Alternative end-of-life membrane management
-                  //div.membrane_reuse(:style="`background:${get_membrane_reuse_color()}`")  {{show_membrane_reuse()}}
                   div.membrane_reuse(v-for="s  in get_available_solutions")
-                    //div.membrane_reuse(:id="s.code" :key="s.code" :style="`background:${s.color}`")  {{ s.name }}
                     div(style="display: grid; grid-template-columns: 1fr 10fr; grid-gap:20px").ml-0
                       div(:style="`background:${s.color}`" )
                       div
@@ -156,6 +152,7 @@
     },
     data() {
       return {
+        excel_version: null,
         table_fields: [
           /*{
             key: "membrane_reuse",
@@ -187,7 +184,7 @@
           {key: 'research_activity', label: "Research  - Business activity"},
           {key: 'implementation', label: "Scale of implementation"},
           {key: 'investigation', label: "Main Investigation"},
-          {key: 'results', label: "Main results / products"},
+          {key: 'results_products', label: "Main results / products"},
           {key: 'mailing_address', label: "Mailing address of the supervising organization"},
           {key: 'contacts', label: "Contacts"}
         ],
@@ -344,7 +341,7 @@
       }
     },
     created: function() {
-      let url = "/case_studies_new.xlsx"
+      let url = "/case_studies.xlsx"
       let _this = this;
       let oReq = new XMLHttpRequest();
 
@@ -352,7 +349,11 @@
       oReq.send();
       oReq.responseType = "arraybuffer";
       oReq.onload = function () {
-
+        let lastModified = oReq.getResponseHeader("date");
+        console.log("date:", oReq.getAllResponseHeaders());
+        console.log("date:", lastModified, "type:", typeof lastModified);
+        //console.log("File data last modified", mtime);
+        //console.log("File status last modified:", ctime);
         let arrayBuffer = oReq.response;
         let data = new Uint8Array(arrayBuffer); //convert data to binary string
         let arr = new Array();

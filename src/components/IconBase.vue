@@ -32,7 +32,7 @@ export default {
     },
     iconColor: {
       type: String,
-      default: 'currentColor'
+      default: '#ffffff'
     }
   }
 }
