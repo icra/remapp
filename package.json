@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "bootstrap-vue": "^2.16.0",
+    "canvas": "^2.7.0",
     "lodash": "^4.17.19",
     "pdfmake": "^0.1.70",
     "vue": "^2.6.11",

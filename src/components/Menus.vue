@@ -412,7 +412,7 @@
         let _this = this;
         _this.caseStudies_info = data;
       },
-      download() {
+      async download() {
 
         let _this=this
 
@@ -436,45 +436,61 @@
           pdfMake.vfs = pdfFonts.pdfMake.vfs;
         }
         let dd = {
-          content: [
-            {text: 'Report generated', style: 'header'},
-            'Bla bla.',
-            {text: 'Survey', style: 'subheader'},
-            {
-              style: 'surveyTable',
-              table: {
-                widths: ['*', 200],
-                body: items
-              }
-            },
-            {text: 'Alternative end-of-life membrane management', style: 'subheader'},
-            {
-              ul: alternatives
-            },
-          ],
-          styles: {
-            header: {
-              fontSize: 18,
-              bold: true,
-              margin: [0, 0, 0, 10]
-            },
-            subheader: {
-              fontSize: 16,
-              bold: true,
-              margin: [0, 10, 0, 5]
-            },
-            surveyTable: {
-              margin: [0, 5, 0, 15]
-            },
-          },
-          defaultStyle: {
-            alignment: 'justify'
+          pageSize: 'A4',
+          pageMargins: [50, 60, 50, 70],
+          footer: {
+            image: await _this.getBase64ImageFromURL('footer.png'),
+            width: 500,
+            margin: [50, 10]
           }
+
+        }
+
+        dd['content'] = [
+
+          {text: 'Report generated', style: 'header'},
+          {
+            text: [
+              "Automatically generated content. For more information, please visit ",
+              {text: 'remapp.icra.cat', link: 'https://remapp.icra.cat', bold: true}
+            ]
+          },
+          {text: 'Survey', style: 'subheader'},
+          {
+            style: 'surveyTable',
+            table: {
+              widths: ['*', 200],
+              body: items
+            }
+          },
+          {text: 'Alternative end-of-life membrane management', style: 'subheader'},
+          {
+            ul: alternatives
+          }
+        ]
+        dd['styles'] = {
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10]
+          },
+          subheader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5]
+          },
+          surveyTable: {
+            margin: [0, 5, 0, 15]
+          },
+        }
+
+        dd['defaultStyle'] = {
+          alignment: 'justify'
         }
 
         //Recommended process to produce second-hand membranes
         dd.content.push({text: 'Recommended process to produce second-hand membranes', style: 'subheader'})
-        if(this.result_survey_2 !== null){
+        if (this.result_survey_2 !== null) {
           let recommendedProcess = []
           let o = this.result_survey_2.survey2Result
 
@@ -496,7 +512,7 @@
         //Case Studies
         dd.content.push({text: 'Case studies', style: 'subheader'})
         if (this.result_survey_2 != null){
-          this.result_survey_2.caseNumbers.forEach(function (c){
+          for (const c of this.result_survey_2.caseNumbers) {
 
             let caseStudyPDF = []
             let caseStudy = _this.caseStudies_info.find(i => i.image_id == c)
@@ -516,26 +532,14 @@
             })
 
             let image = "caseStudies/"+caseStudy.image_id + ".JPG"
-            let img = new Image();
-            img.src = image
-            let canvas, ctx, dataURL;
-            canvas = document.createElement("canvas");
-            ctx = canvas.getContext("2d");
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-            dataURL = canvas.toDataURL("image/png");
-            //b64 = dataURL.replace("data:image/png;base64,", "data:image/png;base64,/");
-
-            //b64 = uri.replace("data:image/png;base64,", "data:image/png;base64,/");
-            //console.log(dataURL)
 
             dd.content.push({
-              image: dataURL,
+              image: await _this.getBase64ImageFromURL(image),
               width: 500
             })
 
-          })
+
+          }
 
         }else{
           dd.content.push("No case studies available")
@@ -543,8 +547,44 @@
 
 
 
-        pdfMake.createPdf(dd).download('optionalName.pdf')
+        pdfMake.createPdf(dd).download('remappReport.pdf')
       },
+
+      /*image_to_b64(image){
+        let img = new Image();
+        img.src = image
+        let canvas, ctx, dataURL;
+        canvas = document.createElement("canvas");
+        ctx = canvas.getContext("2d");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        dataURL = canvas.toDataURL("image/png");
+        return dataURL
+      },*/
+
+      getBase64ImageFromURL(url) {
+        return new Promise((resolve, reject) => {
+          let img = new Image();
+          img.setAttribute("crossOrigin", "anonymous");
+          img.onload = () => {
+            let canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            let ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            let dataURL = canvas.toDataURL("image/png");
+            resolve(dataURL);
+          };
+          img.onerror = error => {
+            reject(error);
+          };
+          img.src = url;
+        });
+      },
+
+
+
       get_question_by_code(code) {
         let questions = this.questions1.concat(this.questions2).concat(this.questions3)
         return questions.find(q => q.code == code);
