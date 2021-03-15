@@ -32,7 +32,7 @@
                       :show-labels="false",
                       open-direction="bottom"
                     ).multiselect
-                  hr( style="margin-top: 25px; height: 15px; margin: auto; overflow: hidden; border-top: 1px solid var(--light-gray-primary); width: 70%;")
+                  hr( style="margin-top: 30px; margin-bottom: 30px; height: 15px; margin: auto; overflow: hidden; border-top: 1px solid var(--light-gray-primary); width: 70%;")
 
                   template(v-for="q in questions2" :id="q.code" style="overflow-y: auto")
                     b {{q.name}}
@@ -48,7 +48,7 @@
                       :show-labels="false",
                       open-direction="bottom"
                     ).multiselect
-                  hr(style="margin-top: 25px; height: 15px; margin: auto; overflow: hidden; border-top: 1px solid var(--light-gray-primary); width: 70%;")
+                  hr(style="margin-top: 30px; margin-bottom: 30px; height: 15px; margin: auto; overflow: hidden; border-top: 1px solid var(--light-gray-primary); width: 70%;")
                   template(v-for="q in questions3" :id="q.code" style="overflow-y: auto")
                     b {{q.name}}
                     template(v-if="q.tooltip")
@@ -109,8 +109,9 @@
                   template(v-else)
                     br
                     b Recommended process to produce second-hand membranes
-                    b.asterisk_mark#tooltip  *
-                    b-tooltip(target="tooltip" ) Please answer 'Salt Rejection' and 'Variation of Permeability' to see the considerations to reproduce the recommended second-hand membranes
+                    template(v-if="!disable_tooltip()")
+                      b.asterisk_mark#tooltip  *
+                      b-tooltip(target="tooltip" ) Please answer 'Salt Rejection' and 'Variation of Permeability' to see the considerations to reproduce the recommended second-hand membranes
                 b-tab#caseStudies(title="CASE STUDIES").p-3.tabBox
                   CaseStudies(
                     v-bind:solution_code="this.get_solutions_for_case_studies"
@@ -370,6 +371,17 @@
       }
     },
     methods: {
+      disable_tooltip(){
+        let get_question = this.get_question_by_code;
+        let type = get_question("T").value;
+        let weight = get_question("W").value;
+        let ret = false
+        if (type == "Ultrafiltration" || type == "Microfiltration" || type == "Other") ret=true
+        else if (weight == ">25kg") ret=true
+        return ret
+
+      },
+
       parse_membraneReuse_data(data){
         let _this = this;
         data.forEach(function (row){
@@ -622,11 +634,11 @@
           if (this.available_solutions.find(s => s.code === "LI") || this.available_solutions.find(s => s.code === "IR")) {
             return true;
           }
-        }else if(type == "Ultrafiltration" || type == "Microfiltration" || type == "Other") return code != "T"
-        else if(weight == ">25kg") return code != "W"
+        } else if (type == "Ultrafiltration" || type == "Microfiltration" || type == "Other") return code != "T"
+        else if (weight == ">25kg") return code != "W"
 
 
-  return false;
+        return false;
       },
       remove_solutions(codes){
         for(let i=0; i<codes.length; i++){
