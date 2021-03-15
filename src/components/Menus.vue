@@ -32,7 +32,7 @@
                       :show-labels="false",
                       open-direction="bottom"
                     ).multiselect
-                  hr(style="height: 15px; margin: auto; overflow: hidden; border-top: 1px solid var(--light-gray-primary); width: 70%;")
+                  hr( style="margin-top: 25px; height: 15px; margin: auto; overflow: hidden; border-top: 1px solid var(--light-gray-primary); width: 70%;")
 
                   template(v-for="q in questions2" :id="q.code" style="overflow-y: auto")
                     b {{q.name}}
@@ -48,7 +48,7 @@
                       :show-labels="false",
                       open-direction="bottom"
                     ).multiselect
-                  hr(style="height: 15px; margin: auto; overflow: hidden; border-top: 1px solid var(--light-gray-primary); width: 70%;")
+                  hr(style="margin-top: 25px; height: 15px; margin: auto; overflow: hidden; border-top: 1px solid var(--light-gray-primary); width: 70%;")
                   template(v-for="q in questions3" :id="q.code" style="overflow-y: auto")
                     b {{q.name}}
                     template(v-if="q.tooltip")
@@ -333,6 +333,7 @@
         ],
         membraneReuse_info: [],
         caseStudies_info: [],
+        fetches: []
       }
     },
     created: function() {
@@ -365,7 +366,6 @@
         _this.parse_membraneReuse_data(membraneReuse_data);
         _this.parse_caseStudies_data(caseStudies_data);
         _this.excel_version = version_data[0];
-        console.log("tipus", typeof version_data[0]['created']);
 
       }
     },
@@ -452,7 +452,7 @@
           {
             text: [
               "Automatically generated content. For more information, please visit ",
-              {text: 'remapp.icra.cat', link: 'https://remapp.icra.cat', bold: true}
+              {text: 'remapp.icra.cat', link: 'https://remapp.icra.cat', style: 'link'}
             ]
           },
           {text: 'Survey', style: 'subheader'},
@@ -482,10 +482,10 @@
           surveyTable: {
             margin: [0, 5, 0, 15]
           },
-        }
-
-        dd['defaultStyle'] = {
-          alignment: 'justify'
+          link: {
+            color: 'blue',
+            decoration: 'underline'
+          },
         }
 
         //Recommended process to produce second-hand membranes
@@ -518,9 +518,16 @@
             let caseStudy = _this.caseStudies_info.find(i => i.image_id == c)
             //console.log(caseStudy)
             _this.case_studies_table_fields.forEach(function (e){
-              let title = {text:e.label ,bold: true}
+              let title = {text:e.label, bold: true}
               let val = caseStudy[e.key]
-              if (val == undefined) val = ""
+              if(val != undefined){
+                if (e.key == 'website' || e.key == 'results_products'){
+                  val = {text: val, link: val, style: 'link'}
+                }
+              }else{
+                val = ''
+              }
+
               caseStudyPDF.push([title, val])
             })
             //console.log(caseStudy)
@@ -545,44 +552,22 @@
           dd.content.push("No case studies available")
         }
 
-
-
         pdfMake.createPdf(dd).download('remappReport.pdf')
       },
 
-      /*image_to_b64(image){
-        let img = new Image();
-        img.src = image
-        let canvas, ctx, dataURL;
-        canvas = document.createElement("canvas");
-        ctx = canvas.getContext("2d");
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-        dataURL = canvas.toDataURL("image/png");
-        return dataURL
-      },*/
-
       getBase64ImageFromURL(url) {
-        return new Promise((resolve, reject) => {
-          let img = new Image();
-          img.setAttribute("crossOrigin", "anonymous");
-          img.onload = () => {
-            let canvas = document.createElement("canvas");
-            canvas.width = img.width;
-            canvas.height = img.height;
-            let ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0);
-            let dataURL = canvas.toDataURL("image/png");
-            resolve(dataURL);
-          };
-          img.onerror = error => {
-            reject(error);
-          };
-          img.src = url;
-        });
+        return fetch(url)
+            .then((response) => response.blob())
+            .then(
+                (blob) =>
+                    new Promise((resolve, reject) => {
+                      const reader = new FileReader();
+                      reader.onloadend = () => resolve(reader.result);
+                      reader.onerror = reject;
+                      reader.readAsDataURL(blob);
+                    })
+            );
       },
-
 
 
       get_question_by_code(code) {
