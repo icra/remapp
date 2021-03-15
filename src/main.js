@@ -50,9 +50,9 @@ const router = new VueRouter( {
 Vue.use(VueGtag, {
   config: {
     id: 'G-ZZ22EG26Q8',
-    params: {
+    /*params: {
       send_page_view: false
-    }
+    }*/
   }
 }, router);
 
