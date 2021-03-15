@@ -1,5 +1,5 @@
 <template lang="pug">
-  Menus
+  router-view
 </template>
 
 <script>

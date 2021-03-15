@@ -13,8 +13,11 @@
     "lodash": "^4.17.19",
     "pdfmake": "^0.1.70",
     "vue": "^2.6.11",
+    "vue-analytics": "^5.22.1",
+    "vue-gtag": "^1.11.0",
     "vue-lodash": "^2.1.2",
     "vue-multiselect": "^2.1.6",
+    "vue-router": "^3.5.1",
     "vue-xlsx": "^0.2.1",
     "xlsx": "^0.16.5"
   },
