@@ -133,7 +133,7 @@
         div(slot="message") This site uses cookies to offer you a better browsing experience. Find out more on how we use them and how you can change your settings <a class="moreInfo" @click="openCookiesModal()">HERE</a>.
 
     div.cookiePolicy
-      b-modal(header-bg-variant="secondary" header-text-variant="light" size="xl" role="dialog" title="COOKIE POLICY" @hidden="closeCookiesModal()" @close="closeCookiesModal()" id="cookies" scrollable button-size="sm" )
+      b-modal(header-bg-variant="secondary" ok-only header-text-variant="light" size="xl" role="dialog" title="COOKIE POLICY" @hidden="closeCookiesModal()" @close="closeCookiesModal()" id="cookies" scrollable button-size="sm" )
         include CookiePolicy.html
 
     footer.footer

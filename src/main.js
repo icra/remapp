@@ -6,8 +6,7 @@ import VueGtag from 'vue-gtag'
 import VueRouter from 'vue-router'
 //import VueAnalytics from "vue-analytics";
 
-import {BootstrapVue, IconsPlugin} from 'bootstrap-vue/dist/bootstrap-vue.esm';
-
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import Menus from "./components/Menus";
