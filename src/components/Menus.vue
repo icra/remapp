@@ -416,8 +416,8 @@
         // eslint-disable-next-line
         bootstrap().then(gtag =>{
           this.cookies_open = false;
-          //localStorage.setItem('GDPR:accepted', 'true');
-          //location.reload();
+          //localStorage.setItem('cookie:accepted', true);
+          location.reload();
           //console.log(localStorage);
         });
         console.log("Accepted COOKIES")
@@ -428,7 +428,7 @@
         console.log("Declined COOKIES")
       },
       getCookies() {
-        return localStorage.getItem('cookies:accepted');
+        return localStorage.getItem('cookie:accepted');
       },
       parse_membraneReuse_data(data){
         let _this = this;
