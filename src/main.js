@@ -4,6 +4,7 @@ import VueLodash from 'vue-lodash'
 import lodash from 'lodash'
 import VueGtag from 'vue-gtag'
 import VueRouter from 'vue-router'
+//import VueAnalytics from "vue-analytics";
 
 import {BootstrapVue, IconsPlugin} from 'bootstrap-vue/dist/bootstrap-vue.esm';
 
@@ -47,13 +48,16 @@ const router = new VueRouter( {
   routes
 });
 
+//localStorage.setItem('cookie:accepted', false);
+const getCookies = localStorage.getItem('cookie:accepted');
+//const getCookies = localStorage.getItem('GA:accepted');
+
 Vue.use(VueGtag, {
   config: {
-    id: 'G-ZZ22EG26Q8',
-    /*params: {
-      send_page_view: false
-    }*/
-  }
+    id: 'G-ZZ22EG26Q8'
+  },
+  bootstrap: getCookies === 'true',
+  enabled: getCookies === 'true',
 }, router);
 
 new Vue({

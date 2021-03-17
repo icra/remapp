@@ -122,6 +122,20 @@
                     v-bind:image_ids="this.result_survey_2"
                     :table_fields="this.case_studies_table_fields"
                     )
+
+    div.cookies(v-if="this.cookies_open")
+      cookie-law(
+        buttonDecline = true
+        v-on:accept="accept_cookies()"
+        v-on:decline="decline_cookies()"
+        buttonText="Accept"
+        )
+        div(slot="message") This site uses cookies to offer you a better browsing experience. Find out more on how we use them and how you can change your settings <a class="moreInfo" @click="openCookiesModal()">HERE</a>.
+
+    div.cookiePolicy
+      b-modal(header-bg-variant="secondary" header-text-variant="light" size="xl" role="dialog" title="COOKIE POLICY" @hidden="closeCookiesModal()" @close="closeCookiesModal()" id="cookies" scrollable button-size="sm" )
+        include CookiePolicy.html
+
     footer.footer
       Footer
 
@@ -137,8 +151,8 @@
   import IconBase from "./IconBase";
   import RecycleIcon from "./icons/RecycleIcon";
   import ReuseIcon from "./icons/ReuseIcon";
-
-
+  import CookieLaw from 'vue-cookie-law';
+  import {bootstrap} from 'vue-gtag';
 
   export default {
     name: "Menus",
@@ -149,10 +163,12 @@
       Header,
       Footer,
       CaseStudies,
-      Multiselect
+      Multiselect,
+      CookieLaw,
     },
     data() {
       return {
+        cookies_open: false,
         excel_version: {
           version_number: null,
           created: null,
@@ -340,6 +356,8 @@
     created: function() {
       let url = "/case_studies.xlsx"
       let _this = this;
+
+      if(!_this.getCookies() === true) _this.cookies_open = true;
       let oReq = new XMLHttpRequest();
 
       oReq.open("GET", url, true);
@@ -381,7 +399,29 @@
         return ret
 
       },
-
+      closeCookiesModal(){
+        this.cookies_open = true;
+      },
+      openCookiesModal(){
+        this.$bvModal.show('cookies');
+        this.cookies_open = false; //close cookies banner
+      },
+      accept_cookies(){
+        // eslint-disable-next-line
+        bootstrap().then(gtag =>{
+          this.cookies_open = false;
+          location.reload();
+        });
+        console.log("Accepted COOKIES")
+      },
+      decline_cookies(){
+        this.cookies_open = false;
+        //localStorage.setItem('GDPR:accepted', 'false');
+        console.log("Declined COOKIES")
+      },
+      getCookies() {
+        return localStorage.getItem('cookie:accepted');
+      },
       parse_membraneReuse_data(data){
         let _this = this;
         data.forEach(function (row){
@@ -1018,9 +1058,28 @@
     border: 2px solid var(--red-primary) !important;
   }
 
+  .Cookie--base {
+    background: var(--dark-gray-primary);
+    color: white;
+  }
+
+  .Cookie--base .Cookie__button--decline {
+    background: var(--gray-for-tables);
+    color: #727272;
+  }
+
 </style>
 
 <style scoped>
+
+  a.moreInfo{
+    color: var(--green-primary);
+  }
+
+  a:hover.moreInfo {
+    color: var(--blue-primary);
+    text-decoration: underline;
+  }
   table {
     border-collapse: collapse;
   }
