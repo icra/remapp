@@ -50,6 +50,7 @@ const router = new VueRouter( {
 
 //localStorage.setItem('cookie:accepted', false);
 const getCookies = localStorage.getItem('cookie:accepted');
+//const getCookies = localStorage.getItem('GA:accepted');
 
 Vue.use(VueGtag, {
   config: {

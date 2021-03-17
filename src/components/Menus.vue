@@ -122,21 +122,6 @@
                     :table_fields="this.case_studies_table_fields"
                     )
 
-    //vue-cookie-accept-decline(
-      //:ref="'myPanel1'"
-      //:elementId="'myPanel1'"
-      //:debug="false"
-      //:position="'bottom-left'"
-      //:type="'floating'"
-      //:disableDecline="false"
-      //:transitionName="'slideFromBottom'"
-      //:showPostponeButton="false")
-      //div(slot="postponeContent" ) &times;
-      //div(slot="message" ) This site uses cookies to offer you a better browsing experience. Find out more on <a v-b-modal.cookies>how we use them and how you can change your settings.</a>.
-      //div(slot="declineContent") Decline
-      //div(slot="acceptContent" ) Got it!
-
-    //Cookies
     div.cookies(v-if="this.cookies_open")
       cookie-law(
         buttonDecline = true
@@ -166,14 +151,11 @@
   import RecycleIcon from "./icons/RecycleIcon";
   import ReuseIcon from "./icons/ReuseIcon";
   import CookieLaw from 'vue-cookie-law';
-  import VueCookieAcceptDecline from 'vue-cookie-accept-decline';
   import {bootstrap} from 'vue-gtag';
-  import Cookies from "@/components/Cookies";
 
   export default {
     name: "Menus",
     components: {
-      Cookies,
       ReuseIcon,
       RecycleIcon,
       IconBase,
@@ -182,7 +164,6 @@
       CaseStudies,
       Multiselect,
       CookieLaw,
-      VueCookieAcceptDecline
     },
     data() {
       return {
@@ -418,9 +399,7 @@
         // eslint-disable-next-line
         bootstrap().then(gtag =>{
           this.cookies_open = false;
-          //localStorage.setItem('cookie:accepted', true);
           location.reload();
-          //console.log(localStorage);
         });
         console.log("Accepted COOKIES")
       },
