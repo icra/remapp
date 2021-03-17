@@ -136,7 +136,7 @@
       //div(slot="declineContent") Decline
       //div(slot="acceptContent" ) Got it!
 
-
+    //Cookies
     div.cookies(v-if="this.cookies_open")
       cookie-law(
         buttonDecline = true
@@ -168,10 +168,12 @@
   import CookieLaw from 'vue-cookie-law';
   import VueCookieAcceptDecline from 'vue-cookie-accept-decline';
   import {bootstrap} from 'vue-gtag';
+  import Cookies from "@/components/Cookies";
 
   export default {
     name: "Menus",
     components: {
+      Cookies,
       ReuseIcon,
       RecycleIcon,
       IconBase,
