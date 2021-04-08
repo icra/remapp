@@ -22,7 +22,7 @@
             ul
               li Reverse osmosis desalination plants use thousands of elements that need to be replaced every 5-10 years.
               li In many parts of the world, landfill is currently the only option for disposal.
-              li Over 2.000.000 of membranes per year are to be disposed globally by 2025.
+              li Over 2.000.000 of membranes per year will be disposed globally by 2025.
               li Many reuse and recycle options are available at laboratory, pilot and full scale implementation.
 
             br
@@ -35,7 +35,7 @@
 
             br
             h4 Which are the potential types of end-of-life membrane management?
-            p The preferable order is: reuse, direct recycling, indirect recycling, incineration and landfill disposal. Worldwide, the most common types of management, by fare, are incineration and landfill disposal (by far). REMapp shows current investigations and companies that try to avoid those practices.
+            p The preferable order is: reuse, direct recycling, indirect recycling, incineration and landfill disposal. Worldwide, the most common types of management, by far, are incineration and landfill disposal. REMapp shows current investigations and companies that try to avoid those practices.
 
             br
             h4 Glossary
@@ -84,7 +84,7 @@
 
             br
             h4 Contact
-            p <u>Do not hesitate to contact us through the main team or in</u> <a title="mailto:info@lequia.udg.edu" href="mailto:info@lequia.udg.edu?Subject=[REMapp]%20" target="_blank">info@lequia.udg.edu</a>
+            p <u>Do not hesitate to contact us through the main team</u>, or in <a title="mailto:info@lequia.udg.edu" href="mailto:info@lequia.udg.edu?Subject=[REMapp]%20" target="_blank">info@lequia.udg.edu</a> or </u> <a title="mailto:raquel.garcia@udg.edu" href="mailto:raquel.garcia@udg.edu?Subject=[REMapp]%20" target="_blank">raquel.garcia@udg.edu</a> .
 
             br
             h4 Other online interactive tools

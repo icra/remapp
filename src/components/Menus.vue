@@ -175,9 +175,9 @@
           last_modified: null
         },
         table_fields: [
-          {key: 'chlorine_qualitative',   label: "Free Chlorine Exposure Dose (qualitative)"},
+          {key: 'chlorine_qualitative',   label: "Free Chlorine Exposure Dose (ppm h)"},
           {key: 'env_reduction',          label: "Potential Environmental Reduction compared to producing new membranes"},
-          {key: 'env_cost',               label: "Potential Economical Cost (€ / membrane)"},
+          //{key: 'env_cost',               label: "Potential Economical Cost (€ / membrane)"},
           {key: 'economical_saving',      label: "Potential Economical Saving compared to producing new membranes"},
           {key: 'skilled_crew',           label: "Skilled Crew"},
           {key: 'potential_application',  label: "Potential Application"}
@@ -249,8 +249,8 @@
             code: "R",
             name: "Salt rejection",
             value: null,
-            answers: ["<15%", ">10% of NaCl and >30% of MgSO4", "<10% of NaCl and <30% of MgSO4"],
-            tooltip: "Comparing to the design value"
+            answers: ["<15% comparing to the design value", ">10% of NaCl and >30% of MgSO4", "<10% of NaCl and <30% of MgSO4"],
+            //tooltip: "Comparing to the design value"
           },
           {
             code: "PV",
@@ -877,38 +877,38 @@
         // management according to survey_2
         if (type == "Reverse osmosis brackish model design") {
           if (permeability == "<1-fold") {
-            if (rejection == "<15%") return "RegRO"
+            if (rejection == "<15% comparing to the design value") return "RegRO"
             else if (rejection == ">10% of NaCl and >30% of MgSO4") return "RecNF"
             else if (rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
           } else if (permeability == "[1-5]-fold") {
-            if (rejection == "<15%") return "ReuRO"
+            if (rejection == "<15% comparing to the design value") return "ReuRO"
             else if (rejection == ">10% of NaCl and >30% of MgSO4") return "ReuNF"
             else if (rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
           } else if (permeability == ">5-fold") {
-            if (rejection == "<15%") return "ReuRO"
+            if (rejection == "<15% comparing to the design value") return "ReuRO"
             else if (rejection == ">10% of NaCl and >30% of MgSO4") return "ReuNF"
             else if (rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
           }
         } else if (type == "Reverse osmosis sea model design") {
           if (permeability == "<1-fold") {
-            if (rejection == "<15%") return "RegRO"
+            if (rejection == "<15% comparing to the design value") return "RegRO"
             else if (rejection == ">10% of NaCl and >30% of MgSO4") return "RecNF"
             else if (rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
           } else if (permeability == "[1-5]-fold") {
-            if (rejection == "<15%") return "ReuRO"
+            if (rejection == "<15% comparing to the design value") return "ReuRO"
             else if (rejection == ">10% of NaCl and >30% of MgSO4") return "ReuNF"
             else if (rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
           } else if (permeability == ">5-fold") {
             if (rejection == ">10% of NaCl and >30% of MgSO4") return "ReuNF"
             else if (rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
-            else if (rejection == "<15%") return "ReuRO"
+            else if (rejection == "<15% comparing to the design value") return "ReuRO"
           }
         } else if (type == "Nanofiltration") {
           if (permeability == "<1-fold") {
-            if (rejection == "<15%") return "RegNF"
+            if (rejection == "<15% comparing to the design value") return "RegNF"
             else if (rejection == ">10% of NaCl and >30% of MgSO4" || rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
           } else if (permeability == "[1-5]-fold" || permeability == ">5-fold") {
-            if (rejection == ">10% of NaCl and >30% of MgSO4" || rejection == "<15%") return "ReuNF"
+            if (rejection == ">10% of NaCl and >30% of MgSO4" || rejection == "<15% comparing to the design value") return "ReuNF"
             else if (rejection == "<10% of NaCl and <30% of MgSO4") return "RecUF"
           }
         }
