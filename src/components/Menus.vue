@@ -174,14 +174,6 @@
           created: null,
           last_modified: null
         },
-        table_fields: [
-          {key: 'chlorine_qualitative',   label: "Free Chlorine Exposure Dose (ppm h)"},
-          {key: 'env_reduction',          label: "Potential Environmental Reduction compared to producing new membranes"},
-          //{key: 'env_cost',               label: "Potential Economical Cost (€ / membrane)"},
-          {key: 'economical_saving',      label: "Potential Economical Saving compared to producing new membranes"},
-          {key: 'skilled_crew',           label: "Skilled Crew"},
-          {key: 'potential_application',  label: "Potential Application"}
-        ],
         case_studies_table_fields: [
           {
             key: "specific_application",
@@ -952,6 +944,35 @@
         this.get_membrane_reuse();
         return this.available_solutions;
       },
+
+      table_fields(){
+        let result_survey = this.result_survey_2;
+        console.log(result_survey)
+
+        if (result_survey == null) return [];
+
+
+        if(result_survey.survey2Result.chlorine_qualitative.toLowerCase() === 'low' || result_survey.survey2Result.chlorine_qualitative.toLowerCase() === 'unknown'){
+          return [
+            {key: 'chlorine_qualitative',   label: "Chemical solution"},
+            {key: 'env_reduction',          label: "Potential Environmental Reduction compared to producing new membranes"},
+            //{key: 'env_cost',               label: "Potential Economical Cost (€ / membrane)"},
+            {key: 'economical_saving',      label: "Potential Economical Saving compared to producing new membranes"},
+            {key: 'skilled_crew',           label: "Skilled Crew"},
+            {key: 'potential_application',  label: "Potential Application"}
+          ]
+        }else{
+          return [
+            {key: 'chlorine_qualitative',   label: "Free Chlorine Exposure Dose (ppm h)"},
+            {key: 'env_reduction',          label: "Potential Environmental Reduction compared to producing new membranes"},
+            //{key: 'env_cost',               label: "Potential Economical Cost (€ / membrane)"},
+            {key: 'economical_saving',      label: "Potential Economical Saving compared to producing new membranes"},
+            {key: 'skilled_crew',           label: "Skilled Crew"},
+            {key: 'potential_application',  label: "Potential Application"}
+          ]
+        }
+      },
+
       result_survey_2(){
         let code = this.get_management_survey2();
         let survey2Output = this.membrane_reuse_options.find(q=>q.code==code);
@@ -981,8 +1002,16 @@
 
         if(!ret)
           return null;
-        else
+        else{
+
+
+          // Modification requested on May 2023
+          if(ret.survey2Result.chlorine_qualitative.toLowerCase() === 'low'){
+            ret.survey2Result.chlorine_qualitative = 'unknown';
+          }
+
           return ret;
+        }
 
       },
       get_solutions_for_case_studies() {
